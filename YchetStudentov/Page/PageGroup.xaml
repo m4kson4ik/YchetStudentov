@@ -1,0 +1,21 @@
+﻿<Page x:Class="YchetStudentov.Page.PageGroup"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:YchetStudentov.Page"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="PageGroup">
+
+    <Grid Background="Gray">
+        <DataGrid x:Name="dataGridGroup" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="10,139,10,10"/>
+        <Label x:Name="lbPoseshaemostGroup" Content="Посещаемость определенной группы" HorizontalAlignment="Left" Margin="259,10,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lbKolvoStudenovGroup" Content="Количество студентов группы" HorizontalAlignment="Left" Margin="259,36,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="cmbGroup" HorizontalAlignment="Left" Margin="86,12,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="cmbGroup_SelectionChanged"/>
+        <Label Content="Группа:" HorizontalAlignment="Left" Margin="30,10,0,0" VerticalAlignment="Top"/>
+        <Label Content="Месяц:" HorizontalAlignment="Left" Margin="31,49,0,0" VerticalAlignment="Top"/>
+        <DatePicker HorizontalAlignment="Left" Margin="86,51,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lbBolezn" Content="Пропуски по ув.причине" HorizontalAlignment="Left" Margin="259,62,0,0" VerticalAlignment="Top"/>
+    </Grid>
+</Page>

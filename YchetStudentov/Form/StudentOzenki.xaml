@@ -1,0 +1,21 @@
+﻿<Window x:Class="YchetStudentov.Form.StudentOzenki"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:YchetStudentov.Form"
+        mc:Ignorable="d"
+        Title="StudentOzenki" Height="504" Width="650">
+    <Grid>
+        <DataGrid x:Name="dataGridOzenki" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="10,57,10,10"/>
+        <ComboBox x:Name="cmbPredmets" HorizontalAlignment="Left" Margin="10,7,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="cmbPredmets_SelectionChanged"/>
+        <Label Content="Количество пропусков:" HorizontalAlignment="Left" Margin="137,5,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lb_propuski" Content="Label" HorizontalAlignment="Left" Margin="270,6,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lbUvPrichin" Content="Label" HorizontalAlignment="Left" Margin="270,31,0,0" VerticalAlignment="Top"/>
+        <Label Content="По ув.причине:" HorizontalAlignment="Left" Margin="182,31,0,0" VerticalAlignment="Top"/>
+        <Label Content="Общее кол-во пропусков:" HorizontalAlignment="Left" Margin="429,5,0,0" VerticalAlignment="Top"/>
+        <Label Content="Кол-во пропусков по ув.причине:" HorizontalAlignment="Left" Margin="387,26,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lbAllPropusk" Content="Label" HorizontalAlignment="Left" Margin="588,5,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lbAllPropuskBolezn" Content="Label" HorizontalAlignment="Left" Margin="588,26,0,0" VerticalAlignment="Top"/>
+    </Grid>
+</Window>
