@@ -33,21 +33,7 @@ namespace YchetStudentov
             UpdateCmb();
             dataGridStudent.AutoGenerateColumns = true;
             //dataGridStudent.ItemsSource = Student.ListStudents(null);
-            using (var context = new YcotStudentContext())
-            {
-                context.Students.Load();
-                var num = from p in context.Students where p.Name == "Максим" select p;
-                foreach (var i in num)
-                {
-                    //MessageBox.Show(i.Family);
-                }
-                dataGridStudent.ItemsSource = context.Students.Local.ToObservableCollection();
-                var student = new Models.Student();
-                //student.Otchesto = "dhfdjhfd";
-                //context.Students.Add(student);
-                //context.SaveChanges();
-            }
-            //Menu_Delete.IsEnabled = false;
+            
 
         }
         private void UpdateCmb()
@@ -56,8 +42,12 @@ namespace YchetStudentov
         }
 
         private void CmbGroup_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {           
-            //dataGridStudent.ItemsSource = Class.Student.ListStudents((string)CmbGroup.SelectedItem);
+        {
+            using (var context = new YcotStudentContext())
+            {
+                context.Students.Load();
+                dataGridStudent.ItemsSource = context.Students.Local.ToObservableCollection().Where(x => x.NumberGroup == CmbGroup.SelectedItem.ToString()); ;
+            }
         }
 
         private void dataGridStudent_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -102,10 +92,14 @@ namespace YchetStudentov
 
         private void Menu_Delete_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Удаление");
-            var cellInfo = dataGridStudent.SelectedCells[0];
-            var content = ((TextBlock)cellInfo.Column.GetCellContent(cellInfo.Item)).Text;
-            DateBase.DeletedItemStudent(Convert.ToInt32(content));
+            if (MessageBox.Show($"Вы уверены что хотите удалить пользователя?","Удаление пользователя",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                var cellInfo = dataGridStudent.SelectedCells[0];
+                var content = ((TextBlock)cellInfo.Column.GetCellContent(cellInfo.Item)).Text;
+                DateBase.DeletedItemStudent(Convert.ToInt32(content));
+            }
         }
 
         private void btCreateStudent_Click(object sender, RoutedEventArgs e)

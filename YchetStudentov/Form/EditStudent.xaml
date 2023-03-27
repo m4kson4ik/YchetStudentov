@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:YchetStudentov.Form"
         mc:Ignorable="d"
         Title="EditStudent" Height="450" Width="800">
-    <Grid Background="Gray" Margin="0,-1,-6,1">
+    <Grid Background="Gray">
         <Label x:Name="lb_Numberzachet" Content="Label" HorizontalAlignment="Left" Margin="242,83,0,0" VerticalAlignment="Top"/>
         <Label Content="Номер зачетной книжки:" HorizontalAlignment="Left" Height="26" Margin="92,83,0,0" VerticalAlignment="Top" Width="150"/>
         <Label Content="Имя:" HorizontalAlignment="Left" Height="26" Margin="202,113,0,0" VerticalAlignment="Top" Width="48"/>
@@ -19,13 +19,13 @@
         <Label Content="Гражданство:" HorizontalAlignment="Left" Height="26" Margin="455,273,0,0" VerticalAlignment="Top" Width="96"/>
         <Label Content="Почта:" HorizontalAlignment="Left" Height="26" Margin="194,244,0,0" VerticalAlignment="Top" Width="48"/>
         <Label Content="Год поступления:" HorizontalAlignment="Left" Height="26" Margin="140,286,0,0" VerticalAlignment="Top" Width="110"/>
-        <Label Content="Бюджет:" HorizontalAlignment="Left" Height="26" Margin="151,373,0,0" VerticalAlignment="Top" Width="63"/>
-        <Button Content="Обновить информацию" HorizontalAlignment="Left" Margin="193,404,0,0" VerticalAlignment="Top"/>
+        <Label Content="Бюджет:" HorizontalAlignment="Left" Height="26" Margin="179,317,0,0" VerticalAlignment="Top" Width="63"/>
+        <Button Content="Обновить информацию" HorizontalAlignment="Left" Margin="193,404,0,0" VerticalAlignment="Top" Click="Button_Click"/>
         <TextBox x:Name="tbFamily" HorizontalAlignment="Left" Margin="242,153,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
         <TextBox x:Name="tbOtchestvo" HorizontalAlignment="Left" Margin="242,187,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="tbAdress" HorizontalAlignment="Left" Margin="565,238,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-        <ComboBox x:Name="cmbGragdanstvo" HorizontalAlignment="Left" Margin="541,277,0,0" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="tbAdress" HorizontalAlignment="Left" Margin="584,239,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
+        <ComboBox x:Name="cmbGragdanstvo" HorizontalAlignment="Left" Margin="551,273,0,0" VerticalAlignment="Top" Width="120"/>
         <TextBox x:Name="tbPocta" HorizontalAlignment="Left" Margin="247,248,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-        <ComboBox x:Name="cmbYearPostup" HorizontalAlignment="Left" Margin="255,288,0,0" VerticalAlignment="Top" Width="120"/>
+        <ComboBox x:Name="cmbYearPostup" HorizontalAlignment="Left" Margin="247,288,0,0" VerticalAlignment="Top" Width="120"/>
     </Grid>
 </Window>
