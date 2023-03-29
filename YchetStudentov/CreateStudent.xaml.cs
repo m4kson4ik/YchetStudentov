@@ -22,10 +22,17 @@ namespace YchetStudentov
         public CreateStudent()
         {
             InitializeComponent();
-            //tbNumberZach.IsReadOnly = true;
-            cmbNumberGroup.Items.Add("ИСП-308");
+            tbNumberZach.IsReadOnly = true;
             cmbGragdanstvo.Items.Add("Российское");
+            cmbYearPostup.Items.Add("2023");
+            cmbYearPostup.Items.Add("2022");
+            cmbYearPostup.Items.Add("2021");
+            cmbYearPostup.Items.Add("2020");
+            cmbYearPostup.Items.Add("2019");
+            cmbBudget.Items.Add("Да");
             cmbBudget.Items.Add("Нет");
+            cmbNumberGroup.ItemsSource = DateBase.GetInfoGroup();
+
         }
 
         public void GetGroup()
@@ -35,8 +42,19 @@ namespace YchetStudentov
 
         private void btSave_Click(object sender, RoutedEventArgs e)
         {
-            DateBase.AddItemStudent(tbNumberZach, tbName, tbFamily, tbOtchestvo, dtDataRog);
+            DateBase.AddItemStudent(tbNumberZach, cmbNumberGroup, tbName, tbFamily, tbOtchestvo, dtDataRog, tbAdress, tbEmail, cmbGragdanstvo, cmbYearPostup, cmbBudget);
             MessageBox.Show(tbNumberZach.Text);
+        }
+        private int Random()
+        {
+            Random random = new Random();
+            int i = random.Next(0, 599999);
+            return i;
+        }
+
+        private void lbGenerate_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            tbNumberZach.Text = Random().ToString();
         }
     }
 }

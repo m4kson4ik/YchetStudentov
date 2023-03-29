@@ -12,7 +12,9 @@
         <Border x:Name="brd2" BorderThickness="1" Margin="217,-1,0,0" Background="#2f3461" Height="67" VerticalAlignment="Top"/>
         <Border BorderThickness="1" Background="#2f3461" Margin="0,0,0,-1" HorizontalAlignment="Left" Width="219"/>
         <Button x:Name="ZavOtdel" Content="Преподаватели" HorizontalAlignment="Left" Height="57" VerticalAlignment="Top" Width="182" Margin="9,101,0,0" Click="ZavOtdel_Click" Background="{x:Null}" Foreground="White" BorderBrush="White"/>
-        <Button x:Name="Studenti" Content="Студенты" HorizontalAlignment="Left" Height="57" VerticalAlignment="Top" Width="182" Margin="10,175,0,0" Click="Studenti_Click" Background="{x:Null}" BorderBrush="White" Foreground="White"/>
+        <Button x:Name="Studenti" Content="Студенты"  HorizontalAlignment="Left" Height="57" VerticalAlignment="Top" Width="182" Margin="10,175,0,0" Click="Studenti_Click" Background="{x:Null}" BorderBrush="White" Foreground="White" >
+        </Button>
+
         <Button x:Name="Raspisanie" Content="Учебный план" HorizontalAlignment="Left" Height="57" VerticalAlignment="Top" Width="182" Margin="10,252,0,0" Click="Raspisanie_Click" Background="{x:Null}" Foreground="White" BorderBrush="White"/>
         <Button x:Name="Prikazi" Content="Посещаемость" HorizontalAlignment="Left" Height="57" VerticalAlignment="Top" Width="182" Margin="10,332,0,0" Click="Prikazi_Click" Background="{x:Null}" BorderBrush="White" Foreground="White"/>
         <Button x:Name="Group" Content="Группы" HorizontalAlignment="Left" Height="56" VerticalAlignment="Top" Width="182" Margin="10,404,0,0" Click="Group_Click" Background="{x:Null}" Foreground="White" BorderBrush="White"/>

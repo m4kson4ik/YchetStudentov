@@ -38,7 +38,7 @@
             </TextBox.RenderTransform>
         </TextBox>
         <Label Content="Номер зачетки:" HorizontalAlignment="Left" Margin="23,7,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lbGenerate" Content="Сгенерировать" HorizontalAlignment="Left" Height="24" Margin="219,5,0,0" VerticalAlignment="Top" Width="97" Cursor="Hand"/>
+        <Label x:Name="lbGenerate" Content="Сгенерировать" HorizontalAlignment="Left" Height="24" Margin="219,5,0,0" VerticalAlignment="Top" Width="97" Cursor="Hand" MouseDown="lbGenerate_MouseDown"/>
         <Label Content="Номер группы:" HorizontalAlignment="Left" Margin="26,34,0,0" VerticalAlignment="Top"/>
         <ComboBox x:Name="cmbNumberGroup" HorizontalAlignment="Left" Margin="124,38,0,0" VerticalAlignment="Top" Width="122"/>
 

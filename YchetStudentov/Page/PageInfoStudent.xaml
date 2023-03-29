@@ -10,7 +10,7 @@
 
     <Grid Background="#151e29">
         <ComboBox x:Name="CmbGroup" Margin="10,20,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="140" SelectionChanged="CmbGroup_SelectionChanged"/>
-        <DataGrid x:Name="dataGridStudent" Margin="10,56,10,10" Background="{x:Null}" BorderBrush="{x:Null}" CanUserDeleteRows="False" CanUserAddRows="False" CanUserResizeRows="False" FontSize="16" HorizontalGridLinesBrush="{x:Null}" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False" IsSynchronizedWithCurrentItem="True" Focusable="False" GridLinesVisibility="None" EnableRowVirtualization="False" RowBackground="Transparent" AlternatingRowBackground="Transparent" Foreground="White" EnableColumnVirtualization="True" VerticalGridLinesBrush="#FFFCADAD" HeadersVisibility="None" SelectionChanged="dataGridStudent_SelectionChanged" MouseUp="dataGridStudent_MouseUp">
+        <DataGrid x:Name="dataGridStudent" Margin="10,56,10,10" Background="{x:Null}" BorderBrush="{x:Null}" CanUserDeleteRows="False" CanUserAddRows="False" CanUserResizeRows="False" FontSize="16" HorizontalGridLinesBrush="{x:Null}" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False" IsSynchronizedWithCurrentItem="True" Focusable="False" GridLinesVisibility="None" EnableRowVirtualization="False" RowBackground="Transparent" AlternatingRowBackground="Transparent" Foreground="White" EnableColumnVirtualization="True" VerticalGridLinesBrush="#FFFCADAD" HeadersVisibility="None">
             <DataGrid.Columns>
                 
 

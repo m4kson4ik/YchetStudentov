@@ -32,10 +32,8 @@ namespace YchetStudentov
             InitializeComponent();
             UpdateCmb();
             dataGridStudent.AutoGenerateColumns = true;
-            //dataGridStudent.ItemsSource = Student.ListStudents(null);
-            
-
         }
+
         private void UpdateCmb()
         {
             Class.Group.GetAllGroup(CmbGroup);
@@ -43,34 +41,25 @@ namespace YchetStudentov
 
         private void CmbGroup_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            DateBase dt = new DateBase();
+            dataGridStudent.ItemsSource = dt.UpdateInfo(CmbGroup.SelectedItem?.ToString() ?? CmbGroup.Text);
+            dataGridStudent.SelectedItem = null;    
+        }
+
+        public void UpdateInfo()
+        {
+            string group = CmbGroup.SelectedItem?.ToString() ?? CmbGroup.Text;
             using (var context = new YcotStudentContext())
             {
                 context.Students.Load();
-                dataGridStudent.ItemsSource = context.Students.Local.ToObservableCollection().Where(x => x.NumberGroup == CmbGroup.SelectedItem.ToString()); ;
+                dataGridStudent.ItemsSource = context.Students.Local.ToObservableCollection().Where(x => x.NumberGroup == group);
             }
+            dataGridStudent.SelectedItem = null;
         }
-
-        private void dataGridStudent_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            //MessageBox.Show((string)dataGridStudent.Items[0]);
-        }
-
-        private void dataGridStudent_MouseUp(object sender, MouseButtonEventArgs e)
-        {
-            //MessageBox.Show(dataGridStudent.SelectedItem);
-        }
-
         private void Menu_Create_Click(object sender, RoutedEventArgs e)
         {
-            // if (dataGridStudent.SelectedItem != null)
-            //{
-            MessageBox.Show("Редактирование");
             var cellInfo = dataGridStudent.SelectedCells[0];
-            var cellInfoGroup = dataGridStudent.SelectedCells[1];
             var content = ((TextBlock)cellInfo.Column.GetCellContent(cellInfo.Item)).Text;
-            var contentGroup = ((TextBlock)cellInfo.Column.GetCellContent(cellInfo.Item)).Text;
-            MessageBox.Show(content);
-            // idStudent = Convert.ToInt32(content);
             EditStudent edit = new EditStudent();
             edit.lb_Numberzachet.Content = content;
             edit.GetInfo();
@@ -84,7 +73,6 @@ namespace YchetStudentov
 
         private void Menu_Info_Click(object sender, RoutedEventArgs e)
         {
-            //MessageBox.Show("Информация");
             var cellInfo = dataGridStudent.SelectedCells[0];
             var content = ((TextBlock)cellInfo.Column.GetCellContent(cellInfo.Item)).Text ;
             MessageBox.Show(YchetStudentov.Class.Student.GetInfo(Convert.ToInt32(content)));
@@ -104,8 +92,6 @@ namespace YchetStudentov
 
         private void btCreateStudent_Click(object sender, RoutedEventArgs e)
         {
-            CmbGroup.SelectedItem = null;
-            //dataGridStudent.ItemsSource = Class.Student.ListStudents(null);
             CreateStudent createStudent = new CreateStudent();
             createStudent.Show();
         }

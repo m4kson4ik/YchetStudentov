@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Linq;
 using System.Text;
@@ -26,6 +27,8 @@ namespace YchetStudentov.Form
         
         public class Studentiss
         {
+            [Description("Demonstrates DisplayNameAttribute.")]
+            [DisplayName("RenamedProperty")]
             public string NameDisceplini { get; }
             public string Ozenka { get; }
             public DateTime DataZanyatie { get; }
@@ -45,9 +48,9 @@ namespace YchetStudentov.Form
 
         public StudentOzenki()
         {
-            InitializeComponent();           
-           // GetPredmeti(cmbPredmets);
-           // GetAllPoseshaemost();
+            InitializeComponent();
+            // GetPredmeti(cmbPredmets);
+            // GetAllPoseshaemost();
         }
       
         public void GetPredmeti(ComboBox cmb)
@@ -107,7 +110,12 @@ namespace YchetStudentov.Form
 
         private void cmbPredmets_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            dataGridOzenki.ItemsSource = GetOzenki(cmbPredmets.SelectedItem.ToString());
+            dataGridOzenki.ItemsSource = GetOzenki(cmbPredmets?.SelectedItem.ToString() ?? " ");
+            dataGridOzenki.Columns[0].Header = "Название предмета";
+            dataGridOzenki.Columns[1].Header = "Статус";
+            dataGridOzenki.Columns[2].Header = "Дата занятия";
+            dataGridOzenki.Columns[3].Header = "Имя";
+            dataGridOzenki.Columns[4].Header = "Фамилия";
         }
     }
 }

@@ -15,10 +15,8 @@
         <ComboBox x:Name="CmbGroup" HorizontalAlignment="Left" Margin="180,45,0,0" VerticalAlignment="Top" Width="100" SelectionChanged="CmbGroup_SelectionChanged"/>
         <Label Content="Название предмета:" HorizontalAlignment="Left" Margin="59,81,0,0" VerticalAlignment="Top"/>
         <ComboBox x:Name="CmbNamePredmet" HorizontalAlignment="Left" Margin="180,85,0,0" VerticalAlignment="Top" Width="100"/>
-        <ComboBox x:Name="CmbTypeZanyatie" HorizontalAlignment="Left" Height="25" Margin="180,122,0,0" VerticalAlignment="Top" Width="100"/>
-        <Label Content="Тип занятия:" HorizontalAlignment="Left" Height="34" Margin="96,120,0,0" VerticalAlignment="Top" Width="80"/>
-        <Button x:Name="CreatePars" Content="Начать выставление посещаемости" HorizontalAlignment="Left" Margin="58,154,0,0" VerticalAlignment="Top" Click="CreatePars_Click"/>
-        <DataGrid x:Name="gridStudent" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="296,11,10,78" MouseDoubleClick="gridStudent_MouseDoubleClick" SelectionChanged="gridStudent_SelectionChanged" SelectedCellsChanged="gridStudent_SelectedCellsChanged" GridLinesVisibility="None" HeadersVisibility="Column" >
+        <Button x:Name="CreatePars" Content="Начать выставление посещаемости" HorizontalAlignment="Left" Margin="58,120,0,0" VerticalAlignment="Top" Click="CreatePars_Click"/>
+        <DataGrid x:Name="gridStudent" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="296,11,10,10" MouseDoubleClick="gridStudent_MouseDoubleClick" SelectionChanged="gridStudent_SelectionChanged" SelectedCellsChanged="gridStudent_SelectedCellsChanged" GridLinesVisibility="None" HeadersVisibility="Column" >
             <DataGrid.Columns>
 
             </DataGrid.Columns>
@@ -30,7 +28,7 @@
                 </ContextMenu>
             </DataGrid.ContextMenu>
         </DataGrid>
-        <Button x:Name="btCancelPar" Content="Завершить выставление посещаемости" HorizontalAlignment="Left" Margin="47,154,0,0" VerticalAlignment="Top" Click="btCancelPar_Click" Width="222"/>
+        <Button x:Name="btCancelPar" Content="Завершить выставление посещаемости" HorizontalAlignment="Left" Margin="47,120,0,0" VerticalAlignment="Top" Click="btCancelPar_Click" Width="222"/>
         <ListView x:Name="listStudent" HorizontalAlignment="Left" Height="164" Margin="22,225,0,0" VerticalAlignment="Top" Width="153" d:ItemsSource="{d:SampleData ItemCount=5}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White">
             <ListView.View>
                 <GridView>
@@ -38,7 +36,7 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Label Content="Список отстутсвующих" HorizontalAlignment="Left" Margin="30,199,0,0" VerticalAlignment="Top"/>
+        <Label Content="Список отсутствующих" HorizontalAlignment="Left" Margin="30,199,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Page>

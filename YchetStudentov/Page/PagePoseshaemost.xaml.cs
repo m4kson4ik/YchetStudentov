@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -17,6 +18,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using YchetStudentov.Class;
 using YchetStudentov.Form;
+using YchetStudentov.Models;
 
 namespace YchetStudentov.Page
 {
@@ -68,10 +70,23 @@ namespace YchetStudentov.Page
         {
             if (CmbGroup.Text != "" && CmbNamePredmet.Text != "" && dpDataPari.Text != "")
             {    
+                List<string> list = new List<string>();
                 gridStudent.Visibility = Visibility.Visible;
-                gridStudent.ItemsSource = Student.StudentsOzenki.Students((string)CmbGroup.SelectedItem);
+                //gridStudent.ItemsSource = Student.StudentsOzenki.Students((string)CmbGroup.SelectedItem);
+                DateBase dt = new DateBase();
+                List<Class.Student.StudentsOzenki> list2 = new List<Class.Student.StudentsOzenki>();
+                using (var context = new YcotStudentContext())
+                {
+                    context.Students.Load();
+                    var groups = context.Students.Local.ToObservableCollection().Where(P => P.NumberGroup == CmbGroup.SelectedItem.ToString());
+                    foreach(var group in groups)
+                    {
+                        list2.Add(new Class.Student.StudentsOzenki(group.Name ?? " ", group.Family ?? " ", group.Otchesto ?? " "));
+                    }
+                    gridStudent.ItemsSource = list2;
+                }
+
                 CreatePars.Visibility = Visibility.Hidden;
-                CmbTypeZanyatie.IsEnabled = false;
                 CmbGroup.IsEnabled = false;
                 CmbNamePredmet.IsEnabled = false;
                 dpDataPari.IsEnabled = false;
@@ -107,7 +122,6 @@ namespace YchetStudentov.Page
             btCancelPar.Visibility = Visibility.Hidden;
             CreatePars.Visibility = Visibility.Visible;
             gridStudent.Visibility = Visibility.Hidden;
-            CmbTypeZanyatie.IsEnabled = true;
             CmbGroup.IsEnabled = true;
             CmbNamePredmet.IsEnabled = true;
             dpDataPari.IsEnabled = true;
