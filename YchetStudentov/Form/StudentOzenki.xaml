@@ -6,16 +6,29 @@
         xmlns:local="clr-namespace:YchetStudentov.Form"
         mc:Ignorable="d"
         Title="StudentOzenki" Height="504" Width="650">
-    <Grid>
-        <DataGrid x:Name="dataGridOzenki" Margin="10,57,10,10"/>
-        <ComboBox x:Name="cmbPredmets" HorizontalAlignment="Left" Margin="10,7,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="cmbPredmets_SelectionChanged"/>
-        <Label Content="Количество пропусков:" HorizontalAlignment="Left" Margin="137,5,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lb_propuski" Content="0" HorizontalAlignment="Left" Margin="270,6,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lbUvPrichin" Content="0" HorizontalAlignment="Left" Margin="270,31,0,0" VerticalAlignment="Top"/>
-        <Label Content="По ув.причине:" HorizontalAlignment="Left" Margin="182,31,0,0" VerticalAlignment="Top"/>
-        <Label Content="Общее кол-во пропусков:" HorizontalAlignment="Left" Margin="429,5,0,0" VerticalAlignment="Top"/>
-        <Label Content="Кол-во пропусков по ув.причине:" HorizontalAlignment="Left" Margin="387,26,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lbAllPropusk" Content="Label" HorizontalAlignment="Left" Margin="588,5,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lbAllPropuskBolezn" Content="Label" HorizontalAlignment="Left" Margin="588,26,0,0" VerticalAlignment="Top"/>
+    <Grid Background="#151e29">
+        <DataGrid x:Name="dataGridOzenki" Margin="10,57,10,10" Background="{x:Null}" BorderBrush="{x:Null}" CanUserDeleteRows="False" CanUserAddRows="False" CanUserResizeRows="False" FontSize="16" HorizontalGridLinesBrush="{x:Null}" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False" IsSynchronizedWithCurrentItem="True" Focusable="False" GridLinesVisibility="None" EnableRowVirtualization="False" RowBackground="Transparent" AlternatingRowBackground="Transparent" Foreground="White" EnableColumnVirtualization="True" VerticalGridLinesBrush="#FFFCADAD" HeadersVisibility="None">
+            <DataGrid.Columns>
+
+
+            </DataGrid.Columns>
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+            <DataGrid.ColumnHeaderStyle>
+                <Style/>
+            </DataGrid.ColumnHeaderStyle>
+        </DataGrid>
+        <ComboBox x:Name="cmbPredmets" BorderBrush="White" Foreground="Black" HorizontalAlignment="Left" Margin="10,7,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="cmbPredmets_SelectionChanged"/>
+        <Label Content="Количество пропусков:" Foreground="White" HorizontalAlignment="Left" Margin="185,5,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lb_propuski" Content="0" Foreground="White" HorizontalAlignment="Center" Margin="0,6,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lbUvPrichin" Content="0" Foreground="White" HorizontalAlignment="Center" Margin="0,31,0,0" VerticalAlignment="Top"/>
+        <Label Content="По ув.причине:" Foreground="White" HorizontalAlignment="Left" Margin="230,31,0,0" VerticalAlignment="Top"/>
+        <Label Content="Общее кол-во пропусков:" Foreground="White" HorizontalAlignment="Left" Margin="429,5,0,0" VerticalAlignment="Top"/>
+        <Label Content="Кол-во пропусков по ув.причине:" Foreground="White" HorizontalAlignment="Left" Margin="387,26,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lbAllPropusk" Content="Label" Foreground="White" HorizontalAlignment="Left" Margin="588,5,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lbAllPropuskBolezn" Content="Label" Foreground="White" HorizontalAlignment="Left" Margin="588,26,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Window>

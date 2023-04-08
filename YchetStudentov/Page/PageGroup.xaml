@@ -8,14 +8,14 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="PageGroup">
 
-    <Grid Background="Gray">
+    <Grid Background="#151e29">
         <DataGrid x:Name="dataGridGroup" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="10,139,10,10"/>
-        <Label x:Name="lbPoseshaemostGroup" Content="Посещаемость определенной группы" HorizontalAlignment="Left" Margin="259,10,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lbKolvoStudenovGroup" Content="Количество студентов группы" HorizontalAlignment="Left" Margin="259,36,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="cmbGroup" HorizontalAlignment="Left" Margin="86,12,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="cmbGroup_SelectionChanged"/>
-        <Label Content="Группа:" HorizontalAlignment="Left" Margin="30,10,0,0" VerticalAlignment="Top"/>
-        <Label Content="Месяц:" HorizontalAlignment="Left" Margin="31,49,0,0" VerticalAlignment="Top"/>
-        <DatePicker HorizontalAlignment="Left" Margin="86,51,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lbBolezn" Content="Пропуски по ув.причине" HorizontalAlignment="Left" Margin="259,62,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lbPoseshaemostGroup" Content="Посещаемость определенной группы" HorizontalAlignment="Left" Margin="259,10,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF"/>
+        <Label x:Name="lbKolvoStudenovGroup" Content="Количество студентов группы" HorizontalAlignment="Left" Margin="259,36,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF"/>
+        <ComboBox x:Name="cmbGroup" HorizontalAlignment="Left" Margin="86,12,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="cmbGroup_SelectionChanged" BorderBrush="#89FFFFFF"/>
+        <Label Content="Группа:" HorizontalAlignment="Left" Margin="30,10,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF"/>
+        <Label Content="Месяц:" HorizontalAlignment="Left" Margin="31,49,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF"/>
+        <DatePicker HorizontalAlignment="Left" Margin="86,51,0,0" VerticalAlignment="Top" BorderBrush="#89FFFFFF"/>
+        <Label x:Name="lbBolezn" Content="Пропуски по ув.причине" HorizontalAlignment="Left" Margin="259,62,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF"/>
     </Grid>
 </Page>

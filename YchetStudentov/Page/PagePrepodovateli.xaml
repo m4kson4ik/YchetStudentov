@@ -8,8 +8,10 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="PagePrepodovateli">
 
-    <Grid Background="Gray">
-        <DataGrid x:Name="dataGridPrepodovateli" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="293,10,10,10"/>
+    <Grid Background="#151e29">
+        <DataGrid x:Name="dataGridPrepodovateli" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="268,50,35,10"/>
+        <TextBox x:Name="tbSearch" HorizontalAlignment="Left" Margin="318,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Foreground="Black" Background="White" KeyDown="TextBox_KeyDown"/>
+        <Label Content="Поиск:" HorizontalAlignment="Left" Margin="268,11,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF"/>
 
     </Grid>
 </Page>

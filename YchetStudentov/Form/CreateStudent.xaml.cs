@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -37,13 +38,17 @@ namespace YchetStudentov
 
         public void GetGroup()
         {
-
+            
         }
 
         private void btSave_Click(object sender, RoutedEventArgs e)
         {
-            DateBase.AddItemStudent(tbNumberZach, cmbNumberGroup, tbName, tbFamily, tbOtchestvo, dtDataRog, tbAdress, tbEmail, cmbGragdanstvo, cmbYearPostup, cmbBudget);
-            MessageBox.Show(tbNumberZach.Text);
+            Correctness cor = new Correctness();
+            if (cor.CheckingForEmptyValues(btSave, tbNumberZach, tbName, tbFamily, tbOtchestvo, tbAdress, tbEmail))
+            {
+                cor.CheckingForALargeLetter(tbName, tbFamily, tbOtchestvo, tbAdress);
+                DateBase.AddItemStudent(tbNumberZach, cmbNumberGroup, tbName, tbFamily, tbOtchestvo, dtDataRog, tbAdress, tbEmail, cmbGragdanstvo, cmbYearPostup, cmbBudget);
+            }
         }
         private int Random()
         {
@@ -55,6 +60,24 @@ namespace YchetStudentov
         private void lbGenerate_MouseDown(object sender, MouseButtonEventArgs e)
         {
             tbNumberZach.Text = Random().ToString();
+        }
+
+        private void tbName_KeyDown(object sender, KeyEventArgs e)
+        {
+            
+        }
+
+        private void Grid_KeyDown(object sender, KeyEventArgs e)
+        {
+            
+        }
+
+        private void Grid_KeyUp(object sender, KeyEventArgs e)
+        {
+            Correctness cor = new Correctness();
+            cor.CheckingForRussianLetters(tbName, tbFamily, tbOtchestvo, tbAdress);
+            cor.CheckingForNumbers(tbName, tbFamily, tbOtchestvo);
+            cor.CheckingForASpace(tbName, tbFamily, tbOtchestvo, tbEmail);
         }
     }
 }

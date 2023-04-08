@@ -25,30 +25,22 @@ namespace YchetStudentov
         public MainWindow()
         {
             InitializeComponent();
-            //DateBase.GetStudentsInfo();
-
         }
-
-        //public static int idUser = 0;
-        public static string roles = "user";
-
         private void bt_Go_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-            DataTable dateTime = DateBase.Select($"Select * from Prepodovateli where login_prepodovatela = '{tbLogin.Text}'");
-            if (dateTime != null && tbPassword.Text == (string)dateTime.Rows[0][4])
-            { 
-               //idUser =  Convert.ToInt32(tbLogin.Text);
-                 PageGlavForm glavForm = new PageGlavForm();
-                 this.Close();
-                 glavForm.Show();          
-            }
-            else
-            {
-                MessageBox.Show("Неверный пароль!");
-            }
-
+                DataTable dateTime = DateBase.Select($"Select * from Prepodovateli where login_prepodovatela = '{tbLogin.Text}'");
+                if (dateTime != null && tbPassword.Text == (string)dateTime.Rows[0][4])
+                { 
+                     PageGlavForm glavForm = new PageGlavForm();
+                     this.Close();
+                     glavForm.Show();          
+                }
+                else
+                {
+                    MessageBox.Show("Неверный пароль!");
+                }
             }
             catch
             {

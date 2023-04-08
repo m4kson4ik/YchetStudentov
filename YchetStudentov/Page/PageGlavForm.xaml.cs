@@ -36,20 +36,6 @@ namespace YchetStudentov
         }
         public void SelectedCmb()
         {
-            if (MainWindow.roles == "admin")
-            {
-                //CmbSelect.ItemsSource = "Отделение №1";
-                //FrameAllInfo.Content = new PageStatisticColledge();
-
-            }
-            if (MainWindow.roles == "zaved")
-            {
-                FrameAllInfo.Content = new PageZaved();
-            }
-            else
-            {
-               // CmbSelect.Visibility = Visibility.Hidden;
-            }
         }
         private void ZavOtdel_Click(object sender, RoutedEventArgs e)
         {

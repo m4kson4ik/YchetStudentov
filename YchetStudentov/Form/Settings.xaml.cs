@@ -10,17 +10,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace YchetStudentov.Page
+namespace YchetStudentov.Form
 {
     /// <summary>
-    /// Логика взаимодействия для PageZaved.xaml
+    /// Логика взаимодействия для Settings.xaml
     /// </summary>
-    public partial class PageZaved
+    public partial class Settings : Window
     {
-        public PageZaved()
+        public Settings()
         {
             InitializeComponent();
         }

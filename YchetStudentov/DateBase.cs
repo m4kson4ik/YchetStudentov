@@ -28,7 +28,6 @@ namespace YchetStudentov
             return dataTable;
         }
 
-
         public static List<string> GetInfoGroup()
         {
             List<string> list = new List<string>();
@@ -36,10 +35,7 @@ namespace YchetStudentov
             {
                 context.Groups.Load();
                 var groups = context.Groups.Local.ToObservableCollection().Select(p => p.NumberGroup);
-                foreach (var i in groups)
-                {
-                    list.Add(i);
-                }
+                list = groups.ToList();
             }
             return list;
         }
@@ -74,11 +70,22 @@ namespace YchetStudentov
 
         public static void DeletedItemStudent(int? numberZachet)
         {
+            Files file = new Files();
             using (var context = new YcotStudentContext())
             {
                 context.Students.Load();
                 var student = context.Students.SingleOrDefault(s => s.NumberZacKnig == numberZachet);
-                context.Students.Remove(student);
+                if (student != null)
+                {
+                    var poseshaemost = context.Poseshaemosts.Where(s => s.NumberZacKnig == numberZachet);
+                    foreach (var pos in poseshaemost)
+                    {
+                        context.Poseshaemosts.Remove(pos);
+                        file.DeleteAttendance(pos);
+                    }
+                    context.Students.Remove(student);
+                    file.DeleteStudent(student);
+                }
                 context.SaveChanges();
             }
         }
@@ -104,8 +111,52 @@ namespace YchetStudentov
                 student.Budget = budget.SelectedItem.ToString();
                 context.Students.Add(student);
                 context.SaveChanges();
+                Files files = new Files();
+                files.CreateStudent(student);
             }
-        }       
+            MessageBox.Show($"Студент {name.Text} {family.Text} был успешно добавлен!", $"{num_zac}");
+        }
+        public List<Class.Prepodovateli> FillingInTheTeachersTable()
+        {
+            List<Class.Prepodovateli> prepodovatelis = new List<Class.Prepodovateli>();
+            using (var context = new YcotStudentContext())
+            {
+                context.Prepodovatelis.Load();
+                var items = context.Prepodovatelis.ToList();
+                if (items != null)
+                {
+                    foreach (var item in items)
+                    {
+                        prepodovatelis.Add(new Class.Prepodovateli(item.Name ?? " ", item.Family ?? " ", item.Otchestvo ?? " ", item.LoginPrepodovatela, item.Password ?? " "));
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Преподователей не существует!");
+                }
+            }
+            return prepodovatelis;
+        }
+        public List<Class.Prepodovateli> SearchForTeachers(string text)
+        {
+            List<Class.Prepodovateli> list = FillingInTheTeachersTable();
+                try
+                {
+                int i = 0;
+                foreach (char c in text)
+                {
+                    var result = list.First(s => s.family[i] == c);
+                    i++;
+                    list.Clear();
+                    list.Add(new Class.Prepodovateli(result.name ?? " ", result.family ?? " ", result.otchestvo ?? " ", result.login, result.password ?? " "));
+                }
+                }
+                catch
+                {
+                    list.Clear();
+                }
+                return list;
+        }
     }
 
 }

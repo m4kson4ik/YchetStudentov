@@ -24,7 +24,14 @@ namespace YchetStudentov.Page
         public PagePrepodovateli()
         {
             InitializeComponent();
-            dataGridPrepodovateli.ItemsSource = Prepodovateli.GetAllPrepod();
+            DateBase dt = new DateBase();
+            dataGridPrepodovateli.ItemsSource = dt.FillingInTheTeachersTable();
+        }
+
+        private void TextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            DateBase dt = new DateBase();
+            dataGridPrepodovateli.ItemsSource = dt.SearchForTeachers(tbSearch.Text);
         }
     }
 }

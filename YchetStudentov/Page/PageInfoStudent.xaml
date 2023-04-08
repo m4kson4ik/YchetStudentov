@@ -9,10 +9,10 @@
       Title="PageInfoStudent">
 
     <Grid Background="#151e29">
-        <ComboBox x:Name="CmbGroup" Margin="10,20,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="140" SelectionChanged="CmbGroup_SelectionChanged"/>
+        <ComboBox x:Name="CmbGroup" Background="Transparent" Margin="10,14,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="139" SelectionChanged="CmbGroup_SelectionChanged" Height="28" Foreground="#FF0B0B0B" BorderBrush="#89FFFFFF" OpacityMask="{DynamicResource AttentionToActionBrush}" ContextMenuClosing="CmbGroup_ContextMenuClosing" ContextMenuOpening="CmbGroup_ContextMenuOpening"/>
         <DataGrid x:Name="dataGridStudent" Margin="10,56,10,10" Background="{x:Null}" BorderBrush="{x:Null}" CanUserDeleteRows="False" CanUserAddRows="False" CanUserResizeRows="False" FontSize="16" HorizontalGridLinesBrush="{x:Null}" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False" IsSynchronizedWithCurrentItem="True" Focusable="False" GridLinesVisibility="None" EnableRowVirtualization="False" RowBackground="Transparent" AlternatingRowBackground="Transparent" Foreground="White" EnableColumnVirtualization="True" VerticalGridLinesBrush="#FFFCADAD" HeadersVisibility="None">
             <DataGrid.Columns>
-                
+
 
             </DataGrid.Columns>
             <DataGrid.ContextMenu>
@@ -30,6 +30,6 @@
         </DataGrid>
         <Label x:Name="lbPechat" Content="Печать" Margin="0,0,10,423" Foreground="White" HorizontalAlignment="Right" Width="49"/>
         <Label x:Name="lbImport" Content="Импорт" Margin="0,20,-19,399" Foreground="White" HorizontalAlignment="Right" Width="78"/>
-        <Button x:Name="btCreateStudent" Content="Добавить студента" HorizontalAlignment="Left" Margin="165,20,0,0" VerticalAlignment="Top" Height="22" Width="112" Click="btCreateStudent_Click"/>
+        <Button x:Name="btCreateStudent" Background="Transparent" Content="Добавить студента" HorizontalAlignment="Left" Margin="172,14,0,0" VerticalAlignment="Top" Height="28" Width="162" Click="btCreateStudent_Click" BorderBrush="White"/>
     </Grid>
 </Page>

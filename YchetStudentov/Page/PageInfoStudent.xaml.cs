@@ -18,6 +18,7 @@ using System.Windows.Shapes;
 using YchetStudentov.Class;
 using YchetStudentov.Form;
 using YchetStudentov.Models;
+using YchetStudentov.Page;
 
 namespace YchetStudentov
 {
@@ -25,13 +26,11 @@ namespace YchetStudentov
     /// Логика взаимодействия для PageInfoStudent.xaml
     /// </summary>
     public partial class PageInfoStudent
-    {        
-        public static int idStudent;
+    {
         public PageInfoStudent()
         {
             InitializeComponent();
             UpdateCmb();
-            dataGridStudent.AutoGenerateColumns = true;
         }
 
         private void UpdateCmb()
@@ -54,15 +53,12 @@ namespace YchetStudentov
                 context.Students.Load();
                 dataGridStudent.ItemsSource = context.Students.Local.ToObservableCollection().Where(x => x.NumberGroup == group);
             }
-            dataGridStudent.SelectedItem = null;
         }
         private void Menu_Create_Click(object sender, RoutedEventArgs e)
         {
             var cellInfo = dataGridStudent.SelectedCells[0];
             var content = ((TextBlock)cellInfo.Column.GetCellContent(cellInfo.Item)).Text;
-            EditStudent edit = new EditStudent();
-            edit.lb_Numberzachet.Content = content;
-            edit.GetInfo();
+            EditStudent edit = new EditStudent(content);
             edit.Show();
         }
 
@@ -98,14 +94,22 @@ namespace YchetStudentov
 
         private void Menu_Ozenki_Click(object sender, RoutedEventArgs e)
         {
-            var cellInfo = dataGridStudent.SelectedCells[0];
-            var cellInfoGroup = dataGridStudent.SelectedCells[1];
-            Form.StudentOzenki student = new Form.StudentOzenki();
-            student.num_zac_king = Convert.ToInt32(((TextBlock)cellInfo.Column.GetCellContent(cellInfo.Item)).Text);  
-            student.group = ((TextBlock)cellInfoGroup.Column.GetCellContent(cellInfoGroup.Item)).Text;
-            student.GetPredmeti(student.cmbPredmets);
-            student.GetAllPoseshaemost();
-            student.Show();
+           var cellInfo = dataGridStudent.SelectedCells[0];
+           var cellInfoGroup = dataGridStudent.SelectedCells[1];
+           var group = ((TextBlock)cellInfoGroup.Column.GetCellContent(cellInfoGroup.Item)).Text;
+           var num_zac_king = Convert.ToInt32(((TextBlock)cellInfo.Column.GetCellContent(cellInfo.Item)).Text);  
+           Form.StudentOzenki student = new Form.StudentOzenki(group, num_zac_king);
+           student.Show();
+        }
+
+        private void CmbGroup_ContextMenuClosing(object sender, ContextMenuEventArgs e)
+        {
+            CmbGroup.Foreground = Brushes.White;
+        }
+
+        private void CmbGroup_ContextMenuOpening(object sender, ContextMenuEventArgs e)
+        {
+            CmbGroup.Foreground = Brushes.Black;
         }
     }
 }

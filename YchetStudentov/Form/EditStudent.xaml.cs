@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,23 +18,23 @@ using YchetStudentov.Models;
 
 namespace YchetStudentov.Form
 {
-    /// <summary>
-    /// Логика взаимодействия для EditStudent.xaml
-    /// </summary>
     public partial class EditStudent : Window
     {
-        public EditStudent()
+        public EditStudent(string content)
         {
             InitializeComponent();
+            GetInfo(content);
         }
-        public string SelectItem;
-        public void GetInfo()
+
+        public string? SelectItem;
+        public void GetInfo(string content)
         {
+            lb_Numberzachet.Content = content;
             using (var context = new YcotStudentContext())
-            {
+            {               
                 context.Students.Load();
                 var items1 = from p in context.Students where p.NumberZacKnig == (int)lb_Numberzachet.Content select p;
-                var items = context.Students.SingleOrDefault(p => p.NumberZacKnig == Convert.ToInt32(lb_Numberzachet.Content));
+                var items = context.Students.SingleOrDefault(p => p.NumberZacKnig == Convert.ToInt32(content));
                 context.Groups.Load();
                 cmbGroup.ItemsSource = DateBase.GetInfoGroup();
                 cmbGroup.SelectedItem = items.NumberGroup;
@@ -64,7 +65,6 @@ namespace YchetStudentov.Form
             {
                 var items = context.Students.SingleOrDefault(p => p.NumberZacKnig == Convert.ToInt32(lb_Numberzachet.Content));
                 context.Students.Load();
-                var items1 = from p in context.Students where p.NumberZacKnig == (int)lb_Numberzachet.Content select p;
                 items.NumberGroup = cmbGroup.SelectedItem.ToString();
                 items.Name = tbName.Text.ToString();
                 items.Family = tbFamily.Text.ToString();
@@ -81,11 +81,14 @@ namespace YchetStudentov.Form
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
-            if (MessageBox.Show($"Вы уверены что хотите изенить данные студента?", "Редактирование данных пользователя",
-               MessageBoxButton.YesNo,
-               MessageBoxImage.Question) == MessageBoxResult.Yes)
+            Correctness cor = new Correctness();
+            if (cor.CheckingForEmptyValues(btUpdateInfo, tbName, tbFamily, tbOtchestvo, tbAdress, tbPocta))
             {
+                cor.CheckingForALargeLetter(tbName, tbFamily, tbOtchestvo, tbAdress);
+                if (MessageBox.Show($"Вы уверены что хотите изменить данные студента?", "Редактирование данных пользователя",
+                   MessageBoxButton.YesNo,
+                   MessageBoxImage.Question) == MessageBoxResult.Yes)
+                {
                     if (SelectItem != cmbGroup.SelectedItem.ToString())
                     {
                         if (MessageBox.Show("Подтверждая изменение вы потеряете данные об оценках студента, вы уверены?", "Данные об оценках будут утеряны!", MessageBoxButton.YesNo, MessageBoxImage.Exclamation) == MessageBoxResult.Yes)
@@ -95,15 +98,25 @@ namespace YchetStudentov.Form
                         }
                         else
                         {
-                        return;
+                            return;
                         }
                     }
                     UpdateInfo();
-            }
-            else
-            {
+                }
+                else
+                {
 
+                }
             }
+        }
+
+        
+        private void Grid_KeyUp(object sender, KeyEventArgs e)
+        {
+            Correctness cor = new Correctness();
+            cor.CheckingForRussianLetters(tbName, tbFamily, tbOtchestvo, tbAdress);
+            cor.CheckingForNumbers(tbName, tbFamily, tbOtchestvo);
+            cor.CheckingForASpace(tbName, tbFamily, tbOtchestvo, tbPocta);
         }
     }
     

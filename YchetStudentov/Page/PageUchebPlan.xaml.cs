@@ -43,16 +43,25 @@ namespace YchetStudentov.Page
 
         private void btnCreate_Click(object sender, RoutedEventArgs e)
         {
-            CreateUchebPlan();
-            GridUchebPlan.ItemsSource = UchebPlan.DataGridUchebPlan((string)cmb_number_group.SelectedItem);
+            if (cmbNameDisceplin.SelectedItem != null && cmb_number_group.SelectedItem != null)
+            {
+                CreateUchebPlan();
+                GridUchebPlan.ItemsSource = UchebPlan.DataGridUchebPlan((string)cmb_number_group.SelectedItem);
+            }
+            else
+            {
+                MessageBox.Show("Error");
+            }
         }
 
         private void cmb_number_group_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            //cmb_number_group.Foreground.Transform = Brushes.White;
             GridUchebPlan.ItemsSource = UchebPlan.DataGridUchebPlan((string)cmb_number_group.SelectedItem);
             //UchebPlan.ADSA((string)cmb_number_group.SelectedItem);
         }
 
+        //ПЕРЕДЕЛАТЬ
         private void CreateUchebPlan()
         {
             DataTable dataTable = DateBase.Select($"SELECT number_group, name_disceplini FROM GridReplayUchebPlan where number_group = '{cmb_number_group.SelectedItem}' and name_disceplini = '{cmbNameDisceplin.SelectedItem}'");

@@ -8,14 +8,14 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="PagePoseshaemost">
 
-    <Grid Background="Gray" Margin="14,13,-14,-13">
-        <DatePicker x:Name="dpDataPari" HorizontalAlignment="Left" Margin="180,11,0,0" VerticalAlignment="Top"/>
-        <Label Content="Дата занятия:" HorizontalAlignment="Left" Margin="95,9,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="Lb" Content="Группа:" HorizontalAlignment="Left" Margin="129,41,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="CmbGroup" HorizontalAlignment="Left" Margin="180,45,0,0" VerticalAlignment="Top" Width="100" SelectionChanged="CmbGroup_SelectionChanged"/>
-        <Label Content="Название предмета:" HorizontalAlignment="Left" Margin="59,81,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="CmbNamePredmet" HorizontalAlignment="Left" Margin="180,85,0,0" VerticalAlignment="Top" Width="100"/>
-        <Button x:Name="CreatePars" Content="Начать выставление посещаемости" HorizontalAlignment="Left" Margin="58,120,0,0" VerticalAlignment="Top" Click="CreatePars_Click"/>
+    <Grid Background="#151e29" Margin="14,13,-14,-13">
+        <DatePicker x:Name="dpDataPari" HorizontalAlignment="Left" Margin="180,11,0,0" VerticalAlignment="Top" Foreground="White" BorderBrush="#89FFFFFF"/>
+        <Label Content="Дата занятия:" HorizontalAlignment="Left" Margin="95,9,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF"/>
+        <Label x:Name="Lb" Content="Группа:" HorizontalAlignment="Left" Margin="129,41,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF"/>
+        <ComboBox x:Name="CmbGroup" HorizontalAlignment="Left" Margin="180,45,0,0" VerticalAlignment="Top" Width="100" SelectionChanged="CmbGroup_SelectionChanged" BorderBrush="#89FFFFFF" Foreground="{x:Null}" ScrollViewer.HorizontalScrollBarVisibility="Auto"/>
+        <Label Content="Название предмета:" HorizontalAlignment="Left" Margin="59,81,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF"/>
+        <ComboBox x:Name="CmbNamePredmet" HorizontalAlignment="Left" Margin="180,85,0,0" VerticalAlignment="Top" Width="100" BorderBrush="#89FFFFFF" Foreground="Black"/>
+        <Button x:Name="CreatePars" Content="Начать выставление посещаемости" HorizontalAlignment="Left" Margin="26,120,0,0" VerticalAlignment="Top" Click="CreatePars_Click" Background="#FF5BBD4D"/>
         <DataGrid x:Name="gridStudent" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="296,11,10,10" MouseDoubleClick="gridStudent_MouseDoubleClick" SelectionChanged="gridStudent_SelectionChanged" SelectedCellsChanged="gridStudent_SelectedCellsChanged" GridLinesVisibility="None" HeadersVisibility="Column" >
             <DataGrid.Columns>
 
@@ -28,7 +28,7 @@
                 </ContextMenu>
             </DataGrid.ContextMenu>
         </DataGrid>
-        <Button x:Name="btCancelPar" Content="Завершить выставление посещаемости" HorizontalAlignment="Left" Margin="47,120,0,0" VerticalAlignment="Top" Click="btCancelPar_Click" Width="222"/>
+        <Button x:Name="btCancelPar" Content="Завершить выставление посещаемости" HorizontalAlignment="Left" Margin="47,120,0,0" VerticalAlignment="Top" Click="btCancelPar_Click" Width="222" Background="#FF5BBD4D"/>
         <ListView x:Name="listStudent" HorizontalAlignment="Left" Height="164" Margin="22,225,0,0" VerticalAlignment="Top" Width="153" d:ItemsSource="{d:SampleData ItemCount=5}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White">
             <ListView.View>
                 <GridView>
@@ -36,7 +36,7 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Label Content="Список отсутствующих" HorizontalAlignment="Left" Margin="30,199,0,0" VerticalAlignment="Top"/>
+        <Label Content="Список отсутствующих" HorizontalAlignment="Left" Margin="30,199,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF"/>
 
     </Grid>
 </Page>

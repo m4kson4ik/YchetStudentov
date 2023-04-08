@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:YchetStudentov.Form"
         mc:Ignorable="d"
-        Title="EditStudent" Height="450" Width="376">
-    <Grid Background="Gray">
+        Title="EditStudent" Height="473" Width="376">
+    <Grid Background="Gray" KeyUp="Grid_KeyUp">
         <Label x:Name="lb_Numberzachet" Content="Label" HorizontalAlignment="Left" Margin="187,10,0,0" VerticalAlignment="Top"/>
         <Label Content="Номер зачетной книжки:" HorizontalAlignment="Left" Height="26" Margin="37,10,0,0" VerticalAlignment="Top" Width="150"/>
         <Label Content="Имя:" HorizontalAlignment="Left" Height="26" Margin="143,72,0,0" VerticalAlignment="Top" Width="48"/>
@@ -20,7 +20,7 @@
         <Label Content="Почта:" HorizontalAlignment="Left" Height="26" Margin="132,195,0,0" VerticalAlignment="Top" Width="48"/>
         <Label Content="Год поступления:" HorizontalAlignment="Left" Height="26" Margin="73,226,0,0" VerticalAlignment="Top" Width="110"/>
         <Label Content="Бюджет:" HorizontalAlignment="Left" Height="26" Margin="121,257,0,0" VerticalAlignment="Top" Width="62"/>
-        <Button Content="Обновить информацию" HorizontalAlignment="Left" Margin="150,387,0,0" VerticalAlignment="Top" Click="Button_Click"/>
+        <Button x:Name="btUpdateInfo" Content="Обновить информацию" HorizontalAlignment="Center" Margin="0,392,0,0" VerticalAlignment="Top" Click="Button_Click"/>
         <TextBox x:Name="tbFamily" HorizontalAlignment="Left" Margin="187,107,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
         <TextBox x:Name="tbOtchestvo" HorizontalAlignment="Left" Margin="187,138,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
         <TextBox x:Name="tbAdress" HorizontalAlignment="Left" Margin="187,319,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>

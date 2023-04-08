@@ -7,14 +7,14 @@
       mc:Ignorable="d"
       Title="PageitogOzenki" Height="733" Width="1084">
 
-    <Grid Background="Gray" Margin="0,10,0,0">
-        <ComboBox x:Name="cmbGroup" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="122" Height="24" SelectionChanged="cmbGroup_SelectionChanged"/>
-        <ComboBox HorizontalAlignment="Left" Margin="104,176,0,0" VerticalAlignment="Top" Width="56" Height="33"/>
+    <Grid Background="#151e29" Margin="0,10,0,0">
+        <ComboBox x:Name="cmbGroup" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="122" Height="24" SelectionChanged="cmbGroup_SelectionChanged" BorderBrush="#89FFFFFF"/>
+        <ComboBox HorizontalAlignment="Left" Margin="104,176,0,0" VerticalAlignment="Top" Width="56" Height="33" BorderBrush="#89FFFFFF"/>
         <DataGrid x:Name="dtStudentsAndOzenki" HorizontalAlignment="Left" Height="550" Margin="342,8,0,0" VerticalAlignment="Top" Width="530" d:ItemsSource="{d:SampleData ItemCount=5}"/>
         <Label Content="Оценка -" Foreground="White" HorizontalAlignment="Left" Height="33" Margin="10,176,0,0" VerticalAlignment="Top" Width="100" FontSize="18"/>
-        <Label Content="Фамилия Имя" HorizontalAlignment="Left" Margin="10,129,0,0" VerticalAlignment="Top"/>
-        <Label Content="Label" HorizontalAlignment="Left" Height="29" Margin="10,95,0,0" VerticalAlignment="Top" Width="63"/>
-        <ComboBox x:Name="cmbPredmet" HorizontalAlignment="Left" Height="25" Margin="10,53,0,0" VerticalAlignment="Top" Width="122" SelectionChanged="cmbPredmet_SelectionChanged"/>
+        <Label Content="Фамилия Имя" HorizontalAlignment="Left" Margin="10,129,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF"/>
+        <Label Content="Label" HorizontalAlignment="Left" Height="29" Margin="10,95,0,0" VerticalAlignment="Top" Width="63" Foreground="#DDFFFFFF"/>
+        <ComboBox x:Name="cmbPredmet" HorizontalAlignment="Left" Height="25" Margin="10,53,0,0" VerticalAlignment="Top" Width="122" SelectionChanged="cmbPredmet_SelectionChanged" BorderBrush="#89FFFFFF"/>
         <Button x:Name="btGo" Content="Выставить оценку" HorizontalAlignment="Left" Margin="29,240,0,0" VerticalAlignment="Top"/>
 
     </Grid>

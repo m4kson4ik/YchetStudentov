@@ -1,0 +1,16 @@
+﻿<Window x:Class="YchetStudentov.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:YchetStudentov"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="333" Width="467" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <Grid Background="#151e29">
+        <TextBox x:Name="tbLogin" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="181" BorderBrush="#89FFFFFF" Background="{x:Null}" Margin="179,85,0,0" SelectionBrush="White" CaretBrush="#FF40D27E" Foreground="White"/>
+        <TextBox x:Name="tbPassword" HorizontalAlignment="Left" Margin="179,159,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="181" Background="{x:Null}" BorderBrush="#89FFFFFF" Foreground="White" SelectionBrush="White" CaretBrush="White"/>
+        <Button x:Name="bt_Go" Content="Войти" HorizontalAlignment="Center" Margin="0,238,0,0" VerticalAlignment="Top" Click="bt_Go_Click" BorderBrush="#FF2A0F5B" Background="#FF3AB785"/>
+        <Label Content="Логин:" HorizontalAlignment="Left" Margin="107,86,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF" Height="23" FontFamily="Adobe Caslon Pro Bold" FontSize="16"/>
+        <Label Content="Пароль:" HorizontalAlignment="Left" Margin="96,160,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF" Height="23" FontFamily="Adobe Caslon Pro Bold" FontSize="16"/>
+    </Grid>
+</Window>

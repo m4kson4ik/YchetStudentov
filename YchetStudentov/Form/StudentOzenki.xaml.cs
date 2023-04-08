@@ -13,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using static YchetStudentov.Form.StudentOzenki;
 
 //
 
@@ -22,37 +23,33 @@ namespace YchetStudentov.Form
     /// Логика взаимодействия для StudentOzenki.xaml
     /// </summary>
     public partial class StudentOzenki : Window
-    {
+    {  
+        public string? NameDisceplini { get; }
+        public string? Ozenka { get; }
+        public DateTime? DataZanyatie { get; }
+        public string? NamePrepod { get; }
+        public string? FamilyPrepod { get; }  
+        public string? group { get; }
 
-        
-        public class Studentiss
-        {
-            [Description("Demonstrates DisplayNameAttribute.")]
-            [DisplayName("RenamedProperty")]
-            public string NameDisceplini { get; }
-            public string Ozenka { get; }
-            public DateTime DataZanyatie { get; }
-            public string NamePrepod { get; }
-            public string FamilyPrepod { get; }
-            public Studentiss(string name_disceplini, string ozenka, DateTime data_zanyatie, string name_prepod, string family_prepod)
-            {
-                this.NameDisceplini = name_disceplini;
-                this.Ozenka = ozenka;
-                this.DataZanyatie = data_zanyatie;
-                this.NamePrepod = name_prepod;
-                this.FamilyPrepod = family_prepod;
-            }
-        }
-        public string ? group { get; set; }
-        public int ? num_zac_king { get; set; }
-
-        public StudentOzenki()
+        public int NumZacKnig { get; }
+        public StudentOzenki(string group, int num_zac_knig)
         {
             InitializeComponent();
-            // GetPredmeti(cmbPredmets);
-            // GetAllPoseshaemost();
+            this.group = group;
+            this.NumZacKnig = num_zac_knig;
+            GetPredmeti(cmbPredmets);
+            GetAllPoseshaemost();
         }
-      
+
+        public StudentOzenki(string NameDisceplini, string Ozenka, DateTime DataZanyatie, string NamePrepod, string FamilyPrepod)
+        {
+            this.NameDisceplini = NameDisceplini;
+            this.Ozenka = Ozenka;
+            this.DataZanyatie = DataZanyatie;
+            this.NamePrepod = NamePrepod;
+            this.FamilyPrepod = FamilyPrepod;
+        }
+
         public void GetPredmeti(ComboBox cmb)
         {
             cmb.Items.Clear();
@@ -63,35 +60,35 @@ namespace YchetStudentov.Form
             }
         }
 
-        public List<Studentiss> GetOzenki(string predmet)
+        public List<StudentOzenki> GetOzenki(string predmet)
         {
-            int kolvo_propusk = 0;
-            int kolvo_po_uv_prichine = 0;
-            List<Studentiss> ozenki = new List<Studentiss>();
-            DataTable getozenki = DateBase.Select($"Select number_zac_knig, number_group, name_disceplini, ocenka, data_zanyatie, name, family from StudentOzenki where number_zac_knig = '{num_zac_king}' and number_group = '{group}' and name_disceplini = '{cmbPredmets.SelectedItem}'");
-            for (int i = 0; i < getozenki.Rows.Count; i++)
-            {
-                ozenki.Add(new Studentiss((string)getozenki.Rows[i][2], (string)getozenki.Rows[i][3], (DateTime)getozenki.Rows[i][4], (string)getozenki.Rows[i][5],(string)getozenki.Rows[i][6]));
-                if (getozenki.Rows[i][3].ToString() == "Н" || getozenki.Rows[i][3].ToString() == "Б")
-                {
-                    kolvo_propusk++;
-                }
-
-                if (getozenki.Rows[i][3].ToString() == "Б")
-                {
-                    kolvo_po_uv_prichine++;
-                }
-            }
-            lb_propuski.Content = Convert.ToInt32(kolvo_propusk);
-            lbUvPrichin.Content = Convert.ToInt32(kolvo_po_uv_prichine);
-            return ozenki;
+             int kolvo_propusk = 0;
+             int kolvo_po_uv_prichine = 0;
+             List<StudentOzenki> ozenki = new List<StudentOzenki>();
+             DataTable getozenki = DateBase.Select($"Select number_zac_knig, number_group, name_disceplini, ocenka, data_zanyatie, name, family from StudentOzenki where number_zac_knig = '{NumZacKnig}' and number_group = '{group}' and name_disceplini = '{cmbPredmets.SelectedItem}'");
+             for (int i = 0; i < getozenki.Rows.Count; i++)
+             {
+                 ozenki.Add(new StudentOzenki((string)getozenki.Rows[i][2], (string)getozenki.Rows[i][3], (DateTime)getozenki.Rows[i][4], (string)getozenki.Rows[i][5],(string)getozenki.Rows[i][6]));
+                 if (getozenki.Rows[i][3].ToString() == "Н" || getozenki.Rows[i][3].ToString() == "Б")
+                 {
+                     kolvo_propusk++;
+                 }
+            
+                 if (getozenki.Rows[i][3].ToString() == "Б")
+                 {
+                     kolvo_po_uv_prichine++;
+                 }
+             }
+             lb_propuski.Content = Convert.ToInt32(kolvo_propusk);
+             lbUvPrichin.Content = Convert.ToInt32(kolvo_po_uv_prichine);
+             return ozenki;
         }
 
         public void GetAllPoseshaemost()
         {
             int obsh_kolvo_propuskov = 0;
             int obsh_kolvo_propuskowBolezn = 0;
-            DataTable getposes = DateBase.Select($"Select number_zac_knig, ocenka from StudentOzenki where number_zac_knig = '{num_zac_king}'");
+            DataTable getposes = DateBase.Select($"Select number_zac_knig, ocenka from StudentOzenki where number_zac_knig = '{NumZacKnig}'");
             for (int i =0; i < getposes.Rows.Count; i++)
             {
                 if (getposes.Rows[i][1].ToString() == "Н" || getposes.Rows[i][1].ToString() == "Б")
