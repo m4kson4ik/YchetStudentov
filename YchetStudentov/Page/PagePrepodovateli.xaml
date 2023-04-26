@@ -1,17 +1,32 @@
-﻿<Page x:Class="YchetStudentov.Page.PagePrepodovateli"
+﻿<Page
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:YchetStudentov.Page"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" x:Class="YchetStudentov.Page.PagePrepodovateli"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="PagePrepodovateli">
 
     <Grid Background="#151e29">
-        <DataGrid x:Name="dataGridPrepodovateli" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="268,50,35,10"/>
-        <TextBox x:Name="tbSearch" HorizontalAlignment="Left" Margin="318,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Foreground="Black" Background="White" KeyDown="TextBox_KeyDown"/>
-        <Label Content="Поиск:" HorizontalAlignment="Left" Margin="268,11,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF"/>
+        <DataGrid x:Name="dataGridPrepodovateli" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="10,50,35,10" AutoGenerateColumns="False">
+
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem x:Name="Menu_Edit" Header="Изменить" Click="Menu_Edit_Click" />
+                    <MenuItem x:Name="Menu_Delete" Header="Удалить" Click="Menu_Delete_Click" />
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Имя" Binding="{Binding Path=Name, Mode=OneWay}" Width="100" />
+                <DataGridTextColumn Header="Фамилия" Binding="{Binding Path=Family, Mode=OneWay}" Width="130" />
+                <DataGridTextColumn Header="Отчество" Binding="{Binding Path=Otchestvo, Mode=OneWay}" Width="130" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <TextBox x:Name="tbSearch" HorizontalAlignment="Left" Margin="66,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Foreground="Black" Background="White" KeyUp="tbSearch_KeyUp"/>
+        <Label Content="Поиск:" HorizontalAlignment="Left" Margin="16,11,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF"/>
+        <Button x:Name="CreateTeacher" Content="Создать" HorizontalAlignment="Left" Height="25" Margin="191,10,0,0" VerticalAlignment="Top" Width="89" Click="CreateTeacher_Click"/>
 
     </Grid>
 </Page>

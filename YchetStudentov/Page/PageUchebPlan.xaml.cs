@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using YchetStudentov.Class;
+using YchetStudentov.Form;
 
 namespace YchetStudentov.Page
 {
@@ -26,73 +27,48 @@ namespace YchetStudentov.Page
         public PageUchebPlan()
         {
             InitializeComponent();
-            Group.GetAllGroup(cmb_number_group);
-            Return(cmbNameDisceplin);
-            GridUchebPlan.AutoGenerateColumns = true;
+            cmb_number_group.ItemsSource = DateBase.Context().GetInfoGroup();          
         }
-
-        private void Return(ComboBox cmb)
+        
+        public void Update()
         {
-            DataTable dataTable = DateBase.Select("SELECT number_disceplini, name_disceplini FROM Distceplini");
-            for (int i = 0; i < dataTable.Rows.Count; i++)
-            {
-                cmb.Items.Add(dataTable.Rows[i][1]);
-            }
-            
+            GridUchebPlan.ItemsSource = DateBase.Context().DataGridGetCurriculum(cmb_number_group.SelectedItem.ToString() ?? " ");
         }
-
         private void btnCreate_Click(object sender, RoutedEventArgs e)
         {
-            if (cmbNameDisceplin.SelectedItem != null && cmb_number_group.SelectedItem != null)
-            {
-                CreateUchebPlan();
-                GridUchebPlan.ItemsSource = UchebPlan.DataGridUchebPlan((string)cmb_number_group.SelectedItem);
-            }
-            else
-            {
-                MessageBox.Show("Error");
-            }
+            CreateCurriculum create = new CreateCurriculum();
+            create.ShowDialog();
+            Update();
         }
 
         private void cmb_number_group_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //cmb_number_group.Foreground.Transform = Brushes.White;
-            GridUchebPlan.ItemsSource = UchebPlan.DataGridUchebPlan((string)cmb_number_group.SelectedItem);
-            //UchebPlan.ADSA((string)cmb_number_group.SelectedItem);
+            Update();
         }
 
-        //ПЕРЕДЕЛАТЬ
-        private void CreateUchebPlan()
+        private void Menu_pechat_Click(object sender, RoutedEventArgs e)
         {
-            DataTable dataTable = DateBase.Select($"SELECT number_group, name_disceplini FROM GridReplayUchebPlan where number_group = '{cmb_number_group.SelectedItem}' and name_disceplini = '{cmbNameDisceplin.SelectedItem}'");
-            //MessageBox.Show(dataTable.Rows.Count.ToString());
-            int idDisceplini = 0;
-            if (dataTable.Rows.Count == 0)
+
+        }
+
+        private void Menu_Delete_Click(object sender, RoutedEventArgs e)
+        {
+            DateBase.Context().DeleteCurriculum((UchebPlan)GridUchebPlan.SelectedItem);
+            MessageBox.Show("Предмет был успешно удален!");
+            Update();
+        }
+
+        private void btExport_Click(object sender, RoutedEventArgs e)
+        {
+            if (cmb_number_group.SelectedItem != null)
             {
-                DataTable getidDisceplini = DateBase.Select("SELECT number_disceplini, name_disceplini FROM Distceplini"); // Возврат номера дисциплины
-                for (int i = 0; i < getidDisceplini.Rows.Count; i++)
-                {
-                    if ((string)getidDisceplini.Rows[i][1] == (string)cmbNameDisceplin.SelectedItem)
-                    {
-                        idDisceplini = (int)getidDisceplini.Rows[i][0];
-                    }
-                }
-                DataTable dataTable1 = DateBase.Select($"insert into UchebPlan(number_group, number_disceplini) values ('{(string)cmb_number_group.SelectedItem}', '{idDisceplini}')");
+                Files files = new Files();
+                files.ExportUchebPlan(cmb_number_group.SelectedItem.ToString() ?? " ");
             }
             else
             {
-                MessageBox.Show("Error");
+                MessageBox.Show("Необходимо выбрать группу!");
             }
-        }
-
-        private void btImport_Click(object sender, RoutedEventArgs e)
-        {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "EXCEL Files (*.xlsx)|*.xlsx|EXCEL Files 2003 (*.xls)|*.xls|All files (*.*)|*.*";
-            if (openFileDialog.ShowDialog() != true)
-                return;
-
-            GridUchebPlan.ItemsSource = UchebniPlans.readFile(openFileDialog.FileName);
         }
     }
 }

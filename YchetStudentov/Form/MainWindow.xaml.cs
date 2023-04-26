@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using YchetStudentov.Class;
 using YchetStudentov.Models;
 
 namespace YchetStudentov
@@ -28,25 +29,17 @@ namespace YchetStudentov
         }
         private void bt_Go_Click(object sender, RoutedEventArgs e)
         {
-            try
+            tbCheck.Text = HashPassword.HashPassword.Hash().HashinPassword(tbPassword.Text);
+            if (DateBase.Context().CheckingCorrectPasswordAndLogin(tbLogin.Text, tbPassword.Text))
             {
-                DataTable dateTime = DateBase.Select($"Select * from Prepodovateli where login_prepodovatela = '{tbLogin.Text}'");
-                if (dateTime != null && tbPassword.Text == (string)dateTime.Rows[0][4])
-                { 
-                     PageGlavForm glavForm = new PageGlavForm();
-                     this.Close();
-                     glavForm.Show();          
-                }
-                else
-                {
-                    MessageBox.Show("Неверный пароль!");
-                }
+                PageGlavForm pageGlavForm = new PageGlavForm();
+                pageGlavForm.Show();
+                this.Close();
             }
-            catch
+            else
             {
-                MessageBox.Show("Такого пользователя не существует!");
+                MessageBox.Show("Неверный логин или пароль!");
             }
-
         }
     }
 }

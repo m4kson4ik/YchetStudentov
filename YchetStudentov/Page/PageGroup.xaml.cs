@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using YchetStudentov.Class;
+using YchetStudentov.Form;
 
 namespace YchetStudentov.Page
 {
@@ -25,45 +26,41 @@ namespace YchetStudentov.Page
         public PageGroup()
         {
             InitializeComponent();
-            dataGridGroup.ItemsSource = Group.GetAll();
-            GetGroup();
+            Update();
+        }
+        public void Update()
+        {
+            cmbGroup.ItemsSource = DateBase.Context().GetInfoGroup();
+            dataGridGroup.ItemsSource = DateBase.Context().GetAllInfoGroup();
         }
 
-        public void GetGroup()
+        private void Menu_edit_Click(object sender, RoutedEventArgs e)
         {
-            DataTable group = DateBase.Select($"Select number_group from Groups");
-            for (int i =0; i < group.Rows.Count; i++)
+            EditingAGroup editing = new EditingAGroup((Group)dataGridGroup.SelectedItem);
+            editing.Show();
+        }
+
+        private void Menu_Delete_Click(object sender, RoutedEventArgs e)
+        {
+            if (DateBase.Context().DeletedGroup((Group)dataGridGroup.SelectedItem))
             {
-                cmbGroup.Items.Add(group.Rows[i][0]);
+                Update();
+            }
+            else
+            {
+                MessageBox.Show("Произошла ошибка удаления группы!");
             }
         }
 
-        public void GetPoseseshaemost()
+        private void Menu_pechat_Click(object sender, RoutedEventArgs e)
         {
-            DataTable getkolvoStudent = DateBase.Select($"Select kolvo, number_group from GetKolvoStudent where number_group = '{cmbGroup.SelectedItem}'");
-            int kolvoStudent = (int)getkolvoStudent.Rows[0][0];
-            int poseshaemostAll = 0;
-            int propuskiBolezn = 0;
-            DataTable dataTable = DateBase.Select($"Select number_group, ocenka, data_zanyatie from StudentOzenki where number_group = '{cmbGroup.SelectedItem}'");
-            for (int i = 0; i < dataTable.Rows.Count; i++)
-            {
-                if (dataTable.Rows[i][1].ToString() == "П")
-                {
-                    poseshaemostAll++;
-                }
-                else if (dataTable.Rows[i][1].ToString() == "Б")
-                {
-                    propuskiBolezn++;
-                }
-            }
-            lbKolvoStudenovGroup.Content = kolvoStudent;
-            lbPoseshaemostGroup.Content = Convert.ToDouble((poseshaemostAll / kolvoStudent)*100);
-            lbBolezn.Content = Convert.ToInt32((poseshaemostAll/propuskiBolezn)*100);
+
         }
 
-        private void cmbGroup_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void btCreate_Click(object sender, RoutedEventArgs e)
         {
-            GetPoseseshaemost();
+            CreateGroup create = new CreateGroup();
+            create.Show();
         }
     }
 }

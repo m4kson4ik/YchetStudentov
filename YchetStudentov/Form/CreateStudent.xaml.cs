@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -32,8 +33,7 @@ namespace YchetStudentov
             cmbYearPostup.Items.Add("2019");
             cmbBudget.Items.Add("Да");
             cmbBudget.Items.Add("Нет");
-            cmbNumberGroup.ItemsSource = DateBase.GetInfoGroup();
-
+            cmbNumberGroup.ItemsSource = DateBase.Context().GetInfoGroup();
         }
 
         public void GetGroup()
@@ -44,13 +44,19 @@ namespace YchetStudentov
         private void btSave_Click(object sender, RoutedEventArgs e)
         {
             Correctness cor = new Correctness();
-            if (cor.CheckingForEmptyValues(btSave, tbNumberZach, tbName, tbFamily, tbOtchestvo, tbAdress, tbEmail))
+            if (cor.CheckingForEmptyValuesTextBox(btSave, tbNumberZach, tbName, tbFamily, tbOtchestvo, tbAdress, tbEmail) && cor.ChekingForEmptyValuesComboBox(btSave, cmbBudget, cmbGragdanstvo, cmbNumberGroup, cmbYearPostup))
             {
                 cor.CheckingForALargeLetter(tbName, tbFamily, tbOtchestvo, tbAdress);
-                DateBase.AddItemStudent(tbNumberZach, cmbNumberGroup, tbName, tbFamily, tbOtchestvo, dtDataRog, tbAdress, tbEmail, cmbGragdanstvo, cmbYearPostup, cmbBudget);
+                if (MessageBox.Show($"Вы уверены что хотите добавить студента c данными:\nИмя - {tbName.Text}\nФамилия - {tbFamily.Text}\nОтчество - {tbOtchestvo.Text}\nДата рождения - {dtDataRog.SelectedDate}\nПочта - {tbEmail.Text}\nБюджет - {cmbBudget.SelectedItem}\nГражданство - {cmbGragdanstvo.SelectedItem}", "Добавление студента",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Question) == MessageBoxResult.Yes)
+                {
+                    DateBase.Context().AddItemStudent(Convert.ToInt32(tbNumberZach.Text), cmbNumberGroup.Text, tbName.Text, tbFamily.Text, tbOtchestvo.Text, Convert.ToDateTime(dtDataRog.SelectedDate), tbAdress.Text, tbEmail.Text, cmbGragdanstvo.SelectedItem.ToString() ?? " ", Convert.ToInt32(cmbYearPostup.Text), cmbBudget.SelectedItem.ToString() ?? "");
+                    this.Close();
+                }
             }
         }
-        private int Random()
+            private int Random()
         {
             Random random = new Random();
             int i = random.Next(0, 599999);
@@ -62,20 +68,10 @@ namespace YchetStudentov
             tbNumberZach.Text = Random().ToString();
         }
 
-        private void tbName_KeyDown(object sender, KeyEventArgs e)
-        {
-            
-        }
-
-        private void Grid_KeyDown(object sender, KeyEventArgs e)
-        {
-            
-        }
-
         private void Grid_KeyUp(object sender, KeyEventArgs e)
         {
             Correctness cor = new Correctness();
-            cor.CheckingForRussianLetters(tbName, tbFamily, tbOtchestvo, tbAdress);
+            //cor.CheckingForRussianLetters(tbName.Text, tbFamily.Text, tbOtchestvo, tbAdress);
             cor.CheckingForNumbers(tbName, tbFamily, tbOtchestvo);
             cor.CheckingForASpace(tbName, tbFamily, tbOtchestvo, tbEmail);
         }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+
 
 namespace YchetStudentov
 {
@@ -23,28 +25,17 @@ namespace YchetStudentov
         public int[] arr = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
         public string letters = "abcdefghijklmnopqrstuvwxyz";
         public string[] lastEmail = {".com", ".ru" };
-        public void CheckingForRussianLetters(params TextBox[] tb)
+        public void CheckingForRussianLetters(params string[] tb)
         {
-            int lop = 0;
-            foreach (var t in tb)
-            {
-                lop = 0;
-                foreach (var u in t.Text)
-                {
-                    for (int i = 0; i < letters.Length; i++)
-                    {
-                        if (t.Text[lop] == letters[i])
-                        {
-                            MessageBox.Show($"Символ {letters[i]} введен некорректно!\n(Невозможно использовать английские символы)");
-                            t.Text = t.Text.Remove(lop, 1);
-                            return;
-                        }
-                    }
-                    lop++;
-                }
-            }
+           int lop = 0;
+           List<string> list = new List<string>();
+          // var item = tb.Select(items => list.Add(item));
         }
         
+        public void Create(string number)
+        {
+        }
+
         public void CheckingForTheETASymbol(TextBox tb)
         {
          //  int i = 0;
@@ -60,6 +51,7 @@ namespace YchetStudentov
          //     }
          //  }
         }
+
         public void CheckingForALargeLetter(params TextBox[] tb)
         {
             foreach(var t in tb)
@@ -92,9 +84,22 @@ namespace YchetStudentov
                 }
             }
         }
-        public bool CheckingForEmptyValues(Button create ,params TextBox[] tb)
+        public bool CheckingForEmptyValuesTextBox(Button create ,params TextBox[] tb)
         {
             foreach (var t in tb)
+            {
+                if (t.Text == "")
+                {
+                    MessageBox.Show("Одно из полей оказалось пустым!\n (Поля не могут быть пустыми)");
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        public bool ChekingForEmptyValuesComboBox(Button create, params ComboBox[] cmb)
+        {
+            foreach(var t in cmb)
             {
                 if (t.Text == "")
                 {

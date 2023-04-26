@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Office.Interop.Word;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -35,81 +36,71 @@ namespace YchetStudentov
 
         private void UpdateCmb()
         {
-            Class.Group.GetAllGroup(CmbGroup);
+            CmbGroup.ItemsSource = DateBase.Context().GetInfoGroup();
+        }
+        
+        private void UpdateDataGrid()
+        {
+            dataGridStudent.ItemsSource = DateBase.Context().GetInfoStudents(CmbGroup.SelectedItem?.ToString() ?? CmbGroup.Text);
         }
 
         private void CmbGroup_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            DateBase dt = new DateBase();
-            dataGridStudent.ItemsSource = dt.UpdateInfo(CmbGroup.SelectedItem?.ToString() ?? CmbGroup.Text);
-            dataGridStudent.SelectedItem = null;    
+            UpdateDataGrid();
         }
-
-        public void UpdateInfo()
-        {
-            string group = CmbGroup.SelectedItem?.ToString() ?? CmbGroup.Text;
-            using (var context = new YcotStudentContext())
-            {
-                context.Students.Load();
-                dataGridStudent.ItemsSource = context.Students.Local.ToObservableCollection().Where(x => x.NumberGroup == group);
-            }
-        }
+        
         private void Menu_Create_Click(object sender, RoutedEventArgs e)
         {
-            var cellInfo = dataGridStudent.SelectedCells[0];
-            var content = ((TextBlock)cellInfo.Column.GetCellContent(cellInfo.Item)).Text;
-            EditStudent edit = new EditStudent(content);
-            edit.Show();
+            EditStudent edit = new EditStudent((Class.Student)dataGridStudent.SelectedItem);
+            edit.ShowDialog();
+            UpdateDataGrid();
         }
 
         private void Menu_pechat_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Печать");
+            List<Class.Student> students = new List<Class.Student>();
+            foreach(var item in dataGridStudent.SelectedItems)
+            {
+                students.Add((Class.Student)item);
+            }
+            Files files = new Files();
+            files.ImportInWord(students);
         }
 
         private void Menu_Info_Click(object sender, RoutedEventArgs e)
         {
-            var cellInfo = dataGridStudent.SelectedCells[0];
-            var content = ((TextBlock)cellInfo.Column.GetCellContent(cellInfo.Item)).Text ;
-            MessageBox.Show(YchetStudentov.Class.Student.GetInfo(Convert.ToInt32(content)));
+            MessageBox.Show(DateBase.Context().GetAllInfoStudentInString((Class.Student)dataGridStudent.SelectedItem));
         }
 
         private void Menu_Delete_Click(object sender, RoutedEventArgs e)
         {
-            if (MessageBox.Show($"Вы уверены что хотите удалить пользователя?","Удаление пользователя",
+            if (MessageBox.Show($"Вы уверены что хотите удалить студента?","Удаление студента",
                     MessageBoxButton.YesNo,
                     MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
-                var cellInfo = dataGridStudent.SelectedCells[0];
-                var content = ((TextBlock)cellInfo.Column.GetCellContent(cellInfo.Item)).Text;
-                DateBase.DeletedItemStudent(Convert.ToInt32(content));
+                DateBase.Context().DeletedItemStudent((Class.Student)dataGridStudent.SelectedItem);
+                MessageBox.Show("Студент был успешно удален!");
+                UpdateDataGrid();
             }
         }
 
         private void btCreateStudent_Click(object sender, RoutedEventArgs e)
         {
             CreateStudent createStudent = new CreateStudent();
-            createStudent.Show();
+            createStudent.ShowDialog();
+            UpdateDataGrid();
         }
 
         private void Menu_Ozenki_Click(object sender, RoutedEventArgs e)
         {
-           var cellInfo = dataGridStudent.SelectedCells[0];
-           var cellInfoGroup = dataGridStudent.SelectedCells[1];
-           var group = ((TextBlock)cellInfoGroup.Column.GetCellContent(cellInfoGroup.Item)).Text;
-           var num_zac_king = Convert.ToInt32(((TextBlock)cellInfo.Column.GetCellContent(cellInfo.Item)).Text);  
-           Form.StudentOzenki student = new Form.StudentOzenki(group, num_zac_king);
+           Form.StudentOzenki student = new Form.StudentOzenki((Class.Student)dataGridStudent.SelectedItem);
            student.Show();
         }
 
-        private void CmbGroup_ContextMenuClosing(object sender, ContextMenuEventArgs e)
+        private void btImprot_Click(object sender, RoutedEventArgs e)
         {
-            CmbGroup.Foreground = Brushes.White;
-        }
-
-        private void CmbGroup_ContextMenuOpening(object sender, ContextMenuEventArgs e)
-        {
-            CmbGroup.Foreground = Brushes.Black;
+            Files files = new Files();
+            files.ImportAllStudentInWord();
         }
     }
 }

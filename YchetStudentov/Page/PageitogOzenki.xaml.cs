@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using YchetStudentov.Form;
 
 namespace YchetStudentov.Page
 {
@@ -22,100 +23,96 @@ namespace YchetStudentov.Page
     /// </summary>
     public partial class PageitogOzenki
     {
-        public class StudentsOzenki
-        {
-            public int number_zachetki;
-            public string name { get; set; }
-            public string family { get; set; }
-            public double sr_poseshaemost { get; set; }
-            
-            public StudentsOzenki(int number_zachetki, string name, string family, double sr_poseshaemost)
-            {
-                this.number_zachetki = number_zachetki;
-                this.name = name;
-                this.family = family;
-                this.sr_poseshaemost = sr_poseshaemost;
-            }
-        }
         public PageitogOzenki()
         {
             InitializeComponent();
-            GetGroup();
-        }
+            cmbGroup.ItemsSource = DateBase.Context().GetInfoGroup();
+            lbStudent.Visibility = Visibility.Hidden;
+            lbFamilyandName.Visibility = Visibility.Hidden;
+            cmbOzenka.Items.Add("5");
+            cmbOzenka.Items.Add("4");
+            cmbOzenka.Items.Add("3");
+            cmbOzenka.Items.Add("2");
+            cmbOzenka.Items.Add("н/я");
 
-        public void GetGroup()
-        {
-            cmbGroup.Items.Clear();
-            DataTable groups = DateBase.Select($"Select number_group from Groups");
-
-
-            //DatabaseGeneratedAttribute.getGroups();
-
-            
-
-           // cmbGroup.ItemsSource = groups.Select(t => t[0].ToString());
-
-
-            foreach (var row in groups.Rows)
-            {
-                cmbGroup.Items.Add(((DataRow)row)[0].ToString());
-            }
-        }
-
-        public void GetPredemet()
-        {
-            cmbPredmet.Items.Clear();
-            DataTable tableDistceplini = DateBase.Select($"Select * FROM GetPredmet where number_group = '{cmbGroup.SelectedItem}'");
-            for (int i = 0; i < tableDistceplini.Rows.Count; i++)
-            {
-                cmbPredmet.Items.Add(tableDistceplini.Rows[i][2]);
-            }
-        }
-
-        public List<StudentsOzenki> GetStudentandOzenka()
-        {
-            List<StudentsOzenki> studentiandOzenki = new List<StudentsOzenki>();
-            int kolvoPar = 0;
-            int kolvo_propusk = 0;
-            double sr_poses = 0;
-            DataTable students = DateBase.Select($"Select number_zac_knig, name, family, number_group from StudentsView where number_group = '{cmbGroup.SelectedItem}'");
-            for (int i = 0; i < students.Rows.Count; i++)
-            {
-                    DataTable studentsozneki = DateBase.Select($"Select number_zac_knig, name_disceplini, ocenka from StudentOzenki where number_zac_knig = '{students.Rows[i][0]}' and name_disceplini = '{cmbPredmet.SelectedItem}'");
-                    for (int j = 0; j < studentsozneki.Rows.Count; j++)
-                    {
-                        kolvoPar++;
-                        if (studentsozneki.Rows[j][2].ToString() == "Н" || studentsozneki.Rows[j][2].ToString() == "Б")
-                        {
-                            kolvo_propusk++;
-                        }
-                    }
-                if (kolvoPar == 0)
-                {
-                    sr_poses = 0;
-                }
-                else
-                {
-                    sr_poses = (kolvoPar - kolvo_propusk) * 100 / kolvoPar;
-                }
-                studentiandOzenki.Add(new StudentsOzenki(Convert.ToInt32(students.Rows[i][0]), students.Rows[i][1].ToString(), students.Rows[i][2].ToString(), sr_poses));
-            }
-            return studentiandOzenki;
         }
 
         private void cmbGroup_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            GetPredemet();
+            dtStudentsAndOzenki.SelectedItem = null;
+            cmbPredmet.ItemsSource = DateBase.Context().DataGridGetCurriculum(cmbGroup.SelectedItem.ToString() ?? "");
+        }
+
+        private void dtStudentsAndOzenki_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+                GetStudentName((Class.Student)dtStudentsAndOzenki.SelectedItem);
+        }
+
+        public void GetStudentName(Class.Student student)
+        {
+            if (dtStudentsAndOzenki.SelectedItem != null)
+            {
+                lbFamilyandName.Visibility = Visibility.Visible;
+                lbStudent.Visibility = Visibility.Visible;
+                lbFamilyandName.Content = $"{student.Family} {student.Name}";
+            }
+            else
+            {
+                lbFamilyandName.Visibility = Visibility.Hidden;
+                lbStudent.Visibility = Visibility.Hidden;
+            }
         }
 
         private void cmbPredmet_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            dtStudentsAndOzenki.ItemsSource = GetStudentandOzenka();
+            dtStudentsAndOzenki.ItemsSource = DateBase.Context().GetInfoStudents(cmbGroup.SelectedItem.ToString() ?? "");
         }
 
-        private void Getts()
+        private void btCreate_Click(object sender, RoutedEventArgs e)
         {
-            //DateBase.GetGroupsInfo();
+            if (dtStudentsAndOzenki.SelectedItem != null)
+            {
+                DateBase.Context().CreateARating((Class.Student)dtStudentsAndOzenki.SelectedItem, GetSemestr(), cmbOzenka.SelectedItem.ToString() ?? "", (Class.UchebPlan)cmbPredmet.SelectedItem);
+            }
+            else
+            {
+                MessageBox.Show("Необходимо выбрать студента!");
+            }
         }
+
+        private void btOzenki_Click(object sender, RoutedEventArgs e)
+        {
+            ViewingFinalGrades viewingFinalGrades = new ViewingFinalGrades();
+            viewingFinalGrades.Show();
+        }
+
+
+        public int GetSemestr()
+        {
+            int[] arr = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+            string group = cmbGroup.SelectedItem.ToString() ?? " ";
+            foreach(char item in group)
+            {
+                for (int i = 0; i < group.Length; i++)
+                {
+                    if (item == arr[i])
+                    {
+                        int grou;
+                        DateTime dateTime = new DateTime(2023, 01, 01);
+                        if (DateTime.Today >= dateTime)
+                        {
+                            grou = i * 2;
+                        }
+                        else
+                        {
+                            grou = i * 2 - 1;
+                        }
+                        return grou;
+                    }
+                }
+            }
+            return 0;      
+        }
+
     }
 }

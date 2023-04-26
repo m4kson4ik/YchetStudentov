@@ -9,13 +9,27 @@
       Title="PageGroup">
 
     <Grid Background="#151e29">
-        <DataGrid x:Name="dataGridGroup" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="10,139,10,10"/>
+        <DataGrid x:Name="dataGridGroup" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="10,139,10,10" AutoGenerateColumns="False">
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem x:Name="Menu_pechat" Header ="Печать" Click="Menu_pechat_Click"/>
+                    <MenuItem x:Name="Menu_edit" Header ="Изменить" Click="Menu_edit_Click"/>
+                    <MenuItem x:Name="Menu_Delete" Header="Удалить" Click="Menu_Delete_Click"/>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Название специальности" Binding="{Binding Path=NameSpec, Mode=OneWay}" Width="100" />
+                <DataGridTextColumn Header="Номер группы" Binding="{Binding Path=NumberGroup, Mode=OneWay}" Width="130" />
+                <DataGridTextColumn Header="Номер спциальности" Binding="{Binding Path=NumberSpec, Mode=OneWay}" Width="130" />
+            </DataGrid.Columns>
+        </DataGrid>
         <Label x:Name="lbPoseshaemostGroup" Content="Посещаемость определенной группы" HorizontalAlignment="Left" Margin="259,10,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF"/>
         <Label x:Name="lbKolvoStudenovGroup" Content="Количество студентов группы" HorizontalAlignment="Left" Margin="259,36,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF"/>
-        <ComboBox x:Name="cmbGroup" HorizontalAlignment="Left" Margin="86,12,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="cmbGroup_SelectionChanged" BorderBrush="#89FFFFFF"/>
+        <ComboBox x:Name="cmbGroup" HorizontalAlignment="Left" Margin="86,12,0,0" VerticalAlignment="Top" Width="120" BorderBrush="#89FFFFFF"/>
         <Label Content="Группа:" HorizontalAlignment="Left" Margin="30,10,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF"/>
         <Label Content="Месяц:" HorizontalAlignment="Left" Margin="31,49,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF"/>
         <DatePicker HorizontalAlignment="Left" Margin="86,51,0,0" VerticalAlignment="Top" BorderBrush="#89FFFFFF"/>
         <Label x:Name="lbBolezn" Content="Пропуски по ув.причине" HorizontalAlignment="Left" Margin="259,62,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF"/>
+        <Button x:Name="btCreate" Content="Создать" HorizontalAlignment="Left" Margin="706,8,0,0" VerticalAlignment="Top" Click="btCreate_Click"/>
     </Grid>
 </Page>

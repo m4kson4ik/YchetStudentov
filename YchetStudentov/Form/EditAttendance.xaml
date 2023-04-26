@@ -1,0 +1,14 @@
+﻿<Window x:Class="YchetStudentov.Form.EditAttendance"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:YchetStudentov.Form"
+        mc:Ignorable="d"
+        Title="Редактирование оценки" Height="219" Width="213" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Button x:Name="btSave" Content="Сохранить" HorizontalAlignment="Left" Margin="54,133,0,0" VerticalAlignment="Top" Click="btSave_Click" Background="#FF3AB78A" BorderBrush="#FF5DC08A"/>
+        <ComboBox x:Name="cmbStatus" HorizontalAlignment="Left" Margin="45,77,0,0" VerticalAlignment="Top" Width="120"/>
+
+    </Grid>
+</Window>

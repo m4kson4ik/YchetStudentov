@@ -18,4 +18,5 @@ public partial class StudentOzenki
     public string? Name { get; set; }
 
     public string? Family { get; set; }
+    public int? NumberUspevaemosti { get; set; }
 }

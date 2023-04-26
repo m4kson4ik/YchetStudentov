@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Office.Interop.Excel;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -10,7 +11,7 @@ using System.Windows.Controls;
 
 namespace YchetStudentov.Class
 {
-    class Student
+    public class Student
     {
         public int NumberZachetki { get; }
         public string? NumberGroup { get;}
@@ -26,6 +27,7 @@ namespace YchetStudentov.Class
         public int GodPostuplenie { get; }
 
         public string Budget { get; }
+        public string fio { private get => $"{Family} {Name} {Otchestvo}"; set => fio = value; }
 
         public Student(int number_zachetki, string number_group, string name, string family, string otchestvo, DateTime data_roj, string adress, string gragdanstvo, string email, int god_postuplenie, string budget)
         {
@@ -41,26 +43,31 @@ namespace YchetStudentov.Class
             this.GodPostuplenie = god_postuplenie;
             this.Budget = budget;
         }
+
         public class StudentsOzenki
         {
-            public string Name { get; }
-            public string Family { get; }
-            public string Otchestvo { get; }
-            public StudentsOzenki(string name, string family, string otchestvo)
-            {
-                this.Name = name;
-                this.Family = family;
-                this.Otchestvo = otchestvo;
-            }           
-        }
+            public string? NameDisceplini { get; }
+            public string? Ozenka { get; }
+            public DateTime? DataZanyatie { get; }
+            public string? NamePrepod { get; }
+            public string? FamilyPrepod { get; }
+            public int? NumberUspevaemosti;
 
-        public static string GetInfo(int num_knig)
-        {
-            DataTable student = DateBase.Select($"Select * FROM Student WHERE number_zac_knig = '{num_knig}'");
-            string info;
-            info = $"Номер зачетной нижки - {student.Rows[0][0].ToString()}\nНомер группы - {student.Rows[0][1].ToString()}\nФИО - {student.Rows[0][3]} {student.Rows[0][2]} {student.Rows[0][4]}\n" +
-                $"Дата рождения - {student.Rows[0][5]}\nАдрес проживания - {student.Rows[0][6]}\nГражданство - {student.Rows[0][7]}\nПочта - {student.Rows[0][8]}\nГод поступления - {student.Rows[0][9]}\nБюджет - {student.Rows[0][10]}";
-            return info;
-        }       
+            Student? student;
+            public StudentsOzenki(Class.Student student)
+            {
+                this.student = student;
+            }
+
+            public StudentsOzenki(string NameDisceplini, string Ozenka, DateTime DataZanyatie, string NamePrepod, string FamilyPrepod, int NumberUspevaemosti)
+            {
+                this.NameDisceplini = NameDisceplini;
+                this.Ozenka = Ozenka;
+                this.DataZanyatie = DataZanyatie;
+                this.NamePrepod = NamePrepod;
+                this.FamilyPrepod = FamilyPrepod;
+                this.NumberUspevaemosti = NumberUspevaemosti;
+            }
+        } 
     }
 }

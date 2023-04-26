@@ -5,16 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:YchetStudentov.Form"
         mc:Ignorable="d"
-        Title="StudentOzenki" Height="504" Width="650">
+        Title="Просмотр посещаемости студента" Height="504" Width="810" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid Background="#151e29">
-        <DataGrid x:Name="dataGridOzenki" Margin="10,57,10,10" Background="{x:Null}" BorderBrush="{x:Null}" CanUserDeleteRows="False" CanUserAddRows="False" CanUserResizeRows="False" FontSize="16" HorizontalGridLinesBrush="{x:Null}" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False" IsSynchronizedWithCurrentItem="True" Focusable="False" GridLinesVisibility="None" EnableRowVirtualization="False" RowBackground="Transparent" AlternatingRowBackground="Transparent" Foreground="White" EnableColumnVirtualization="True" VerticalGridLinesBrush="#FFFCADAD" HeadersVisibility="None">
+        <DataGrid x:Name="dataGridOzenki" Margin="10,57,10,10" Background="{x:Null}" BorderBrush="{x:Null}" CanUserDeleteRows="False" CanUserAddRows="False" CanUserResizeRows="False" FontSize="16" HorizontalGridLinesBrush="{x:Null}" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False" IsSynchronizedWithCurrentItem="True" Focusable="False" GridLinesVisibility="None" EnableRowVirtualization="False" RowBackground="Transparent" AlternatingRowBackground="Transparent" Foreground="White" EnableColumnVirtualization="True" VerticalGridLinesBrush="#FFFCADAD" HeadersVisibility="None" AutoGenerateColumns="False">
             <DataGrid.Columns>
-
-
+                <DataGridTextColumn Header="Название предмета" Binding="{Binding Path=NameDisceplini, Mode=OneWay}" Width="250" />
+                <DataGridTextColumn Header="Посещаемость" Binding="{Binding Path=Ozenka, Mode=OneWay}" Width="70" />
+                <DataGridTextColumn Header="Дата занятия" Binding="{Binding Path=DataZanyatie, Mode=OneWay}" Width="120" />
+                <DataGridTextColumn Header="Имя" Binding="{Binding Path=NamePrepod, Mode=OneWay}" Width="130" />
+                <DataGridTextColumn Header="Фамилия" Binding="{Binding Path=FamilyPrepod, Mode=OneWay}" Width="130" />
             </DataGrid.Columns>
             <DataGrid.ContextMenu>
                 <ContextMenu>
-
+                    <MenuItem x:Name="Menu_Edit" Header="Изменить" Click="Menu_Edit_Click" />
+                    <MenuItem x:Name="Menu_Delete" Header="Удалить" Click="Menu_Delete_Click" />
                 </ContextMenu>
             </DataGrid.ContextMenu>
             <DataGrid.ColumnHeaderStyle>
@@ -22,13 +26,5 @@
             </DataGrid.ColumnHeaderStyle>
         </DataGrid>
         <ComboBox x:Name="cmbPredmets" BorderBrush="White" Foreground="Black" HorizontalAlignment="Left" Margin="10,7,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="cmbPredmets_SelectionChanged"/>
-        <Label Content="Количество пропусков:" Foreground="White" HorizontalAlignment="Left" Margin="185,5,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lb_propuski" Content="0" Foreground="White" HorizontalAlignment="Center" Margin="0,6,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lbUvPrichin" Content="0" Foreground="White" HorizontalAlignment="Center" Margin="0,31,0,0" VerticalAlignment="Top"/>
-        <Label Content="По ув.причине:" Foreground="White" HorizontalAlignment="Left" Margin="230,31,0,0" VerticalAlignment="Top"/>
-        <Label Content="Общее кол-во пропусков:" Foreground="White" HorizontalAlignment="Left" Margin="429,5,0,0" VerticalAlignment="Top"/>
-        <Label Content="Кол-во пропусков по ув.причине:" Foreground="White" HorizontalAlignment="Left" Margin="387,26,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lbAllPropusk" Content="Label" Foreground="White" HorizontalAlignment="Left" Margin="588,5,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lbAllPropuskBolezn" Content="Label" Foreground="White" HorizontalAlignment="Left" Margin="588,26,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Window>

@@ -9,11 +9,24 @@
       Title="PageUchebPlan">
 
     <Grid Background="#151e29">
-        <DataGrid x:Name="GridUchebPlan" Margin="152,6,15,10" d:ItemsSource="{d:SampleData ItemCount=1}"/>
+        <DataGrid x:Name="GridUchebPlan" Margin="152,6,15,10" d:ItemsSource="{d:SampleData ItemCount=1}" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Название дисциплины" Binding="{Binding Path=name_disceplini, Mode=OneWay}" Width="250" />
+                <DataGridTextColumn Header="Фамилия" Binding="{Binding Path=family, Mode=OneWay}" Width="130" />
+                <DataGridTextColumn Header="Имя" Binding="{Binding Path=name, Mode=OneWay}" Width="130" />
+                <DataGridTextColumn Header="Отчество" Binding="{Binding Path=otchesvo, Mode=OneWay}" Width="130" />
+                <DataGridTextColumn Header="Форма аттестации" Binding="{Binding Path=forma_attest, Mode=OneWay}" Width="130" />
+            </DataGrid.Columns>
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem x:Name="Menu_pechat" Header ="Печать" Click="Menu_pechat_Click"/>
+                    <MenuItem x:Name="Menu_Delete" Header="Удалить" Click="Menu_Delete_Click" />
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+        </DataGrid>
         <ComboBox x:Name="cmb_number_group" HorizontalAlignment="Left" Margin="10,200,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="cmb_number_group_SelectionChanged" Foreground="Black" BorderBrush="#89FFFFFF"/>
-        <ComboBox x:Name="cmbNameDisceplin" HorizontalAlignment="Left" Height="24" Margin="10,247,0,0" VerticalAlignment="Top" Width="120" BorderBrush="#89FFFFFF" Foreground="Black"/>
-        <Button x:Name="btnCreate" Content="Создать" HorizontalAlignment="Left" Margin="10,300,0,0" VerticalAlignment="Top" Click="btnCreate_Click" Width="120" Background="#FF5BBD4D" BorderBrush="{x:Null}" Cursor="Hand"/>
-        <Button x:Name="btImport" Background="#FF5BBD4D" Content="Импорт" HorizontalAlignment="Left" Margin="10,347,0,0" VerticalAlignment="Top" Click="btImport_Click" Width="120" BorderBrush="{x:Null}"/>
+        <Button x:Name="btnCreate" Content="Создать" HorizontalAlignment="Left" Margin="10,253,0,0" VerticalAlignment="Top" Click="btnCreate_Click" Width="120" Background="#FF5BBD4D" BorderBrush="{x:Null}" Cursor="Hand"/>
+        <Button x:Name="btExport" Content="Экспорт" HorizontalAlignment="Left" Margin="10,290,0,0" VerticalAlignment="Top" Width="120" Click="btExport_Click"/>
 
     </Grid>
 </Page>

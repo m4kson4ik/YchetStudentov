@@ -4,18 +4,29 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:YchetStudentov.Page"
-      mc:Ignorable="d"
-      Title="PageitogOzenki" Height="733" Width="1084">
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800" 
+      Title="PageitogOzenki">
 
-    <Grid Background="#151e29" Margin="0,10,0,0">
-        <ComboBox x:Name="cmbGroup" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="122" Height="24" SelectionChanged="cmbGroup_SelectionChanged" BorderBrush="#89FFFFFF"/>
-        <ComboBox HorizontalAlignment="Left" Margin="104,176,0,0" VerticalAlignment="Top" Width="56" Height="33" BorderBrush="#89FFFFFF"/>
-        <DataGrid x:Name="dtStudentsAndOzenki" HorizontalAlignment="Left" Height="550" Margin="342,8,0,0" VerticalAlignment="Top" Width="530" d:ItemsSource="{d:SampleData ItemCount=5}"/>
-        <Label Content="Оценка -" Foreground="White" HorizontalAlignment="Left" Height="33" Margin="10,176,0,0" VerticalAlignment="Top" Width="100" FontSize="18"/>
-        <Label Content="Фамилия Имя" HorizontalAlignment="Left" Margin="10,129,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF"/>
-        <Label Content="Label" HorizontalAlignment="Left" Height="29" Margin="10,95,0,0" VerticalAlignment="Top" Width="63" Foreground="#DDFFFFFF"/>
-        <ComboBox x:Name="cmbPredmet" HorizontalAlignment="Left" Height="25" Margin="10,53,0,0" VerticalAlignment="Top" Width="122" SelectionChanged="cmbPredmet_SelectionChanged" BorderBrush="#89FFFFFF"/>
-        <Button x:Name="btGo" Content="Выставить оценку" HorizontalAlignment="Left" Margin="29,240,0,0" VerticalAlignment="Top"/>
+
+    <Grid Background="#151e29">
+        <ComboBox x:Name="cmbGroup" HorizontalAlignment="Left" VerticalAlignment="Top" Width="122" Height="24" SelectionChanged="cmbGroup_SelectionChanged" BorderBrush="#89FFFFFF" Margin="89,75,0,0"/>
+        <DataGrid x:Name="dtStudentsAndOzenki" Margin="290,10,10,22" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionChanged="dtStudentsAndOzenki_SelectionChanged" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Имя" Binding="{Binding Path=Name, Mode=OneWay}" Width="100" />
+                <DataGridTextColumn Header="Фамилия" Binding="{Binding Path=Family, Mode=OneWay}" Width="130"/>
+                <DataGridTextColumn Header="Отчество" Binding="{Binding Path=Otchestvo, Mode=OneWay}" Width="130" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <Label x:Name="lbFamilyandName" Content="Фамилия Имя" HorizontalAlignment="Left" Margin="89,162,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF" Height="25"/>
+        <ComboBox x:Name="cmbPredmet" DisplayMemberPath="name_disceplini" HorizontalAlignment="Left" Height="25" Margin="91,120,0,0" VerticalAlignment="Top" Width="122" BorderBrush="#89FFFFFF" SelectionChanged="cmbPredmet_SelectionChanged"/>
+        <Button x:Name="btCreate" Content="Выставить оценку" HorizontalAlignment="Left" Margin="48,256,0,0" VerticalAlignment="Top" Cursor="Hand" Click="btCreate_Click"/>
+        <Label Content="Группа:" HorizontalAlignment="Left" Margin="23,75,0,0" VerticalAlignment="Top" Background="{x:Null}" Foreground="#DDFFFFFF"/>
+        <Label Content="Предмет:" HorizontalAlignment="Left" Margin="13,121,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF"/>
+        <Label x:Name="lbStudent" Content="Студент:" HorizontalAlignment="Left" Margin="19,162,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF"/>
+        <ComboBox x:Name="cmbOzenka" HorizontalAlignment="Left" Margin="89,200,0,0" VerticalAlignment="Top" Width="122" Foreground="Black" BorderBrush="#89FFFFFF"/>
+        <Label Content="Оценка:" HorizontalAlignment="Left" Margin="19,205,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF"/>
+        <Button x:Name="btOzenki" Content="Просмотр оценок" HorizontalAlignment="Left" Margin="13,12,0,0" VerticalAlignment="Top" Width="198" Click="btOzenki_Click"/>
 
     </Grid>
 </Page>

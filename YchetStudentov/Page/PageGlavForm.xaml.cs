@@ -25,14 +25,6 @@ namespace YchetStudentov
         {
             InitializeComponent();
             SelectedCmb();
-            lbFIOPrepod.Content = GetFIOPrepod();
-        }
-        
-        public string GetFIOPrepod()
-        {
-            //DataTable name = DateBase.Select($"Select family, name, otchestvo, login_prepodovatela from Prepodovateli where login_prepodovatela = '{MainWindow.idUser}'");
-            //string fio = $"{name.Rows[0][0]} {name.Rows[0][1]} {name.Rows[0][2]}";
-            return "ffdsf";
         }
         public void SelectedCmb()
         {

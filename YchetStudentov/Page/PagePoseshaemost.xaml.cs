@@ -31,91 +31,26 @@ namespace YchetStudentov.Page
         {
             InitializeComponent();
             gridStudent.Visibility = Visibility.Hidden;
-            //Group.GetAllGroup(CmbGroup);
-            GetGroup(CmbGroup);
+            CmbGroup.ItemsSource = DateBase.Context().GetAllInfoGroup().Select(s => s.NumberGroup);
             btCancelPar.Visibility = Visibility.Hidden;
-        }
-        public static string name;
-        public static string family;
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-                   
         }
 
         private void CmbGroup_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //Group.ReturnPolnNameGroup((string)CmbGroup.SelectedItem);
-            //Predmeti.ReturnPredmet(CmbNamePredmet, (string)CmbGroup.SelectedItem);
-           
-            //var asas = gridStudent.SelectedItem;            
-            GetPredemet(CmbNamePredmet);
-        }
-
-        private void gridStudent_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            
-        }
-
-        private void gridStudent_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            
-        }
-
-        private void gridStudent_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
-        {
-            
+            CmbNamePredmet.ItemsSource = DateBase.Context().DataGridGetCurriculum(CmbGroup.SelectedItem.ToString() ?? " ");
         }
 
         private void CreatePars_Click(object sender, RoutedEventArgs e)
         {
-            if (CmbGroup.Text != "" && CmbNamePredmet.Text != "" && dpDataPari.Text != "")
-            {    
-                List<string> list = new List<string>();
-                gridStudent.Visibility = Visibility.Visible;
-                //gridStudent.ItemsSource = Student.StudentsOzenki.Students((string)CmbGroup.SelectedItem);
-                DateBase dt = new DateBase();
-                List<Class.Student.StudentsOzenki> list2 = new List<Class.Student.StudentsOzenki>();
-                using (var context = new YcotStudentContext())
-                {
-                    context.Students.Load();
-                    var groups = context.Students.Local.ToObservableCollection().Where(P => P.NumberGroup == CmbGroup.SelectedItem.ToString());
-                    foreach(var group in groups)
-                    {
-                        list2.Add(new Class.Student.StudentsOzenki(group.Name ?? " ", group.Family ?? " ", group.Otchesto ?? " "));
-                    }
-                    gridStudent.ItemsSource = list2;
-                }
-
-                CreatePars.Visibility = Visibility.Hidden;
-                CmbGroup.IsEnabled = false;
-                CmbNamePredmet.IsEnabled = false;
-                dpDataPari.IsEnabled = false;
-                btCancelPar.Visibility = Visibility;
-            }
-            else
-            {
-                MessageBox.Show("Error");
-            }
-        }
-
-        private void GetGroup(ComboBox cmb)
-        {
-            DataTable tableDistceplini = DateBase.Select($"Select * FROM SelectPredmetAndGroup");        
-            for (int i = 0; i < tableDistceplini.Rows.Count; i++)
-            {
-                cmb.Items.Add(tableDistceplini.Rows[i][0]);
-            }
+              gridStudent.Visibility = Visibility.Visible;
+              gridStudent.ItemsSource = DateBase.Context().GetInfoStudents(CmbGroup.SelectedItem.ToString() ?? " ");
+              CreatePars.Visibility = Visibility.Hidden;
+              CmbGroup.IsEnabled = false;
+              CmbNamePredmet.IsEnabled = false;
+              dpDataPari.IsEnabled = false;
+              btCancelPar.Visibility = Visibility;
         }
         
-        private void GetPredemet(ComboBox cmb)
-        {
-            cmb.Items.Clear();
-            DataTable tableDistceplini = DateBase.Select($"Select * FROM GetPredmet where number_group = '{CmbGroup.SelectedItem}'");
-            for (int i = 0; i < tableDistceplini.Rows.Count; i++)
-            {
-                cmb.Items.Add(tableDistceplini.Rows[i][2]);
-            }
-        }
 
         private void btCancelPar_Click(object sender, RoutedEventArgs e)
         {
@@ -127,51 +62,22 @@ namespace YchetStudentov.Page
             dpDataPari.IsEnabled = true;
             listStudent.Items.Clear();
         }
-
-        public void OzenkaStudents(string ozenka = "Н")
+        private void Menu_otsutstvuet_Click(object sender, RoutedEventArgs e)
         {
-            var cellInfo = gridStudent.SelectedCells[0];
-            var cellInfo2 = gridStudent.SelectedCells[1];
-            //var content = (cellInfo.Column.GetCellContent(cellInfo.Item) as TextBlock).Text;
-            //content += $" {(cellInfo2.Column.GetCellContent(cellInfo2.Item) as TextBlock).Text}";
-            OzenkaStudent ozenkaStudent = new OzenkaStudent();            
-            ozenkaStudent.lbName.Content = (cellInfo.Column.GetCellContent(cellInfo.Item) as TextBlock).Text;
-            ozenkaStudent.lbFamily.Content = (cellInfo2.Column.GetCellContent(cellInfo2.Item) as TextBlock).Text;
-            ozenkaStudent.number_group = (string)CmbGroup.SelectedItem;
-            ozenkaStudent.name_predmet = (string)CmbNamePredmet.SelectedItem;
-            ozenkaStudent.data = dpDataPari;
-            if (ozenka == "Н")
-            {
-                ozenkaStudent.CreateOzenka();
-            }
-            else if (ozenka == " ")
-            {
-                ozenkaStudent.CreateOzenka("П");
-            }
-            else
-            {
-                ozenkaStudent.CreateOzenka("Б");
-            }
-
-        }
-            private void Menu_otsutstvuet_Click(object sender, RoutedEventArgs e)
-        {
-            OzenkaStudents();
-            var cellInfo = gridStudent.SelectedCells[0];
-            var cellInfo2 = gridStudent.SelectedCells[1];
-            var content = (cellInfo.Column.GetCellContent(cellInfo.Item) as TextBlock).Text;
-            content += $" {(cellInfo2.Column.GetCellContent(cellInfo2.Item) as TextBlock).Text}";
-            listStudent.Items.Add(content);
+            DateBase.Context().CreatePoseshaemost((Class.Student)gridStudent.SelectedItem, (Class.UchebPlan)CmbNamePredmet.SelectedItem, "Н", dpDataPari.SelectedDate);
+            MessageBox.Show($"Студент отсутствует");
         }
 
         private void Menu_bolezn_Click(object sender, RoutedEventArgs e)
         {
-            OzenkaStudents("Б");
+            DateBase.Context().CreatePoseshaemost((Class.Student)gridStudent.SelectedItem, (Class.UchebPlan)CmbNamePredmet.SelectedItem, "Б", dpDataPari.SelectedDate);
+            MessageBox.Show($"Студент отсутствует по болезни");
         }
 
         private void Menu_napare_Click(object sender, RoutedEventArgs e)
         {
-            OzenkaStudents(" ");
+            DateBase.Context().CreatePoseshaemost((Class.Student)gridStudent.SelectedItem, (Class.UchebPlan)CmbNamePredmet.SelectedItem, "П", dpDataPari.SelectedDate);
+            MessageBox.Show($"Студент на паре");
         }
     }
 }

@@ -16,4 +16,6 @@ public partial class DataGridUcheb
     public string? Otchestvo { get; set; }
 
     public string? FormaAttest { get; set; }
+    public int? NumberUchebplan { get; set; }
+    public int? NumberDisceplinis { get; set; }
 }

@@ -13,25 +13,57 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using YchetStudentov.Class;
+using YchetStudentov.Form;
 
 namespace YchetStudentov.Page
 {
-    /// <summary>
-    /// Логика взаимодействия для PagePrepodovateli.xaml
-    /// </summary>
     public partial class PagePrepodovateli
     {
         public PagePrepodovateli()
         {
             InitializeComponent();
-            DateBase dt = new DateBase();
-            dataGridPrepodovateli.ItemsSource = dt.FillingInTheTeachersTable();
+            UpdateDataGrid();         
+        }
+        public void UpdateDataGrid()
+        {
+            dataGridPrepodovateli.ItemsSource = DateBase.Context().FillingInTheTeachersTable();
+        }
+        private void Menu_Delete_Click(object sender, RoutedEventArgs e)
+        {
+            if (MessageBox.Show($"Вы уверены что хотите удалить преподователя?", "Удаление преподователя",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                if (DateBase.Context().DeleteTeacher((Class.Prepodovateli)dataGridPrepodovateli.SelectedItem))
+                {
+                    MessageBox.Show("Преподователь был успешно удален!");
+                    UpdateDataGrid();
+                }
+                else
+                {
+                    MessageBox.Show("Произошла ошибка при удаление преподователя!");
+                }
+            }
         }
 
-        private void TextBox_KeyDown(object sender, KeyEventArgs e)
+        private void Menu_Edit_Click(object sender, RoutedEventArgs e)
         {
-            DateBase dt = new DateBase();
-            dataGridPrepodovateli.ItemsSource = dt.SearchForTeachers(tbSearch.Text);
+            Form.EditTeacher editTeacher = new EditTeacher((Prepodovateli)dataGridPrepodovateli.SelectedItem);
+            editTeacher.ShowDialog();
+            UpdateDataGrid();
+        }
+
+        private void CreateTeacher_Click(object sender, RoutedEventArgs e)
+        {
+            Form.CreateTeacher cr = new CreateTeacher();
+            //cr.DataContext = (Prepodovateli)dataGridPrepodovateli.DataContext;
+            cr.ShowDialog();
+            UpdateDataGrid();
+        }
+
+        private void tbSearch_KeyUp(object sender, KeyEventArgs e)
+        {
+            dataGridPrepodovateli.ItemsSource = DateBase.Context().SearchForTeachers(tbSearch.Text);
         }
     }
 }

@@ -9,16 +9,15 @@
       Title="PageDistceplini">
 
     <Grid Background="Gray" Margin="10,0,0,0">
-        <TextBox HorizontalAlignment="Left" Margin="99,181,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-        <TextBox HorizontalAlignment="Left" Height="16" Margin="99,204,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="34"/>
-        <TextBox HorizontalAlignment="Left" Height="16" Margin="99,225,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="34"/>
-        <TextBox HorizontalAlignment="Left" Height="16" Margin="99,245,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="34"/>
-        <TextBox HorizontalAlignment="Left" Height="16" Margin="99,266,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="34"/>
-        <TextBox HorizontalAlignment="Left" Height="16" Margin="99,287,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="34"/>
-        <TextBox HorizontalAlignment="Left" Height="16" Margin="99,308,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="34"/>
-        <ComboBox HorizontalAlignment="Left" Margin="99,329,0,0" VerticalAlignment="Top" Width="120" Height="16"/>
-        <ComboBox HorizontalAlignment="Left" Margin="99,350,0,0" VerticalAlignment="Top" Width="120" Height="16"/>
-        <DataGrid x:Name="dtDisceplini" Height="430" Margin="224,0,10,0" VerticalAlignment="Center" d:ItemsSource="{d:SampleData ItemCount=5}"/>
+        <DataGrid x:Name="dtDisceplini" Height="430" Margin="117,12,10,0" VerticalAlignment="Top" d:ItemsSource="{d:SampleData ItemCount=5}">
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem x:Name="Menu_Edit" Header="Изменить" Click="Menu_Edit_Click" />
+                    <MenuItem x:Name="Menu_Delete" Header="Удалить" Click="Menu_Delete_Click" />
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+        </DataGrid>
+        <Button x:Name="btCreate" Content="Создать" HorizontalAlignment="Left" Margin="28,14,0,0" VerticalAlignment="Top" Click="btCreate_Click" Cursor="Hand"/>
 
     </Grid>
 </Page>
