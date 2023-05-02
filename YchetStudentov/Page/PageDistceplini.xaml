@@ -4,12 +4,20 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:YchetStudentov.Page"
+      xmlns:vm ="clr-namespace:YchetStudentov.VM"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="PageDistceplini">
-
+    <Page.DataContext>
+        <vm:VMDisciplins/>
+    </Page.DataContext>
     <Grid Background="Gray" Margin="10,0,0,0">
-        <DataGrid x:Name="dtDisceplini" Height="430" Margin="117,12,10,0" VerticalAlignment="Top" d:ItemsSource="{d:SampleData ItemCount=5}">
+        <DataGrid x:Name="dtDisceplini" Height="430" Margin="112,12,15,0" VerticalAlignment="Top" d:ItemsSource="{Binding Distceplinis}" SelectedItem="{Binding SelectedDistcilins}" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Название дисциплилы" Binding="{Binding NameDisciplini, Mode=OneWay}"/>
+                <DataGridTextColumn Header="Форма аттестации" Binding="{Binding FormaAttest, Mode=OneWay}"/>
+                <DataGridTextColumn Header="ФИО" Binding="{Binding Login, Mode=OneWay}"/>
+            </DataGrid.Columns>
             <DataGrid.ContextMenu>
                 <ContextMenu>
                     <MenuItem x:Name="Menu_Edit" Header="Изменить" Click="Menu_Edit_Click" />

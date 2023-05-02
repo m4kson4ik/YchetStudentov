@@ -40,14 +40,7 @@ namespace YchetStudentov.Form
 
         private void btEditTeacher_Click(object sender, RoutedEventArgs e)
         {
-                if (MessageBox.Show($"Вы уверены что хотите добавить преподователя c данными:\nИмя - {tbName.Text}\nФамилия - {tbFamily.Text}\nОтчество - {tbOtchestvo.Text}", "Добавление преподователя",
-                       MessageBoxButton.YesNo,
-                       MessageBoxImage.Question) == MessageBoxResult.Yes)
-                {
-                    GenerateLoginAndPassword();
-                    DateBase.Context().EditTeacher(Prepodovateli, tbFamily.Text, tbName.Text, tbOtchestvo.Text);
-                    MessageBox.Show("Данные успешно изменены!");
-            }
+            this.DialogResult = true;
         }
 
         private void Grid_KeyUp(object sender, KeyEventArgs e)

@@ -25,7 +25,7 @@ namespace YchetStudentov.Form
         {
             InitializeComponent();
             this.distceplini = distceplini;
-            tbNameDisciplini.Text = distceplini.name_disceplini;
+            //tbNameDisciplini.Text = distceplini.name_disceplini;
             cmbTeacher.ItemsSource = DateBase.Context().FillingInTheTeachersTable();
             cmbFormaAttest.Items.Add("Экзамен");
             cmbFormaAttest.Items.Add("Зачет");
@@ -33,7 +33,7 @@ namespace YchetStudentov.Form
             cmbFormaAttest.Items.Add("Курсовой проект");
             cmbFormaAttest.Items.Add("Курсовая работа");
             cmbFormaAttest.Items.Add("Контрольная работа");
-            cmbFormaAttest.SelectedItem = distceplini.forma_attest;
+            //cmbFormaAttest.SelectedItem = distceplini.forma_attest;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

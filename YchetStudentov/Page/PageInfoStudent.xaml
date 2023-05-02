@@ -27,6 +27,6 @@
             </DataGrid.ColumnHeaderStyle>
         </DataGrid>
         <Button x:Name="btCreateStudent" Background="Transparent" Content="Добавить студента" HorizontalAlignment="Left" Margin="172,14,0,0" VerticalAlignment="Top" Height="28" Width="162" Click="btCreateStudent_Click" BorderBrush="White"/>
-        <Button x:Name="btImprot" Content="Экспорт всех студентов" Background="Transparent" HorizontalAlignment="Left" Margin="339,14,0,0" VerticalAlignment="Top" Click="btImprot_Click" Height="28" Width="188" BorderBrush="White"/>
+        <Button x:Name="btImprot" Content="Экспорт всех студентов" Background="Transparent" HorizontalAlignment="Left" Margin="339,14,0,0" VerticalAlignment="Top" Click="btImprot_Click" Height="28" Width="188" BorderBrush="White" Cursor="Hand"/>
     </Grid>
 </Page>

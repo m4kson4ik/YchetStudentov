@@ -22,48 +22,6 @@ namespace YchetStudentov.Page
         public PagePrepodovateli()
         {
             InitializeComponent();
-            UpdateDataGrid();         
-        }
-        public void UpdateDataGrid()
-        {
-            dataGridPrepodovateli.ItemsSource = DateBase.Context().FillingInTheTeachersTable();
-        }
-        private void Menu_Delete_Click(object sender, RoutedEventArgs e)
-        {
-            if (MessageBox.Show($"Вы уверены что хотите удалить преподователя?", "Удаление преподователя",
-                    MessageBoxButton.YesNo,
-                    MessageBoxImage.Question) == MessageBoxResult.Yes)
-            {
-                if (DateBase.Context().DeleteTeacher((Class.Prepodovateli)dataGridPrepodovateli.SelectedItem))
-                {
-                    MessageBox.Show("Преподователь был успешно удален!");
-                    UpdateDataGrid();
-                }
-                else
-                {
-                    MessageBox.Show("Произошла ошибка при удаление преподователя!");
-                }
-            }
-        }
-
-        private void Menu_Edit_Click(object sender, RoutedEventArgs e)
-        {
-            Form.EditTeacher editTeacher = new EditTeacher((Prepodovateli)dataGridPrepodovateli.SelectedItem);
-            editTeacher.ShowDialog();
-            UpdateDataGrid();
-        }
-
-        private void CreateTeacher_Click(object sender, RoutedEventArgs e)
-        {
-            Form.CreateTeacher cr = new CreateTeacher();
-            //cr.DataContext = (Prepodovateli)dataGridPrepodovateli.DataContext;
-            cr.ShowDialog();
-            UpdateDataGrid();
-        }
-
-        private void tbSearch_KeyUp(object sender, KeyEventArgs e)
-        {
-            dataGridPrepodovateli.ItemsSource = DateBase.Context().SearchForTeachers(tbSearch.Text);
         }
     }
 }

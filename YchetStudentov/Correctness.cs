@@ -27,7 +27,6 @@ namespace YchetStudentov
         public string[] lastEmail = {".com", ".ru" };
         public void CheckingForRussianLetters(params string[] tb)
         {
-           int lop = 0;
            List<string> list = new List<string>();
           // var item = tb.Select(items => list.Add(item));
         }

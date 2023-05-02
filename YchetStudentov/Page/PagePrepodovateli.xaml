@@ -4,29 +4,33 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:YchetStudentov.Page"
-      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" x:Class="YchetStudentov.Page.PagePrepodovateli"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+      x:Class="YchetStudentov.Page.PagePrepodovateli"
+      xmlns:vm="clr-namespace:YchetStudentov.VM" 
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="PagePrepodovateli">
+    
+    <Page.DataContext>
+        <vm:VMPrepodovateli/>
+    </Page.DataContext>
 
     <Grid Background="#151e29">
-        <DataGrid x:Name="dataGridPrepodovateli" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="10,50,35,10" AutoGenerateColumns="False">
-
+        <DataGrid x:Name="dataGridPrepodovateli" ItemsSource="{Binding Path=ArrayPrepodovateli, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Path=PrepodovatelisSelectedItem, Mode=TwoWay}" Margin="10,50,35,10" AutoGenerateColumns="False">
             <DataGrid.ContextMenu>
                 <ContextMenu>
-                    <MenuItem x:Name="Menu_Edit" Header="Изменить" Click="Menu_Edit_Click" />
-                    <MenuItem x:Name="Menu_Delete" Header="Удалить" Click="Menu_Delete_Click" />
+                    <MenuItem x:Name="Menu_Editing" Header="Изменить" Command="{Binding EditingTeachersCommand}" />
+                    <MenuItem x:Name="Menu_Delete" Header="Удалить" Command="{Binding DeletedTeacherCommand}" />
                 </ContextMenu>
             </DataGrid.ContextMenu>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Имя" Binding="{Binding Path=Name, Mode=OneWay}" Width="100" />
                 <DataGridTextColumn Header="Фамилия" Binding="{Binding Path=Family, Mode=OneWay}" Width="130" />
+                <DataGridTextColumn Header="Имя" Binding="{Binding Path=Name, Mode=OneWay}" Width="100" />
                 <DataGridTextColumn Header="Отчество" Binding="{Binding Path=Otchestvo, Mode=OneWay}" Width="130" />
             </DataGrid.Columns>
         </DataGrid>
-        <TextBox x:Name="tbSearch" HorizontalAlignment="Left" Margin="66,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Foreground="Black" Background="White" KeyUp="tbSearch_KeyUp"/>
+        <TextBox x:Name="tbSearch" HorizontalAlignment="Left" Margin="66,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Foreground="Black" Background="White"/>
         <Label Content="Поиск:" HorizontalAlignment="Left" Margin="16,11,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF"/>
-        <Button x:Name="CreateTeacher" Content="Создать" HorizontalAlignment="Left" Height="25" Margin="191,10,0,0" VerticalAlignment="Top" Width="89" Click="CreateTeacher_Click"/>
-
+        <Button x:Name="CreateTeacher" Content="Создать" HorizontalAlignment="Left" Height="25" Margin="191,10,0,0" VerticalAlignment="Top" Width="89" Command="{Binding NewItemTeachers}"/>
     </Grid>
 </Page>

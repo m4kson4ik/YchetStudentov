@@ -88,7 +88,7 @@ namespace YchetStudentov.Class
         {
             using (StreamWriter writer = new StreamWriter(path, true))
             {
-                writer.WriteLine($"{DateTime.Today.ToString()} Изменение преподователя с {backprepod.login} {backprepod.Name} {backprepod.Family} {backprepod.Otchestvo}");
+                writer.WriteLine($"{DateTime.Today.ToString()} Изменение преподователя с {backprepod.Login} {backprepod.Name} {backprepod.Family} {backprepod.Otchestvo}");
                 writer.WriteLine($"{DateTime.Today.ToString()} Изменение преподователя на {prepod.LoginPrepodovatela} {prepod.Name} {prepod.Family} {prepod.Otchestvo}");
                 writer.Close();
             }
