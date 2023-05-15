@@ -4,25 +4,28 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:YchetStudentov"
+        xmlns:vm="clr-namespace:YchetStudentov.VM.ViewModelStudents"
         mc:Ignorable="d"
         Title="Создание студента" Height="400" Width="513" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
-    <Grid KeyUp="Grid_KeyUp" >
-        <Button x:Name="btSave" Content="Создать студента" HorizontalAlignment="Left" Margin="194,328,0,0" VerticalAlignment="Top" Click="btSave_Click" Background="#FF3AB78A" BorderBrush="#FF5DC08A" Cursor="Hand"/>
-        <TextBox x:Name="tbName" HorizontalAlignment="Left" Margin="164,77,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="122"/>
+    <Window.DataContext>
+        <vm:VMCreateStudent/>
+    </Window.DataContext>
+    <Grid>
+        <Button x:Name="btSave" Content="Создать студента" HorizontalAlignment="Left" Margin="194,328,0,0" VerticalAlignment="Top" Command="{Binding CreateStudentCommand}" Background="#FF3AB78A" BorderBrush="#FF5DC08A" Cursor="Hand"/>
+        <TextBox x:Name="tbName" Text="{Binding NewItemStudent.Name}" HorizontalAlignment="Left" Margin="164,77,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="122"/>
         <Label x:Name="lb_Name" Content="Имя:" HorizontalAlignment="Left" Margin="114,78,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="tbFamily" HorizontalAlignment="Left" Margin="164,107,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="122"/>
-        <TextBox x:Name="tbOtchestvo" HorizontalAlignment="Left" Margin="164,137,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="122" Height="23"/>
-        <DatePicker x:Name="dtDataRog" HorizontalAlignment="Left" Margin="164,166,0,0" VerticalAlignment="Top" Height="21" Width="122"/>
-        <ComboBox x:Name="cmbGragdanstvo" HorizontalAlignment="Left" Margin="164,223,0,0" VerticalAlignment="Top" Width="122" Height="23"/>
-        <TextBox x:Name="tbEmail" HorizontalAlignment="Left" Margin="164,260,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="122"/>
-        <ComboBox x:Name="cmbYearPostup" HorizontalAlignment="Left" Margin="401,232,0,0" VerticalAlignment="Top" Width="83" Height="24"/>
-        <ComboBox x:Name="cmbBudget" HorizontalAlignment="Left" Margin="401,261,0,0" VerticalAlignment="Top" Width="83" Height="25"/>
+        <TextBox x:Name="tbFamily" Text="{Binding NewItemStudent.Family}" HorizontalAlignment="Left" Margin="164,107,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="122"/>
+        <TextBox x:Name="tbOtchestvo" Text="{Binding NewItemStudent.Otchestvo}" HorizontalAlignment="Left" Margin="164,137,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="122" Height="23"/>
+        <DatePicker x:Name="dtDataRog" Text="{Binding NewItemStudent.DataRoj}" SelectedDate="{Binding NewItemStudent.DataRoj}" HorizontalAlignment="Left" Margin="164,166,0,0" VerticalAlignment="Top" Height="21" Width="122"/>
+        <ComboBox x:Name="cmbGragdanstvo" HorizontalAlignment="Left" Text="{Binding NewItemStudent.Gragdanstvo}" SelectedItem="{Binding NewItemStudent.Gragdanstvo}" Margin="164,223,0,0" VerticalAlignment="Top" Width="122" Height="23"/>
+        <TextBox x:Name="tbEmail" HorizontalAlignment="Left" Text="{Binding NewItemStudent.Email}" Margin="164,260,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="122"/>
+        <ComboBox x:Name="cmbYearPostup" HorizontalAlignment="Left" Text="{Binding NewItemStudent.GodPostuplenie}" Margin="401,232,0,0" VerticalAlignment="Top" Width="83" Height="24"/>
+        <ComboBox x:Name="cmbBudget" HorizontalAlignment="Left" SelectedItem="{Binding NewItemStudent.Budget}" Margin="401,261,0,0" VerticalAlignment="Top" Width="83" Height="25"/>
         <Label Content="Фамилия:" HorizontalAlignment="Left" Margin="90,108,0,0" VerticalAlignment="Top"/>
         <Label Content="Отчество:" HorizontalAlignment="Left" Margin="87,137,0,0" VerticalAlignment="Top"/>
         <Label Content="Дата рождения:" HorizontalAlignment="Left" Margin="54,163,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="tbAdress" HorizontalAlignment="Left" Margin="164,192,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="122"/>
-        <Label Content="Адрес проживания:
-               " HorizontalAlignment="Left" Margin="32,194,0,0" VerticalAlignment="Top" Width="116"/>
+        <TextBox x:Name="tbAdress" HorizontalAlignment="Left" Text="{Binding NewItemStudent.Adress}" Margin="164,192,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="122"/>
+        <Label Content="Адрес проживания:" HorizontalAlignment="Left" Margin="32,194,0,0" VerticalAlignment="Top" Width="116"/>
         <Label Content="Почта(Email):" HorizontalAlignment="Left" Margin="71,261,0,0" VerticalAlignment="Top"/>
         <Label Content="Гражданство:" HorizontalAlignment="Left" Margin="68,223,0,0" VerticalAlignment="Top"/>
         <Label Content="Год поступления:" HorizontalAlignment="Left" Margin="296,232,0,0" VerticalAlignment="Top"/>
@@ -38,9 +41,9 @@
             </TextBox.RenderTransform>
         </TextBox>
         <Label Content="Номер зачетки:" HorizontalAlignment="Left" Margin="56,18,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lbGenerate" Content="Сгенерировать" HorizontalAlignment="Left" Height="24" Margin="302,18,0,0" VerticalAlignment="Top" Width="97" Cursor="Hand" MouseDown="lbGenerate_MouseDown"/>
+        <Label x:Name="lbGenerate" Content="Сгенерировать" HorizontalAlignment="Left" Height="24" Margin="302,18,0,0" VerticalAlignment="Top" Width="97" Cursor="Hand" />
         <Label Content="Номер группы:" HorizontalAlignment="Left" Margin="59,48,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="cmbNumberGroup" HorizontalAlignment="Left" Margin="164,47,0,0" VerticalAlignment="Top" Width="122"/>
+        <ComboBox x:Name="cmbNumberGroup" HorizontalAlignment="Left" ItemsSource="{Binding CollectionGroup}" DisplayMemberPath="NumberGroup" SelectedValue="{Binding NewItemStudent.NumberGroup}" SelectedValuePath="NumberGroup" Margin="164,47,0,0" VerticalAlignment="Top" Width="122"/>
 
     </Grid>
 </Window>

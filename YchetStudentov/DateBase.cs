@@ -24,12 +24,11 @@ namespace YchetStudentov
         public bool CheckingCorrectPasswordAndLogin(string login, string password);
         public string GetAllInfoStudentInString(Class.Student student);
         public void SelectedItemStudent(int numberZachet);
-        public List<Class.Student> GetInfoStudents(string groups);
+        public Class.Student[] GetInfoStudents(Class.Group group);
         public void EditingInfoStudent(Class.Student student, string group, string name, string family, string otchestvo, string adress,
             string email, string gragdanstvo, int year_postyp, string budget);
         public void DeletedItemStudent(Class.Student Itemstudent);
-        public void AddItemStudent(int num_zac, string group, string name, string family, string otchestvo, DateTime dataRog, string adress,
-            string email, string gragdanstvo, int year_postyp, string budget);
+        public void AddItemStudent(Class.Student student);
         public Class.Prepodovateli[] FillingInTheTeachersTable();
         //public List<Class.Prepodovateli> SearchForTeachers(string text);
         public bool CreateTeacher(Class.Prepodovateli prepodovateli);
@@ -39,7 +38,7 @@ namespace YchetStudentov
         public void CreateCurriculum(Class.Group group, Class.Distceplini distceplin);
         public void DeleteCurriculum(Class.UchebPlan uchebPlan);
         public Class.Distceplini[] GetDataGridDiscipline();
-        public List<string> GetSelectedDiscipline(string group);
+        public string[] GetSelectedDiscipline(Class.Student student);
         public void CreateDiscipline(Class.Prepodovateli prepodovatel, Class.Distceplini distceplini);
         public void DeleteDiscipline(Class.Distceplini distceplini);
         public void EditDiscipline(Class.Distceplini distceplini);
@@ -48,13 +47,16 @@ namespace YchetStudentov
         public void CreateGroup(Class.Group group);
         public bool EditingGroup(Class.Group group, string nameSpec, string numberGroup, string numberSpec);
         public bool DeletedGroup(Class.Group group);
-        public List<Class.Student.StudentsOzenki> GetOzenki(Class.Student? student, string selectedDisciplin);
-        public void DeletedPoseshaemost(Class.Student.StudentsOzenki ozenki);
-        public void EditingPoseshaemost(Class.Student.StudentsOzenki ozenki, ComboBox poses);
+        public Class.Attendance[] GetOzenki(Class.Student? student, string selectedDisciplin);/// <summary>
+        /// /
+        /// </summary>
+        /// <param name="ozenki"></param>
+        public void DeletedPoseshaemost(Class.Attendance ozenki);
+        public void EditingPoseshaemost(Class.Attendance ozenki, ComboBox poses);
         public void CreatePoseshaemost(Class.Student student, Class.UchebPlan disciplins, string ozenka, DateTime? datazanyatie);
         public List<Class.FinalGrades> GetRatingAndSrPoseshaemost(Class.Student student);
         public void CreateARating(Class.Student student, int semestr, string grades, Class.UchebPlan distceplini);
-        public List<Class.Student.StudentsOzenki> GetRating(Class.Group group);
+        public List<Class.Attendance> GetRating(Class.Group group);
     }
 
     class DateBase:IDatabase
@@ -96,23 +98,23 @@ namespace YchetStudentov
                 $"Год поступления - {student.GodPostuplenie}\nБюджет - {student.Budget}";
             return content; 
         }
-        public List<Class.Student> GetInfoStudents(string groups)
+        public Class.Student[] GetInfoStudents(Class.Group group)
         {
             using (var context = new YcotStudentContext())
             {
-                var items = context.Students.Where(x => x.NumberGroup == groups);
-                var item =  items.Select(item => new Class.Student(item.NumberZacKnig, item.NumberGroup ?? "", item.Name ?? "", item.Family ?? "", item.Otchesto ?? "", Convert.ToDateTime(item.DataRoj), item.AdressProj ?? "", item.Gragdanstvo ?? "", item.Email ?? "", Convert.ToInt32(item.GodPostuplenya), item.Budget ?? ""));
-                return item.ToList();
+                var items = context.Students.Where(x => x.NumberGroup == group.NumberGroup);
+                var item =  items.Select(item => new Class.Student { NumberZachetki = item.NumberZacKnig, NumberGroup = item.NumberGroup ?? "", Name = item.Name ?? "", Family = item.Family ?? "", Otchestvo = item.Otchesto ?? "", DataRoj = Convert.ToDateTime(item.DataRoj), Adress = item.AdressProj ?? "", Gragdanstvo = item.Gragdanstvo ?? "", Email = item.Email ?? "", GodPostuplenie = Convert.ToInt32(item.GodPostuplenya), Budget = item.Budget ?? "" });
+                return item.ToArray();
             }
         }
-        public List<Class.Student> GetAllStudentsInWord()
-        {
-            using (var context = new YcotStudentContext())
-            {
-                var item = context.Students.Select(item => new Class.Student(item.NumberZacKnig, item.NumberGroup ?? "", item.Name ?? "", item.Family ?? "", item.Otchesto ?? "", Convert.ToDateTime(item.DataRoj), item.AdressProj ?? "", item.Gragdanstvo ?? "", item.Email ?? "", Convert.ToInt32(item.GodPostuplenya), item.Budget ?? ""));
-                return item.ToList();
-            }
-        }
+     // public List<Class.Student> GetAllStudentsInWord()
+     // {
+     //     using (var context = new YcotStudentContext())
+     //     {
+     //         var item = context.Students.Select(item => new Class.Student(item.NumberZacKnig, item.NumberGroup ?? "", item.Name ?? "", item.Family ?? "", item.Otchesto ?? "", Convert.ToDateTime(item.DataRoj), item.AdressProj ?? "", item.Gragdanstvo ?? "", item.Email ?? "", Convert.ToInt32(item.GodPostuplenya), item.Budget ?? ""));
+     //         return item.ToList();
+     //     }
+     // }
         public void EditingInfoStudent(Class.Student student, string group, string name, string family, string otchestvo, string adress,
             string email, string gragdanstvo, int year_postyp, string budget)
         {
@@ -167,8 +169,7 @@ namespace YchetStudentov
             }
         }
 
-        public void AddItemStudent(int num_zac, string group, string name, string family, string otchestvo, DateTime dataRog, string adress,
-            string email, string gragdanstvo, int year_postyp, string budget)
+        public void AddItemStudent(Class.Student newstudent)
         {
             using (var context = new YcotStudentContext())
             {
@@ -176,17 +177,17 @@ namespace YchetStudentov
                 CreateStudent createStudent = new CreateStudent();
                 var student = new Models.Student()
                 {
-                    NumberZacKnig = num_zac,
-                    NumberGroup = group,
-                    Name = name,
-                    Family = family,
-                    Otchesto = otchestvo,
-                    DataRoj = dataRog,
-                    AdressProj = adress,
-                    Email = email,
-                    Gragdanstvo = gragdanstvo,
-                    GodPostuplenya = year_postyp,
-                    Budget = budget,
+                    NumberZacKnig = newstudent.NumberZachetki,
+                    NumberGroup = newstudent.NumberGroup,
+                    Name = newstudent.Name,
+                    Family = newstudent.Family,
+                    Otchesto = newstudent.Otchestvo,
+                    DataRoj = newstudent.DataRoj,
+                    AdressProj = newstudent.Adress,
+                    Email = newstudent.Email,
+                    Gragdanstvo = newstudent.Gragdanstvo,
+                    GodPostuplenya = newstudent.GodPostuplenie,
+                    Budget = newstudent.Budget,
                 };
                 context.Students.Add(student);
                 context.SaveChanges();
@@ -357,12 +358,12 @@ namespace YchetStudentov
                     return item.ToArray();
                 }
         }
-        public List<string> GetSelectedDiscipline(string group) /////
+        public string[] GetSelectedDiscipline(Class.Student student) /////
         {
             List<string> predmets = new();
             using (var context = new YcotStudentContext())
             {
-                var items = context.GetPredmets.Where(s=> s.NumberGroup == group);
+                var items = context.GetPredmets.Where(s=> s.NumberGroup == student.NumberGroup);
                 foreach(var item in items)
                 {
                     if (items != null)
@@ -370,8 +371,7 @@ namespace YchetStudentov
                         predmets.Add(item.NameDisceplini ?? " ");
                     }
                 }
-                return predmets;
-
+                return predmets.ToArray();
             }
         }
         public void CreateDiscipline(Class.Prepodovateli prepodovatel, Class.Distceplini distceplini)
@@ -516,20 +516,20 @@ namespace YchetStudentov
 
 
         //Poseshaemost
-        public List<Class.Student.StudentsOzenki> GetOzenki(Class.Student? student, string selectedDisciplin)
+        public Class.Attendance[] GetOzenki(Class.Student? student, string selectedDisciplin)
         {
             using (var context = new YcotStudentContext())
             {
                 var items = context.StudentOzenkis.Where(s => s.NumberZacKnig == student.NumberZachetki).Where(s => s.NameDisceplini == selectedDisciplin);
-                var ozenkis = items.Select(item => new Class.Student.StudentsOzenki(item.NumberZacKnig, item.NameDisceplini ?? " ", item.Ocenka ?? " ", Convert.ToDateTime(item.DataZanyatie), item.Name ?? " ", item.Family ?? " ", Convert.ToInt32(item.NumberUspevaemosti)));
-                return ozenkis.ToList();
+                var ozenkis = items.Select(item => new Class.Attendance { Number_Zachetki = item.NumberZacKnig, NameDisceplini = item.NameDisceplini ?? " ", AttendanceStatus = item.Ocenka ?? " ", DataZanyatie = Convert.ToDateTime(item.DataZanyatie), NameTeacher = item.Name ?? " ", FamilyTeacher = item.Family ?? " ", NumberUspevaemosti = Convert.ToInt32(item.NumberUspevaemosti) });
+                return ozenkis.ToArray();
             }
         }
-        public void DeletedPoseshaemost(Class.Student.StudentsOzenki ozenki)
+        public void DeletedPoseshaemost(Class.Attendance attendance)
         {
             using(var context = new YcotStudentContext())
             {
-                var item = context.Poseshaemosts.SingleOrDefault(s=> s.NumberUspevaemosti == ozenki.NumberUspevaemosti);
+                var item = context.Poseshaemosts.SingleOrDefault(s=> s.NumberUspevaemosti == attendance.NumberUspevaemosti);
                 if (item != null)
                 {
                     context.Poseshaemosts.Remove(item);
@@ -539,7 +539,7 @@ namespace YchetStudentov
                 }
             }
         }
-        public void EditingPoseshaemost(Class.Student.StudentsOzenki ozenki, ComboBox poses)
+        public void EditingPoseshaemost(Class.Attendance ozenki, ComboBox poses)
         {
             using (var context = new YcotStudentContext())
             {
@@ -586,17 +586,17 @@ namespace YchetStudentov
             }
         }
 
-        public void EditingARating(Class.FinalGrades final)
-        {
-            using (var context = new YcotStudentContext())
-            {
-                var item = context.FinalGrades.SingleOrDefault(s => s.NumberGrades == final.NumberGrades);
-                if (item != null)
-                {
-                    
-                }
-            }
-        }
+      //  public void EditingARating(Class.FinalGrades final)
+      //  {
+      //      using (var context = new YcotStudentContext())
+      //      {
+      //          var item = context.FinalGrades.SingleOrDefault(s => s.NumberGrades == final.NumberGrades);
+      //          if (item != null)
+      //          {
+      //              
+      //          }
+      //      }
+      //  }
         public List<Class.FinalGrades> GetRatingAndSrPoseshaemost(Class.Student student)
         {
             using (var context = new YcotStudentContext())
@@ -608,12 +608,12 @@ namespace YchetStudentov
         }
 
 
-        public List<Class.Student.StudentsOzenki> GetRating(Class.Group group)
+        public List<Class.Attendance> GetRating(Class.Group group)
         {
             using (var context = new YcotStudentContext())
             {
                 var items = context.StudentOzenkis.Where(s => s.NumberGroup == group.NumberGroup);
-                var i = items.Select(s=> new Class.Student.StudentsOzenki(s.NumberZacKnig, s.NameDisceplini, s.Ocenka, (DateTime)s.DataZanyatie, s.Name, s.Family, (int)s.NumberUspevaemosti));
+                var i = items.Select(s=> new Class.Attendance { Number_Zachetki = s.NumberZacKnig, NameDisceplini = s.NameDisceplini, AttendanceStatus = s.Ocenka, DataZanyatie = s.DataZanyatie, NameTeacher = s.Name, FamilyTeacher = s.Family, NumberUspevaemosti = s.NumberUspevaemosti });
                 return i.ToList();
             }
         }

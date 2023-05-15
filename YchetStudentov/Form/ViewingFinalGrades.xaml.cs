@@ -40,7 +40,7 @@ namespace YchetStudentov.Form
         private void cmbGroup_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             //cmbStudent.Items.Clear();
-            cmbStudent.ItemsSource = DateBase.Context().GetInfoStudents(cmbGroup.SelectedItem.ToString() ?? " ");
+           // cmbStudent.ItemsSource = DateBase.Context().GetInfoStudents(cmbGroup.SelectedItem.ToString() ?? " ");
         }
 
         private void btExport_Click(object sender, RoutedEventArgs e)

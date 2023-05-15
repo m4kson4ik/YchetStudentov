@@ -4,29 +4,35 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:YchetStudentov"
+      xmlns:vm="clr-namespace:YchetStudentov.VM.ViewModelStudents"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="PageInfoStudent">
-
+    <Page.DataContext>
+        <vm:VMStudents/>
+    </Page.DataContext>
     <Grid Background="#151e29">
-        <ComboBox x:Name="CmbGroup" Background="Transparent" Margin="10,14,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="139" SelectionChanged="CmbGroup_SelectionChanged" Height="28" Foreground="#FF0B0B0B" BorderBrush="#89FFFFFF" OpacityMask="{DynamicResource AttentionToActionBrush}"/>
-        <DataGrid x:Name="dataGridStudent" Margin="0,56,0,10" Background="{x:Null}" BorderBrush="{x:Null}" CanUserDeleteRows="False" CanUserAddRows="False" CanUserResizeRows="False" FontSize="16" HorizontalGridLinesBrush="{x:Null}" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False" IsSynchronizedWithCurrentItem="True" Focusable="False" GridLinesVisibility="None" EnableRowVirtualization="False" RowBackground="Transparent" AlternatingRowBackground="Transparent" Foreground="White" EnableColumnVirtualization="True" VerticalGridLinesBrush="#FFFCADAD" HeadersVisibility="None" HorizontalAlignment="Center" Width="1024">
+        <ComboBox x:Name="CmbGroup" ItemsSource="{Binding CollectionGroup}" SelectedItem="{Binding SelectedGroup}" DisplayMemberPath="NumberGroup" Background="Transparent" Margin="10,14,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="139" Height="28" Foreground="#FF0B0B0B" BorderBrush="#89FFFFFF" OpacityMask="{DynamicResource AttentionToActionBrush}"/>
+        <DataGrid x:Name="dataGridStudent" Margin="0,56,0,10" ItemsSource="{Binding CollectionStudent}" SelectedItem="{Binding SelectedStudent}" Background="{x:Null}" BorderBrush="{x:Null}" CanUserDeleteRows="False" CanUserAddRows="False" CanUserResizeRows="False" FontSize="16" HorizontalGridLinesBrush="{x:Null}" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False" IsSynchronizedWithCurrentItem="True" Focusable="False" GridLinesVisibility="None" EnableRowVirtualization="False" RowBackground="Transparent" AlternatingRowBackground="Transparent" Foreground="White" EnableColumnVirtualization="True" VerticalGridLinesBrush="#FFFCADAD" HeadersVisibility="None" HorizontalAlignment="Center" Width="1024" AutoGenerateColumns="False">
             <DataGrid.Columns>
+                <DataGridTextColumn Header="Фамилия" Binding="{Binding Path=Family, Mode=OneWay}" Width="130" />
+                <DataGridTextColumn Header="Имя" Binding="{Binding Path=Name, Mode=OneWay}" Width="100" />
+                <DataGridTextColumn Header="Отчество" Binding="{Binding Path=Otchestvo, Mode=OneWay}" Width="130" />
             </DataGrid.Columns>
             <DataGrid.ContextMenu>
                 <ContextMenu>
-                    <MenuItem x:Name="Menu_Ozenki" Header="Оценки" Click="Menu_Ozenki_Click"/>
-                    <MenuItem x:Name="Menu_Info" Header="Подробнее" Click="Menu_Info_Click"/>
-                    <MenuItem x:Name="Menu_pechat" Header ="Печать" Click="Menu_pechat_Click"/>
-                    <MenuItem x:Name="Menu_Create" Header="Изменить" Click="Menu_Create_Click" />
-                    <MenuItem x:Name="Menu_Delete" Header="Удалить" Click="Menu_Delete_Click" />
+                    <MenuItem x:Name="Menu_Ozenki" Header="Посещаемость" Command="{Binding PoseshaemostStudentCommand}"/>
+                    <MenuItem x:Name="Menu_Info" Header="Подробнее"/>
+                    <MenuItem x:Name="Menu_pechat" Header ="Печать" Command="{Binding PrintStudentCommand}"/>
+                    <MenuItem x:Name="Menu_Create" Header="Изменить" Command="{Binding EditingStudentCommand}" />
+                    <MenuItem x:Name="Menu_Delete" Header="Удалить" Command="{Binding DeletedStudentCommand}" />
                 </ContextMenu>
             </DataGrid.ContextMenu>
             <DataGrid.ColumnHeaderStyle>
                 <Style/>
             </DataGrid.ColumnHeaderStyle>
         </DataGrid>
-        <Button x:Name="btCreateStudent" Background="Transparent" Content="Добавить студента" HorizontalAlignment="Left" Margin="172,14,0,0" VerticalAlignment="Top" Height="28" Width="162" Click="btCreateStudent_Click" BorderBrush="White"/>
+        <Button x:Name="btCreateStudent" Background="Transparent" Content="Добавить студента" HorizontalAlignment="Left" Margin="172,14,0,0" VerticalAlignment="Top" Height="28" Width="162" Command="{Binding CreateStudentCommand}" BorderBrush="White"/>
         <Button x:Name="btImprot" Content="Экспорт всех студентов" Background="Transparent" HorizontalAlignment="Left" Margin="339,14,0,0" VerticalAlignment="Top" Click="btImprot_Click" Height="28" Width="188" BorderBrush="White" Cursor="Hand"/>
     </Grid>
 </Page>

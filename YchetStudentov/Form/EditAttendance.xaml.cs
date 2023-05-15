@@ -20,20 +20,19 @@ namespace YchetStudentov.Form
     /// </summary>
     public partial class EditAttendance : Window
     {
-        public Student.StudentsOzenki studentsOzenki;
-        public EditAttendance(Student.StudentsOzenki studentsOzenki)
+        public EditAttendance()
         {
             InitializeComponent();
-            this.studentsOzenki = studentsOzenki;
-            cmbStatus.Items.Add("П");
-            cmbStatus.Items.Add("Н");
-            cmbStatus.Items.Add("Б");
-            cmbStatus.SelectedItem = studentsOzenki.Ozenka;
+          // Attendance = attendance;
+          // cmbStatus.Items.Add("П");
+          // cmbStatus.Items.Add("Н");
+          // cmbStatus.Items.Add("Б");
+          // cmbStatus.SelectedItem = studentsOzenki.Ozenka;
         }
 
         private void btSave_Click(object sender, RoutedEventArgs e)
         {
-            DateBase.Context().EditingPoseshaemost(studentsOzenki, cmbStatus);
+          //  DateBase.Context().EditingPoseshaemost(studentsOzenki, cmbStatus);
         }
     }
 }

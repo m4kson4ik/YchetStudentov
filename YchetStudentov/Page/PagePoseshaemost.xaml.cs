@@ -30,25 +30,25 @@ namespace YchetStudentov.Page
         public PagePoseshaemost()
         {
             InitializeComponent();
-            gridStudent.Visibility = Visibility.Hidden;
-            CmbGroup.ItemsSource = DateBase.Context().GetAllInfoGroup().Select(s => s.NumberGroup);
-            btCancelPar.Visibility = Visibility.Hidden;
+           // gridStudent.Visibility = Visibility.Hidden;
+           // CmbGroup.ItemsSource = DateBase.Context().GetAllInfoGroup().Select(s => s.NumberGroup);
+           // btCancelPar.Visibility = Visibility.Hidden;
         }
 
         private void CmbGroup_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            CmbNamePredmet.ItemsSource = DateBase.Context().DataGridGetCurriculum((Class.Group)CmbGroup.SelectedItem);
+           // CmbNamePredmet.ItemsSource = DateBase.Context().DataGridGetCurriculum((Class.Group)CmbGroup.SelectedItem);
         }
 
         private void CreatePars_Click(object sender, RoutedEventArgs e)
         {
-              gridStudent.Visibility = Visibility.Visible;
-              gridStudent.ItemsSource = DateBase.Context().GetInfoStudents(CmbGroup.SelectedItem.ToString() ?? " ");
-              CreatePars.Visibility = Visibility.Hidden;
-              CmbGroup.IsEnabled = false;
-              CmbNamePredmet.IsEnabled = false;
-              dpDataPari.IsEnabled = false;
-              btCancelPar.Visibility = Visibility;
+           //   gridStudent.Visibility = Visibility.Visible;
+           //   gridStudent.ItemsSource = DateBase.Context().GetInfoStudents(CmbGroup.SelectedItem.ToString() ?? " ");
+           //   CreatePars.Visibility = Visibility.Hidden;
+           //   CmbGroup.IsEnabled = false;
+           //   CmbNamePredmet.IsEnabled = false;
+           //   dpDataPari.IsEnabled = false;
+           //   btCancelPar.Visibility = Visibility;
         }
         
 
@@ -60,7 +60,6 @@ namespace YchetStudentov.Page
             CmbGroup.IsEnabled = true;
             CmbNamePredmet.IsEnabled = true;
             dpDataPari.IsEnabled = true;
-            listStudent.Items.Clear();
         }
         private void Menu_otsutstvuet_Click(object sender, RoutedEventArgs e)
         {

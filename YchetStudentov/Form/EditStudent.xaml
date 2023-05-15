@@ -4,31 +4,36 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:YchetStudentov.Form"
+        xmlns:vm="clr-namespace:YchetStudentov.VM.ViewModelStudents"
         mc:Ignorable="d"
         Title="Редактирование студента" Height="473" Width="376" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <Window.DataContext>
+        <vm:VMEditingStudent/>
+    </Window.DataContext>
+    
     <Grid Background="Gray" KeyUp="Grid_KeyUp">
-        <Label x:Name="lb_Numberzachet" Content="Label" HorizontalAlignment="Left" Margin="187,10,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lb_Numberzachet" HorizontalAlignment="Left" Margin="187,10,0,0" VerticalAlignment="Top" Content="{Binding SelectedStudent.NumberZachetki}"/>
         <Label Content="Номер зачетной книжки:" HorizontalAlignment="Left" Height="26" Margin="37,10,0,0" VerticalAlignment="Top" Width="150"/>
         <Label Content="Имя:" HorizontalAlignment="Left" Height="26" Margin="143,72,0,0" VerticalAlignment="Top" Width="48"/>
-        <TextBox x:Name="tbName" HorizontalAlignment="Left" Margin="187,76,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
         <Label Content="Фамилия:" HorizontalAlignment="Left" Height="26" Margin="117,103,0,0" VerticalAlignment="Top" Width="66"/>
         <Label Content="Отчество:" HorizontalAlignment="Left" Height="26" Margin="115,134,0,0" VerticalAlignment="Top" Width="66"/>
-        <DatePicker x:Name="dtYear" HorizontalAlignment="Left" Margin="187,166,0,0" VerticalAlignment="Top" Width="120"/>
+        <DatePicker x:Name="dtYear" SelectedDate="{Binding SelectedStudent.DataRoj}" HorizontalAlignment="Left" Margin="187,166,0,0" VerticalAlignment="Top" Width="120"/>
         <Label Content="Дата рождения:" HorizontalAlignment="Left" Height="26" Margin="82,165,0,0" VerticalAlignment="Top" Width="107"/>
         <Label Content="Адрес проживания:" HorizontalAlignment="Left" Height="26" Margin="58,315,0,0" VerticalAlignment="Top" Width="129"/>
         <Label Content="Гражданство:" HorizontalAlignment="Left" Height="26" Margin="93,288,0,0" VerticalAlignment="Top" Width="96"/>
         <Label Content="Почта:" HorizontalAlignment="Left" Height="26" Margin="132,195,0,0" VerticalAlignment="Top" Width="48"/>
         <Label Content="Год поступления:" HorizontalAlignment="Left" Height="26" Margin="73,226,0,0" VerticalAlignment="Top" Width="110"/>
         <Label Content="Бюджет:" HorizontalAlignment="Left" Height="26" Margin="121,257,0,0" VerticalAlignment="Top" Width="62"/>
-        <Button x:Name="btUpdateInfo" Content="Обновить информацию" HorizontalAlignment="Center" Margin="0,392,0,0" VerticalAlignment="Top" Click="Button_Click"/>
-        <TextBox x:Name="tbFamily" HorizontalAlignment="Left" Margin="187,107,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="tbOtchestvo" HorizontalAlignment="Left" Margin="187,138,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="tbAdress" HorizontalAlignment="Left" Margin="187,319,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-        <ComboBox x:Name="cmbGragdanstvo" HorizontalAlignment="Left" Margin="187,288,0,0" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="tbPocta" HorizontalAlignment="Left" Margin="187,199,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-        <ComboBox x:Name="cmbYearPostup" HorizontalAlignment="Left" Margin="186,228,0,0" VerticalAlignment="Top" Width="120"/>
-        <ComboBox x:Name="cmbBudget" HorizontalAlignment="Left" Margin="187,257,0,0" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="btUpdateInfo" Content="Обновить информацию" HorizontalAlignment="Center" Margin="0,392,0,0" VerticalAlignment="Top" Command="{Binding EditingStudentCommand}"/>
+        <TextBox x:Name="tbName" HorizontalAlignment="Left" Text="{Binding SelectedStudent.Name}" Margin="187,76,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="tbFamily" HorizontalAlignment="Left" Margin="187,107,0,0" TextWrapping="Wrap" Text="{Binding SelectedStudent.Family}" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="tbOtchestvo" HorizontalAlignment="Left" Margin="187,138,0,0" TextWrapping="Wrap" Text="{Binding SelectedStudent.Otchestvo}" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="tbAdress" HorizontalAlignment="Left" Margin="187,319,0,0" TextWrapping="Wrap" Text="{Binding SelectedStudent.Adress}" VerticalAlignment="Top" Width="120"/>
+        <ComboBox x:Name="cmbGragdanstvo" ItemsSource="{Binding Gragdanstvo}" SelectedItem="{Binding SelectedStudent.Gragdanstvo}" Text="{Binding SelectedStudent.Gragdanstvo}" HorizontalAlignment="Left" Margin="187,288,0,0" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="tbPocta" HorizontalAlignment="Left" Margin="187,199,0,0" TextWrapping="Wrap" Text="{Binding SelectedStudent.Email}" VerticalAlignment="Top" Width="120"/>
+        <ComboBox x:Name="cmbYearPostup" ItemsSource="{Binding YearPostup}" HorizontalAlignment="Left" Margin="186,228,0,0" Text="{Binding SelectedStudent.GodPostuplenie}" SelectedItem="{Binding SelectedStudent.GodPostuplenie}" VerticalAlignment="Top" Width="120"/>
+        <ComboBox x:Name="cmbBudget" ItemsSource="{Binding Budget}" HorizontalAlignment="Left" Margin="187,257,0,0" Text="{Binding SelectedStudent.Budget}" SelectedItem="{Binding SelectedStudent.Budget}" VerticalAlignment="Top" Width="120"/>
         <Label x:Name="lbNumberGroup" Content="Группа:" HorizontalAlignment="Left" Margin="128,41,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="cmbGroup" HorizontalAlignment="Left" Margin="187,41,0,0" VerticalAlignment="Top" Width="120"/>
+        <ComboBox x:Name="cmbGroup" HorizontalAlignment="Left" Margin="187,41,0,0" VerticalAlignment="Top" Width="120" Text="{Binding SelectedStudent.NumberGroup}" ItemsSource="{Binding CollectionGroup}" SelectedValue="{Binding SelectedStudent.NumberGroup}" SelectedValuePath="NumberGroup" DisplayMemberPath="NumberGroup"/>
     </Grid>
 </Window>

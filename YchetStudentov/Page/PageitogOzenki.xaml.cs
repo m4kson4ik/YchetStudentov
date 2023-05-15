@@ -66,7 +66,7 @@ namespace YchetStudentov.Page
 
         private void cmbPredmet_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            dtStudentsAndOzenki.ItemsSource = DateBase.Context().GetInfoStudents(cmbGroup.SelectedItem.ToString() ?? "");
+           // dtStudentsAndOzenki.ItemsSource = DateBase.Context().GetInfoStudents(cmbGroup.SelectedItem.ToString() ?? "");
         }
 
         private void btCreate_Click(object sender, RoutedEventArgs e)

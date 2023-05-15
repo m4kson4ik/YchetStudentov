@@ -1,6 +1,7 @@
 ﻿using Microsoft.Office.Interop.Excel;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -11,65 +12,90 @@ using System.Windows.Controls;
 
 namespace YchetStudentov.Class
 {
-    public class Student
+    public class Student : INotifyPropertyChanged
     {
-        public int NumberZachetki { get; }
-        public string? NumberGroup { get;}
-        public string Name { get;}
-        public string Family { get;}
-        public string Otchestvo { get; }
-        public DateTime DataRoj { get; }
+        private int _numberZachetki;
+        private string? _numberGroup;
+        private string? _name;
+        private string? _family;
+        private string? _otchestvo;
+        private DateTime _dataRoj;
 
-        public string Adress { get; }
+        private string? _adress;
 
-        public string Gragdanstvo { get; }
-        public string Email { get; }
-        public int GodPostuplenie { get; }
+        private string? _gragdanstvo;
+        private string? _email;
+        private int _yearPostuplenie;
 
-        public string Budget { get; }
+        private string? _budget;
         public string fio { private get => $"{Family} {Name} {Otchestvo}"; set => fio = value; }
 
-        public Student(int number_zachetki, string number_group, string name, string family, string otchestvo, DateTime data_roj, string adress, string gragdanstvo, string email, int god_postuplenie, string budget)
+        public int NumberZachetki
         {
-            this.NumberZachetki = number_zachetki;
-            this.NumberGroup = number_group;
-            this.Family = family;
-            this.Name = name;
-            this.Otchestvo = otchestvo;
-            this.DataRoj = data_roj;
-            this.Adress = adress;
-            this.Gragdanstvo = gragdanstvo;
-            this.Email = email;
-            this.GodPostuplenie = god_postuplenie;
-            this.Budget = budget;
+            get { return _numberZachetki; }
+            set { _numberZachetki = value; OnProperyChanged("NumberZachetki"); }
+        }
+        public string? NumberGroup
+        {
+            get { return _numberGroup; }
+            set { _numberGroup = value; OnProperyChanged("NumberGroup"); }
+        }
+        public string? Name
+        {
+            get { return _name; }
+            set { _name = value; OnProperyChanged("Name"); }
+        }
+        public string? Family
+        {
+            get { return _family; }
+            set { _family = value; OnProperyChanged("Family"); }
+        }
+        public string? Otchestvo
+        {
+            get { return _otchestvo; }
+            set { _otchestvo = value; OnProperyChanged("Otchestvo"); }
+        }
+        public DateTime DataRoj
+        {
+            get { return _dataRoj; }
+            set { _dataRoj = value; OnProperyChanged("DataRoj"); }
         }
 
-        public class StudentsOzenki
+        public string? Adress
         {
-            public string? NameDisceplini { get; }
-            public int Number_Zachetki;
-            public string? Ozenka { get; }
-            public DateTime? DataZanyatie { get; }
-            public string? NamePrepod { get; }
-            public string? FamilyPrepod { get; }
-            public int? NumberUspevaemosti;
+            get { return _adress; }
+            set { _adress = value; OnProperyChanged("Adress"); }
+        }
 
-            Student? student;
-            public StudentsOzenki(Class.Student student)
-            {
-                this.student = student;
-            }
+        public string? Gragdanstvo
+        {
+            get { return _gragdanstvo; }
+            set { _gragdanstvo = value; OnProperyChanged("Gragdanstvo"); }
+        }
+        public string? Email
+        {
+            get { return _email; }
+            set { _email = value; OnProperyChanged("Email"); }
+        }
+        public int GodPostuplenie
+        {
+            get { return _yearPostuplenie; }
+            set { _yearPostuplenie = value; OnProperyChanged("GodPostuplenie"); }
+        }
 
-            public StudentsOzenki(int number_zachetki,string NameDisceplini, string Ozenka, DateTime DataZanyatie, string NamePrepod, string FamilyPrepod, int NumberUspevaemosti)
+        public string? Budget
+        {
+            get { return _budget; }
+            set { _budget = value; OnProperyChanged("Budget"); }
+        }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+        public void OnProperyChanged(string names)
+        {
+            if (PropertyChanged != null)
             {
-                Number_Zachetki = number_zachetki;
-                this.NameDisceplini = NameDisceplini;
-                this.Ozenka = Ozenka;
-                this.DataZanyatie = DataZanyatie;
-                this.NamePrepod = NamePrepod;
-                this.FamilyPrepod = FamilyPrepod;
-                this.NumberUspevaemosti = NumberUspevaemosti;
+                PropertyChanged(this, new PropertyChangedEventArgs(names));
             }
-        } 
+        }
     }
 }

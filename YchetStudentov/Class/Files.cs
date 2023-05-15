@@ -151,7 +151,7 @@ namespace YchetStudentov.Class
                 Application app = new Application();
                 Document doc = app.Documents.Add(Visible: true);
                 Range range = doc.Range();
-                var item = dt.GetAllStudentsInWord().Select(item => range.Text += $"{item.NumberGroup} {item.Family} {item.Name} {item.Otchestvo}").ToList();
+                //var item = dt.GetAllStudentsInWord().Select(item => range.Text += $"{item.NumberGroup} {item.Family} {item.Name} {item.Otchestvo}").ToList();
                 doc.Save();
                 doc.Close();
                 app.Quit();

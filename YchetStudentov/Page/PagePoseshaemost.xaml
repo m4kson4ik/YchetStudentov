@@ -4,17 +4,20 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:YchetStudentov.Page"
+      xmlns:vm="clr-namespace:YchetStudentov.VM.ViewModelAttendance"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="PagePoseshaemost">
-
+    <Page.DataContext>
+        <vm:VMAttendance/>
+    </Page.DataContext>
     <Grid Background="#151e29">
         <DatePicker x:Name="dpDataPari" HorizontalAlignment="Left" Margin="180,6,0,0" VerticalAlignment="Top" Foreground="White" BorderBrush="#89FFFFFF" Background="{x:Null}" Width="18" Height="22"/>
         <Label Content="Дата занятия:" HorizontalAlignment="Left" Margin="95,9,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF"/>
         <Label x:Name="Lb" Content="Группа:" HorizontalAlignment="Left" Margin="129,41,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF"/>
-        <ComboBox x:Name="CmbGroup" HorizontalAlignment="Left" Margin="180,45,0,0" VerticalAlignment="Top" Width="100" SelectionChanged="CmbGroup_SelectionChanged" BorderBrush="#89FFFFFF" ScrollViewer.HorizontalScrollBarVisibility="Auto" Foreground="Black"/>
+        <ComboBox x:Name="CmbGroup" HorizontalAlignment="Left" Margin="180,45,0,0" VerticalAlignment="Top" Width="100" ItemsSource="{Binding CollectionGroup}" DisplayMemberPath="NumberGroup" BorderBrush="#89FFFFFF" ScrollViewer.HorizontalScrollBarVisibility="Auto" Foreground="Black" SelectedItem="{Binding SelectedGroup}"/>
         <Label Content="Название предмета:" HorizontalAlignment="Left" Margin="59,81,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF"/>
-        <ComboBox x:Name="CmbNamePredmet" HorizontalAlignment="Left" Margin="180,85,0,0" VerticalAlignment="Top" Width="100" BorderBrush="#89FFFFFF" Foreground="Black" DisplayMemberPath="name_disceplini"/>
+        <ComboBox x:Name="CmbNamePredmet" HorizontalAlignment="Left" Margin="180,85,0,0" VerticalAlignment="Top" Width="100" BorderBrush="#89FFFFFF" Foreground="Black" ItemsSource="{Binding CollectionDistceplini, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="NameDisceplini"/>
         <Button x:Name="CreatePars" Content="Начать выставление посещаемости" HorizontalAlignment="Left" Margin="26,120,0,0" VerticalAlignment="Top" Click="CreatePars_Click" Background="#FF5BBD4D"/>
         <DataGrid x:Name="gridStudent" Margin="296,11,10,10"  GridLinesVisibility="None" HeadersVisibility="Column" AutoGenerateColumns="False">
             <DataGrid.Columns>
@@ -30,15 +33,6 @@
                 </ContextMenu>
             </DataGrid.ContextMenu>
         </DataGrid>
-        <Button x:Name="btCancelPar" Content="Завершить выставление посещаемости" HorizontalAlignment="Left" Margin="47,120,0,0" VerticalAlignment="Top" Click="btCancelPar_Click" Width="222" Background="#FF5BBD4D" Cursor="Hand"/>
-        <ListView x:Name="listStudent" HorizontalAlignment="Left" Height="164" Margin="22,225,0,0" VerticalAlignment="Top" Width="153" d:ItemsSource="{d:SampleData ItemCount=5}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn/>
-                </GridView>
-            </ListView.View>
-        </ListView>
-        <Label Content="Список отсутствующих" HorizontalAlignment="Left" Margin="30,199,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF"/>
-
+        <Button x:Name="btCancelPar" Content="Завершить выставление посещаемости" HorizontalAlignment="Left" Margin="49,157,0,0" VerticalAlignment="Top" Click="btCancelPar_Click" Width="222" Background="#FF5BBD4D" Cursor="Hand"/>
     </Grid>
 </Page>

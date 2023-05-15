@@ -23,60 +23,60 @@ namespace YchetStudentov.Form
         private Group SelectedGroup;
         public GroupReporting(Group group)
         {
-            InitializeComponent();
-            SelectedGroup = group;
-            AttendanceAccount();
-            dtStudents.ItemsSource = DateBase.Context().GetInfoStudents(SelectedGroup.NumberGroup);
+         //  InitializeComponent();
+         //  SelectedGroup = group;
+         //  AttendanceAccount();
+         //  dtStudents.ItemsSource = DateBase.Context().GetInfoStudents(SelectedGroup.NumberGroup);
         }
 
         private void AttendanceAccount()
         {
-            var obj = DateBase.Context().GetRating(SelectedGroup);
-            double propuski = 0;
-            double propuskiBolezn = 0;
-            double zanyatie = 0;
-            foreach(var item in obj)
-            {
-                zanyatie++;
-                if (item.Ozenka == "Н")
-                {
-                    propuski++;
-                }
-                else if (item.Ozenka == "Б")
-                {
-                    propuskiBolezn++;
-                }
-            }
-            lbPropushenniePariBolezn.Content = (propuskiBolezn / zanyatie) * 100+"%";
-            lbPropushenniePari.Content = ((propuski + propuskiBolezn)/ zanyatie) * 100+"%";
-            lbSrPosesGroup.Content = ((propuski + propuskiBolezn) / zanyatie)*100+"%";
+         //  var obj = DateBase.Context().GetRating(SelectedGroup);
+         //  double propuski = 0;
+         //  double propuskiBolezn = 0;
+         //  double zanyatie = 0;
+         //  foreach(var item in obj)
+         //  {
+         //      zanyatie++;
+         //      if (item.Ozenka == "Н")
+         //      {
+         //          propuski++;
+         //      }
+         //      else if (item.Ozenka == "Б")
+         //      {
+         //          propuskiBolezn++;
+         //      }
+         //  }
+         //  lbPropushenniePariBolezn.Content = (propuskiBolezn / zanyatie) * 100+"%";
+         //  lbPropushenniePari.Content = ((propuski + propuskiBolezn)/ zanyatie) * 100+"%";
+         //  lbSrPosesGroup.Content = ((propuski + propuskiBolezn) / zanyatie)*100+"%";
         }
 
         private void dtStudents_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (dtStudents.SelectedItem != null)
-            {
-                var student = (Student)dtStudents.SelectedItem;
-                var obj = DateBase.Context().GetRating(SelectedGroup).Where(s=>s.Number_Zachetki == student.NumberZachetki);
-                double propuski = 0;
-                double propuskiBolezn = 0;
-                double zanyatie = 0;
-                foreach (var item in obj)
-                {
-                    zanyatie++;
-                    if (item.Ozenka == "Н")
-                    {
-                        propuski++;
-                    }
-                    else if (item.Ozenka == "Б")
-                    {
-                        propuskiBolezn++;
-                    }
-                }
-                lbStudentPropuskiBolezn.Content = $"Пропущенные пары по болезни - {(propuskiBolezn / zanyatie) * 100}%";
-                lbStudentPropuski.Content = $"Пропущенные пары {(propuski + propuskiBolezn / zanyatie) * 100}%";
-                lbStudentSrPoseshaemost.Content = $"Средняя посещаемость - {((propuski + propuskiBolezn) / zanyatie) * 100}%";
-            }
+        //   if (dtStudents.SelectedItem != null)
+        //   {
+        //       var student = (Student)dtStudents.SelectedItem;
+        //       var obj = DateBase.Context().GetRating(SelectedGroup).Where(s=>s.Number_Zachetki == student.NumberZachetki);
+        //       double propuski = 0;
+        //       double propuskiBolezn = 0;
+        //       double zanyatie = 0;
+        //       foreach (var item in obj)
+        //       {
+        //           zanyatie++;
+        //           if (item.Ozenka == "Н")
+        //           {
+        //               propuski++;
+        //           }
+        //           else if (item.Ozenka == "Б")
+        //           {
+        //               propuskiBolezn++;
+        //           }
+        //       }
+        //       lbStudentPropuskiBolezn.Content = $"Пропущенные пары по болезни - {(propuskiBolezn / zanyatie) * 100}%";
+        //       lbStudentPropuski.Content = $"Пропущенные пары {(propuski + propuskiBolezn / zanyatie) * 100}%";
+        //       lbStudentSrPoseshaemost.Content = $"Средняя посещаемость - {((propuski + propuskiBolezn) / zanyatie) * 100}%";
+        //   }
         }
     }
 }
