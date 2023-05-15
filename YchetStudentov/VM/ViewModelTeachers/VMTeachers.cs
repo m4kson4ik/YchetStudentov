@@ -14,11 +14,12 @@ using YchetStudentov.Form;
 using YchetStudentov.Infostraction.Commands;
 using YchetStudentov.Infostraction.Commands.Base;
 
-namespace YchetStudentov.VM
+namespace YchetStudentov.VM.ViewModelTeachers
 {
-    public class VMPrepodovateli : INotifyPropertyChanged
+    public class VMTeachers : INotifyPropertyChanged
     {
-        public VMPrepodovateli()
+        public delegate void ShowWindow(Prepodovateli prepodovateli = null);
+        public VMTeachers()
         {
             DeletedTeacherCommand = new LambdaCommand(OnDeletedTeacherCommand, CanDeletedTeacherCommand);
             NewItemTeachers = new LambdaCommand(OnNewItemTeachers, CanNewItemTeachers);
@@ -27,14 +28,14 @@ namespace YchetStudentov.VM
         }
 
         public ObservableCollection<Prepodovateli> ArrayPrepodovateli { get; private set; }
-        private Prepodovateli? prepodovatelisSelectedItem;
-        public Prepodovateli? PrepodovatelisSelectedItem
+
+        private static Prepodovateli? prepodovatelisSelectedItem;
+        public static Prepodovateli? PrepodovatelisSelectedItem
         {
             get { return prepodovatelisSelectedItem; }
-            set 
+            set
             {
                 prepodovatelisSelectedItem = value;
-                OnProperyChanged("PrepodovatelisSelectedItem");
             }
         }
 
@@ -47,8 +48,20 @@ namespace YchetStudentov.VM
             }
         }
 
-        #region Кнопка Удаление Преподователя
-        public ICommand DeletedTeacherCommand { get; }
+        #region Кнопка Создания Нового Преподователя
+        public ICommand NewItemTeachers { get; }
+        public event ShowWindow? ShowWindowCreateTeacherEvent;
+        private bool CanNewItemTeachers(object p) => true;
+
+        private void OnNewItemTeachers(object p)
+        {
+            ShowWindowCreateTeacherEvent?.Invoke();
+        }
+    #endregion
+
+    #region Меню
+    #region Кнопка Удаление Преподователя
+    public ICommand DeletedTeacherCommand { get; }
 
         private bool CanDeletedTeacherCommand(object p)
         {
@@ -85,52 +98,23 @@ namespace YchetStudentov.VM
         }
         #endregion
 
-        #region Кнопка Создания Нового Преподователя
-
-        public ICommand NewItemTeachers { get; }
-        private bool CanNewItemTeachers(object p) => true;
-
-        private void OnNewItemTeachers(object p)
-        {
-            CreateTeacher createTeacher = new CreateTeacher(new Prepodovateli());
-            if (createTeacher.ShowDialog() == true)
-            {
-                ArrayPrepodovateli.Add(createTeacher.prepodovateli);
-                Random random = new Random();
-                createTeacher.prepodovateli.Login = random.Next(1, 1000);
-                createTeacher.prepodovateli.Password = random.Next(1, 1000000000).ToString();
-                DateBase.Context().CreateTeacher(createTeacher.prepodovateli);
-            }
-        }
-        #endregion
-
-
         #region Меню редактирования преподователя
         public ICommand EditingTeachersCommand { get; }
-
+        public event ShowWindow? ShowWindowEvent;
+        public event ShowWindow? ShowWindowEditingEvent;
         private bool CanEditingTeachersCommand(object p)
         {
             if (PrepodovatelisSelectedItem != null)
             {
                 return true;
             }
-            else
-            {
-                return false;
-            }
+            return false;
         }
-
         private void OnEditingTeachersCommand(object p)
         {
-           if (prepodovatelisSelectedItem != null)
-           {
-               EditTeacher editTeacher = new EditTeacher(prepodovatelisSelectedItem);
-               if (editTeacher.ShowDialog() == true)
-               {
-                   DateBase.Context().EditTeacher(PrepodovatelisSelectedItem);
-               }
-           }
+            ShowWindowEditingEvent?.Invoke(PrepodovatelisSelectedItem);
         }
+        #endregion
         #endregion
     }
 }

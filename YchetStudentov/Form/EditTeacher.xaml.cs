@@ -28,24 +28,13 @@ namespace YchetStudentov.Form
         public EditTeacher(Prepodovateli Prepodovateli)
         {
             InitializeComponent();
-            this.Prepodovateli = Prepodovateli;
-            this.DataContext = Prepodovateli;
-        }
-
-        public int GenerateLoginAndPassword()
-        {
-            Random rand = new Random();
-            return rand.Next();
+            //this.Prepodovateli = Prepodovateli;
+            //this.DataContext = Prepodovateli;
         }
 
         private void btEditTeacher_Click(object sender, RoutedEventArgs e)
         {
             this.DialogResult = true;
-        }
-
-        private void Grid_KeyUp(object sender, KeyEventArgs e)
-        {
-
         }
     }
 }

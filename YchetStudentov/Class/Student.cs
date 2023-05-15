@@ -47,6 +47,7 @@ namespace YchetStudentov.Class
         public class StudentsOzenki
         {
             public string? NameDisceplini { get; }
+            public int Number_Zachetki;
             public string? Ozenka { get; }
             public DateTime? DataZanyatie { get; }
             public string? NamePrepod { get; }
@@ -59,8 +60,9 @@ namespace YchetStudentov.Class
                 this.student = student;
             }
 
-            public StudentsOzenki(string NameDisceplini, string Ozenka, DateTime DataZanyatie, string NamePrepod, string FamilyPrepod, int NumberUspevaemosti)
+            public StudentsOzenki(int number_zachetki,string NameDisceplini, string Ozenka, DateTime DataZanyatie, string NamePrepod, string FamilyPrepod, int NumberUspevaemosti)
             {
+                Number_Zachetki = number_zachetki;
                 this.NameDisceplini = NameDisceplini;
                 this.Ozenka = Ozenka;
                 this.DataZanyatie = DataZanyatie;

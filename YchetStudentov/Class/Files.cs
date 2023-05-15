@@ -162,57 +162,57 @@ namespace YchetStudentov.Class
             }
         }
 
-        public void ExportUchebPlan(string group)
+        public void ExportUchebPlan(Group group)
         {
-            try
-            {
-                DateBase dt = new DateBase();
-                Application app = new Application();
-                Document doc = app.Documents.Add(Visible: true);
-                Range range = doc.Range();
-                Table table = doc.Tables.Add(range, dt.DataGridGetCurriculum(group).Count + 1, 5);
-                table.Borders.Enable = 1;
-
-                foreach (Row row in table.Rows)
-                {
-                    foreach (Cell cell in row.Cells)
-                    {
-                        if (cell.RowIndex == 1)
-                        {
-                            table.Cell(1, 1).Range.Text = "Название дисциплины";
-                            table.Cell(1, 2).Range.Text = "Фамилия";
-                            table.Cell(1, 3).Range.Text = "Имя";
-                            table.Cell(1, 4).Range.Text = "Отчество";
-                            table.Cell(1, 5).Range.Text = "Форма аттестации";
-                            cell.Range.Bold = 1;
-                            cell.Range.Font.Name = "Times New Roman";
-                            cell.Range.Font.Size = 12;
-                            cell.VerticalAlignment = WdCellVerticalAlignment.wdCellAlignVerticalCenter;
-                            cell.Range.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
-                        }
-                        else
-                        {
-                            int i = 2;
-                            foreach (var item in dt.DataGridGetCurriculum(group))
-                            {
-                                table.Cell(i, 1).Range.Text = item.name_disceplini;
-                                table.Cell(i, 2).Range.Text = item.family;
-                                table.Cell(i, 3).Range.Text = item.name;
-                                table.Cell(i, 4).Range.Text = item.otchesvo;
-                                table.Cell(i, 5).Range.Text = item.forma_attest;
-                                i++;
-                            }
-                        }
-                    }
-                }
-                doc.Save();
-                doc.Close();
-                app.Quit();
-            }
-            catch
-            {
-
-            }
+       //   try
+       //   {
+       //       DateBase dt = new DateBase();
+       //       Application app = new Application();
+       //       Document doc = app.Documents.Add(Visible: true);
+       //       Range range = doc.Range();
+       //       Table table = doc.Tables.Add(range, dt.DataGridGetCurriculum(group));
+       //       table.Borders.Enable = 1;
+       //
+       //       foreach (Row row in table.Rows)
+       //       {
+       //           foreach (Cell cell in row.Cells)
+       //           {
+       //               if (cell.RowIndex == 1)
+       //               {
+       //                   table.Cell(1, 1).Range.Text = "Название дисциплины";
+       //                   table.Cell(1, 2).Range.Text = "Фамилия";
+       //                   table.Cell(1, 3).Range.Text = "Имя";
+       //                   table.Cell(1, 4).Range.Text = "Отчество";
+       //                   table.Cell(1, 5).Range.Text = "Форма аттестации";
+       //                   cell.Range.Bold = 1;
+       //                   cell.Range.Font.Name = "Times New Roman";
+       //                   cell.Range.Font.Size = 12;
+       //                   cell.VerticalAlignment = WdCellVerticalAlignment.wdCellAlignVerticalCenter;
+       //                   cell.Range.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
+       //               }
+       //               else
+       //               {
+       //                   int i = 2;
+       //                   foreach (var item in dt.DataGridGetCurriculum(group))
+       //                   {
+       //                       table.Cell(i, 1).Range.Text = item.NameDisceplini;
+       //                       table.Cell(i, 2).Range.Text = item.Family;
+       //                       table.Cell(i, 3).Range.Text = item.Name;
+       //                       table.Cell(i, 4).Range.Text = item.Otchesvo;
+       //                       table.Cell(i, 5).Range.Text = item.FormaAttest;
+       //                       i++;
+       //                   }
+       //               }
+       //           }
+       //       }
+       //       doc.Save();
+       //       doc.Close();
+       //       app.Quit();
+       //   }
+       //   catch
+       //   {
+       //
+       //   }
         }
 
         public void ExportAllOzenkiStudent(int semestr)
@@ -253,6 +253,58 @@ namespace YchetStudentov.Class
                                 table.Cell(i, 3).Range.Text = item.namestudent;
                                 table.Cell(i, 4).Range.Text = item.semestr.ToString();
                                 table.Cell(i, 5).Range.Text = item.nameDisceplini;
+                                i++;
+                            }
+                        }
+                    }
+                }
+                doc.Save();
+                doc.Close();
+                app.Quit();
+            }
+            catch
+            {
+
+            }
+        }
+
+
+        public static void ExportAllItogOzenkiStudent()
+        {
+            try
+            {
+                DateBase dt = new DateBase();
+                Application app = new Application();
+                Document doc = app.Documents.Add(Visible: true);
+                Range range = doc.Range();
+                Table table = doc.Tables.Add(range, dt.GetAllRating().Count() + 1, 4);
+                table.Borders.Enable = 1;
+
+                foreach (Row row in table.Rows)
+                {
+                    foreach (Cell cell in row.Cells)
+                    {
+                        if (cell.RowIndex == 1)
+                        {
+                            table.Cell(1, 1).Range.Text = "№ п/п";
+                            table.Cell(1, 2).Range.Text = "Ф.И.О";
+                            table.Cell(1, 3).Range.Text = "Дисциплины";
+                            table.Cell(1, 4).Range.Text = "Оценка";
+                            cell.Range.Bold = 1;
+                            cell.Range.Font.Name = "Times New Roman";
+                            cell.Range.Font.Size = 12;
+                            cell.VerticalAlignment = WdCellVerticalAlignment.wdCellAlignVerticalCenter;
+                            cell.Range.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
+                        }
+                        else
+                        {
+                            int i = 2;
+                            foreach (var item in dt.GetAllRating())
+                            {
+                                table.Cell(i, 1).Range.Text = item.grades;
+                                table.Cell(i, 2).Range.Text = $"{item.familystudent} {item.namestudent}";
+                                table.Cell(i, 3).Range.Text = item.nameDisceplini;
+                                table.Cell(i, 3).Range.Text = item.grades;
                                 i++;
                             }
                         }

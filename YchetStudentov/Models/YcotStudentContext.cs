@@ -95,7 +95,7 @@ public partial class YcotStudentContext : DbContext
             entity.Property(e => e.Family)
                 .HasMaxLength(50)
                 .IsUnicode(false)
-                .HasColumnName("Family");
+                .HasColumnName("family");
             entity.Property(e => e.FormaAttest)
                 .HasMaxLength(100)
                 .IsUnicode(false)
@@ -103,7 +103,7 @@ public partial class YcotStudentContext : DbContext
             entity.Property(e => e.Name)
                 .HasMaxLength(50)
                 .IsUnicode(false)
-                .HasColumnName("Name");
+                .HasColumnName("name");
             entity.Property(e => e.NameDisceplini)
                 .HasMaxLength(100)
                 .IsUnicode(false)
@@ -115,7 +115,7 @@ public partial class YcotStudentContext : DbContext
             entity.Property(e => e.Otchestvo)
                 .HasMaxLength(50)
                 .IsUnicode(false)
-                .HasColumnName("Otchestvo");
+                .HasColumnName("otchestvo");
             entity.Property(e => e.NumberUchebplan)
                 .HasMaxLength(100)
                 .IsUnicode(false)
@@ -132,7 +132,7 @@ public partial class YcotStudentContext : DbContext
                 .HasNoKey()
                 .ToView("GradesGetInfo");
 
-            entity.Property(e => e.date)
+            entity.Property(e => e.date) 
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("date");
@@ -143,7 +143,7 @@ public partial class YcotStudentContext : DbContext
             entity.Property(e => e.name_disceplini)
                 .HasMaxLength(50)
                 .IsUnicode(false)
-                .HasColumnName("name_disceplini");
+                .HasColumnName("_nameDisceplini");
             entity.Property(e => e.grades)
                 .HasMaxLength(5)
                 .IsUnicode(false)
@@ -179,17 +179,16 @@ public partial class YcotStudentContext : DbContext
             entity.Property(e => e.NameDisceplini)
                 .HasMaxLength(100)
                 .IsUnicode(false)
-                .HasColumnName("name_disceplini");
+                .HasColumnName("_nameDisceplini");
         });
 
         modelBuilder.Entity<Distceplini>(entity =>
         {
-            entity.HasKey(e => e.NumberDisceplini);
+            entity.HasKey(e => e.NumberDisceplini).HasName("Distceplini");
 
             entity.ToTable("Distceplini");
 
             entity.Property(e => e.NumberDisceplini)
-                .ValueGeneratedNever()
                 .HasColumnName("number_disceplini");
             entity.Property(e => e.FormaAttest)
                 .HasMaxLength(100)
@@ -241,7 +240,7 @@ public partial class YcotStudentContext : DbContext
             entity.Property(e => e.NumberGroup)
                 .HasMaxLength(50)
                 .IsUnicode(false)
-                .HasColumnName("number_group");
+                .HasColumnName("_numberGroup");
         });
 
         modelBuilder.Entity<GetPredmet>(entity =>
@@ -254,11 +253,11 @@ public partial class YcotStudentContext : DbContext
             entity.Property(e => e.NameDisceplini)
                 .HasMaxLength(100)
                 .IsUnicode(false)
-                .HasColumnName("name_disceplini");
+                .HasColumnName("_nameDisceplini");
             entity.Property(e => e.NumberGroup)
                 .HasMaxLength(50)
                 .IsUnicode(false)
-                .HasColumnName("number_group");
+                .HasColumnName("_numberGroup");
         });
 
         modelBuilder.Entity<GridReplayUchebPlan>(entity =>
@@ -270,11 +269,11 @@ public partial class YcotStudentContext : DbContext
             entity.Property(e => e.NameDisceplini)
                 .HasMaxLength(100)
                 .IsUnicode(false)
-                .HasColumnName("name_disceplini");
+                .HasColumnName("_nameDisceplini");
             entity.Property(e => e.NumberGroup)
                 .HasMaxLength(50)
                 .IsUnicode(false)
-                .HasColumnName("number_group");
+                .HasColumnName("_numberGroup");
         });
 
         modelBuilder.Entity<Group>(entity =>
@@ -313,11 +312,11 @@ public partial class YcotStudentContext : DbContext
             entity.Property(e => e.NameDisceplini)
                 .HasMaxLength(100)
                 .IsUnicode(false)
-                .HasColumnName("name_disceplini");
+                .HasColumnName("_nameDisceplini");
             entity.Property(e => e.NumberGroup)
                 .HasMaxLength(50)
                 .IsUnicode(false)
-                .HasColumnName("number_group");
+                .HasColumnName("_numberGroup");
         });
 
         modelBuilder.Entity<Poseshaemost>(entity =>
@@ -379,7 +378,7 @@ public partial class YcotStudentContext : DbContext
             entity.Property(e => e.NumberGroup)
                 .HasMaxLength(50)
                 .IsUnicode(false)
-                .HasColumnName("number_group");
+                .HasColumnName("_numberGroup");
         });
 
         modelBuilder.Entity<Specialnosti>(entity =>
@@ -438,7 +437,7 @@ public partial class YcotStudentContext : DbContext
             entity.Property(e => e.NumberGroup)
                 .HasMaxLength(50)
                 .IsUnicode(false)
-                .HasColumnName("number_group");
+                .HasColumnName("_numberGroup");
             entity.Property(e => e.Otchesto)
                 .HasMaxLength(50)
                 .IsUnicode(false)
@@ -469,11 +468,11 @@ public partial class YcotStudentContext : DbContext
             entity.Property(e => e.NameDisceplini)
                 .HasMaxLength(100)
                 .IsUnicode(false)
-                .HasColumnName("name_disceplini");
+                .HasColumnName("_nameDisceplini");
             entity.Property(e => e.NumberGroup)
                 .HasMaxLength(50)
                 .IsUnicode(false)
-                .HasColumnName("number_group");
+                .HasColumnName("_numberGroup");
             entity.Property(e => e.NumberZacKnig).HasColumnName("number_zac_knig");
             entity.Property(e => e.Ocenka)
                 .HasMaxLength(20)
@@ -502,7 +501,7 @@ public partial class YcotStudentContext : DbContext
             entity.Property(e => e.NumberGroup)
                 .HasMaxLength(50)
                 .IsUnicode(false)
-                .HasColumnName("number_group");
+                .HasColumnName("_numberGroup");
             entity.Property(e => e.NumberZacKnig).HasColumnName("number_zac_knig");
         });
 
@@ -543,7 +542,7 @@ public partial class YcotStudentContext : DbContext
             entity.Property(e => e.NameDisceplini)
                 .HasMaxLength(50)
                 .IsUnicode(false)
-                .HasColumnName("name_disceplini");
+                .HasColumnName("_nameDisceplini");
             entity.Property(e => e.TypeZanyatia)
                 .HasMaxLength(30)
                 .IsUnicode(false)

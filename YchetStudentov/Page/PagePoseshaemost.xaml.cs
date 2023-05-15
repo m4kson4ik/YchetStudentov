@@ -37,7 +37,7 @@ namespace YchetStudentov.Page
 
         private void CmbGroup_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            CmbNamePredmet.ItemsSource = DateBase.Context().DataGridGetCurriculum(CmbGroup.SelectedItem.ToString() ?? " ");
+            CmbNamePredmet.ItemsSource = DateBase.Context().DataGridGetCurriculum((Class.Group)CmbGroup.SelectedItem);
         }
 
         private void CreatePars_Click(object sender, RoutedEventArgs e)

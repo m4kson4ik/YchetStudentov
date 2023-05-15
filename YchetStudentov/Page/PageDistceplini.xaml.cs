@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using YchetStudentov.Class;
 using YchetStudentov.Form;
+using YchetStudentov.VM.ViewModelDisciplins;
 
 namespace YchetStudentov.Page
 {
@@ -25,32 +26,18 @@ namespace YchetStudentov.Page
         public PageDistceplini()
         {
             InitializeComponent();
-            Update();
-        }
-        public void Update()
-        {
-            dtDisceplini.ItemsSource = DateBase.Context().GetDataGridDiscipline();
+            ((VMDisciplins)DataContext).ShowWindowEvent += MainWindow_ShowWindowEvent;
+            ((VMDisciplins)DataContext).ShowWindowEditingEvent += EditDisciplini_ShowWindowEvent;
         }
 
-        private void Menu_Delete_Click(object sender, RoutedEventArgs e)
+        private void MainWindow_ShowWindowEvent(Distceplini selectedDisciplins)
         {
-            DateBase.Context().DeleteDiscipline((Class.Distceplini)dtDisceplini.SelectedItem);
-            MessageBox.Show("Дисциплина была успешно удалена!");
-            Update();
+            (new CreateDiscipline()).ShowDialog();
         }
 
-        private void Menu_Edit_Click(object sender, RoutedEventArgs e)
+        private void EditDisciplini_ShowWindowEvent(Distceplini selectedDisciplins)
         {
-            EditingADiscipline editing = new EditingADiscipline((Distceplini)dtDisceplini.SelectedItem);
-            editing.ShowDialog();
-            Update();
-        }
-
-        private void btCreate_Click(object sender, RoutedEventArgs e)
-        {
-            CreateDiscipline create = new CreateDiscipline();
-            create.ShowDialog();
-            Update();
+            (new EditingADiscipline(selectedDisciplins)).ShowDialog();
         }
     }
 }

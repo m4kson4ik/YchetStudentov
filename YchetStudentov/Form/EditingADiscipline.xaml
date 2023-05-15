@@ -4,13 +4,16 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:YchetStudentov.Form"
+        xmlns:vm="clr-namespace:YchetStudentov.VM.ViewModelDisciplins"
         mc:Ignorable="d"
         Title="Редактирование дисциплины" Height="280" Width="286" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <Window.DataContext>
+        <vm:VMEditDisceplins/>
+    </Window.DataContext>
     <Grid>
-        <Button x:Name="btEditing" Content="Изменить" HorizontalAlignment="Center" Margin="0,212,0,0" VerticalAlignment="Top" Click="Button_Click" Background="#FF3AB78A" BorderBrush="#FF5DC08A"/>
-        <TextBox x:Name="tbNameDisciplini" HorizontalAlignment="Left" Margin="36,35,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="198" Height="38"/>
-        <ComboBox x:Name="cmbTeacher" HorizontalAlignment="Left" Margin="36,157,0,0" VerticalAlignment="Top" Width="198" DisplayMemberPath="fio"/>
-        <ComboBox x:Name="cmbFormaAttest" HorizontalAlignment="Left" Margin="36,106,0,0" VerticalAlignment="Top" Width="198"/>
-
+        <Button x:Name="btEditing" Content="Изменить" HorizontalAlignment="Center" Margin="0,212,0,0" VerticalAlignment="Top" Command="{Binding EditingDisceplinsCommand}" Background="#FF3AB78A" BorderBrush="#FF5DC08A"/>
+        <ComboBox x:Name="cmbFormaAttest" Width="198" Text="{Binding DisciplineInSelected.FormaAttest}" SelectedItem="{Binding DisciplineInSelected.FormaAttest}" />
+        <ComboBox x:Name="cmbNameDisciplini" HorizontalAlignment="Center" Margin="0,50,0,0" VerticalAlignment="Top" Width="198" ItemsSource="{Binding Distceplinis}" SelectedValue="{Binding DisciplineInSelected.NumberDisciplini,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="NumberDisciplini" DisplayMemberPath="NameDisciplini"/>
+        <ComboBox x:Name="cmbTeacher" HorizontalAlignment="Center" Width="198" ItemsSource="{Binding Prepodovatelis}" SelectedValue="{Binding DisciplineInSelected.Login, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Login" DisplayMemberPath="fio" Margin="0,164,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Window>

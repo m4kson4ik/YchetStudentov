@@ -14,7 +14,7 @@ namespace YchetStudentov.Class
         public string? namestudent { get; }
         public string? familystudent { get; }
 
-        //public string? number_group;
+        //public string? _numberGroup;
         public DateTime date;
         public int NumberDisceplini;
         public int NumberGrades;
@@ -31,7 +31,7 @@ namespace YchetStudentov.Class
             this.namestudent = namestudent;
             this.familystudent = familystudent;
             NumberZacKnig = numberZacKnig;
-            //this.number_group = number_group;
+            //this._numberGroup = _numberGroup;
         }
     }
 }

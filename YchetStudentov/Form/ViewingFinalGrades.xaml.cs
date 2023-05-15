@@ -22,7 +22,7 @@ namespace YchetStudentov.Form
         public ViewingFinalGrades()
         {
             InitializeComponent();
-            cmbGroup.ItemsSource = DateBase.Context().GetInfoGroup();
+            cmbGroup.ItemsSource = DateBase.Context().GetAllInfoGroup();
         }
 
         private void cmbStudent_SelectionChanged(object sender, SelectionChangedEventArgs e)

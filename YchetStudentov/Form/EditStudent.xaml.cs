@@ -41,7 +41,7 @@ namespace YchetStudentov.Form
             cmbBudget.Items.Add("Нет");
             cmbBudget.SelectedItem = student.Budget;
             lb_Numberzachet.Content = student.NumberZachetki;
-            cmbGroup.ItemsSource = dt.GetInfoGroup();
+            //cmbGroup.ItemsSource = dt.GetInfoGroup();
             cmbGroup.SelectedItem = student.NumberGroup;
             dtYear.SelectedDate = student.DataRoj;
             tbName.Text = student.Name;

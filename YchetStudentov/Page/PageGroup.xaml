@@ -4,23 +4,27 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:YchetStudentov.Page"
+      xmlns:vm="clr-namespace:YchetStudentov.VM.ViewModelGroups"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="PageGroup">
-
+    <Page.DataContext>
+        <vm:VMGroups/>
+    </Page.DataContext>
     <Grid Background="#151e29">
-        <DataGrid x:Name="dataGridGroup" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="10,139,10,10" AutoGenerateColumns="False">
+        <DataGrid x:Name="dataGridGroup" ItemsSource="{Binding ItemsGroup, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedGroup, Mode=TwoWay}" Margin="10,139,10,10" AutoGenerateColumns="False">
             <DataGrid.ContextMenu>
                 <ContextMenu>
-                    <MenuItem x:Name="Menu_pechat" Header ="Печать" Click="Menu_pechat_Click"/>
-                    <MenuItem x:Name="Menu_edit" Header ="Изменить" Click="Menu_edit_Click"/>
-                    <MenuItem x:Name="Menu_Delete" Header="Удалить" Click="Menu_Delete_Click"/>
+                    <MenuItem x:Name="Menu_pechat" Header ="Печать"/>
+                    <MenuItem x:Name="Menu_Reporting" Header="Отчетность" Click="Menu_Reporting_Click"/>
+                    <MenuItem x:Name="Menu_edit" Header ="Изменить" Command="{Binding EditingGroupWindowCommand}"/>
+                    <MenuItem x:Name="Menu_Delete" Header="Удалить" Command="{Binding DeletedGroupCommand}"/>
                 </ContextMenu>
             </DataGrid.ContextMenu>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Название специальности" Binding="{Binding Path=NameSpec, Mode=OneWay}" Width="100" />
-                <DataGridTextColumn Header="Номер группы" Binding="{Binding Path=NumberGroup, Mode=OneWay}" Width="130" />
-                <DataGridTextColumn Header="Номер спциальности" Binding="{Binding Path=NumberSpec, Mode=OneWay}" Width="130" />
+                <DataGridTextColumn Header="Название специальности" Binding="{Binding NameSpec, Mode=OneWay}" Width="150"/>
+                <DataGridTextColumn Header="Номер группы" Binding="{Binding NumberGroup, Mode=OneWay}" Width="130" />
+                <DataGridTextColumn Header="Номер специальности" Binding="{Binding NumberSpec, Mode=OneWay}" Width="130" />
             </DataGrid.Columns>
         </DataGrid>
         <Label x:Name="lbPoseshaemostGroup" Content="Посещаемость определенной группы" HorizontalAlignment="Left" Margin="259,10,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF"/>
@@ -30,6 +34,6 @@
         <Label Content="Месяц:" HorizontalAlignment="Left" Margin="31,49,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF"/>
         <DatePicker HorizontalAlignment="Left" Margin="86,51,0,0" VerticalAlignment="Top" BorderBrush="#89FFFFFF"/>
         <Label x:Name="lbBolezn" Content="Пропуски по ув.причине" HorizontalAlignment="Left" Margin="259,62,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF"/>
-        <Button x:Name="btCreate" Content="Создать" HorizontalAlignment="Left" Margin="706,8,0,0" VerticalAlignment="Top" Click="btCreate_Click"/>
+        <Button x:Name="btCreate" Content="Создать" HorizontalAlignment="Left" Margin="706,8,0,0" VerticalAlignment="Top" Command="{Binding CreateGroupWindowCommand}"/>
     </Grid>
 </Page>

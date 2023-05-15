@@ -4,14 +4,18 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:YchetStudentov.Form"
+        xmlns:vm="clr-namespace:YchetStudentov.VM.ViewModelGroups"
         mc:Ignorable="d"
-        Title="Редактирование группы" Height="303" Width="312" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    Title="Редактирование группы" Height="303" Width="312" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <Window.DataContext>
+        <vm:VMEditingGroup/>
+    </Window.DataContext>
     <Grid>
-        <TextBox x:Name="tbNumberGroup" HorizontalAlignment="Left" Margin="151,62,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <ComboBox x:Name="cmbNumberSpecialty" HorizontalAlignment="Left" Margin="154,118,0,0" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="tbNumberGroup" HorizontalAlignment="Left" Margin="151,62,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="{Binding SelectedItem.NumberGroup}"/>
+        <ComboBox x:Name="cmbNumberSpecialty" HorizontalAlignment="Left" Margin="154,118,0,0" VerticalAlignment="Top" Width="120" SelectedItem="{Binding SelectedItem.NumberSpec}"/>
         <ComboBox x:Name="cmbKurator" HorizontalAlignment="Left" Margin="154,169,0,0" VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="btCreate" Content="Изменить" Background="#FF3AB78A" BorderBrush="#FF5DC08A" HorizontalAlignment="Left" Margin="113,224,0,0" VerticalAlignment="Top" Cursor="Hand" Click="btCreate_Click"/>
-        <TextBox x:Name="tbSpec" HorizontalAlignment="Left" Margin="154,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="btCreate" Content="Изменить" Background="#FF3AB78A" BorderBrush="#FF5DC08A" HorizontalAlignment="Left" Margin="113,224,0,0" VerticalAlignment="Top" Cursor="Hand" Command="{Binding EditingAGroupCommand}"/>
+        <TextBox x:Name="tbSpec" HorizontalAlignment="Left" Margin="154,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="{Binding SelectedItem.NameSpec}"/>
         <Label Content="Специальность:" HorizontalAlignment="Left" Margin="43,11,0,0" VerticalAlignment="Top"/>
         <Label Content="Группа:" HorizontalAlignment="Left" Margin="88,63,0,0" VerticalAlignment="Top"/>
         <Label Content="Номер специальности:" HorizontalAlignment="Left" Margin="3,119,0,0" VerticalAlignment="Top"/>

@@ -20,26 +20,18 @@ namespace YchetStudentov.Form
     /// </summary>
     public partial class EditingADiscipline : Window
     {
-        Distceplini distceplini;
-        public EditingADiscipline(Distceplini distceplini)
+       //Distceplini Isdistceplini;
+        public EditingADiscipline(Distceplini selectedDisciplins)
         {
             InitializeComponent();
-            this.distceplini = distceplini;
-            //tbNameDisciplini.Text = distceplini.name_disceplini;
-            cmbTeacher.ItemsSource = DateBase.Context().FillingInTheTeachersTable();
+            //Isdistceplini = selectedDisciplins;
+            //DataContext = Isdistceplini;
             cmbFormaAttest.Items.Add("Экзамен");
             cmbFormaAttest.Items.Add("Зачет");
             cmbFormaAttest.Items.Add("Деффер.зачет");
             cmbFormaAttest.Items.Add("Курсовой проект");
             cmbFormaAttest.Items.Add("Курсовая работа");
             cmbFormaAttest.Items.Add("Контрольная работа");
-            //cmbFormaAttest.SelectedItem = distceplini.forma_attest;
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            DateBase.Context().EditDiscipline(distceplini, tbNameDisciplini.Text, cmbFormaAttest.SelectedItem.ToString() ?? " ", (Prepodovateli)cmbTeacher.SelectedItem);
-            MessageBox.Show($"Дисциплина {tbNameDisciplini.Text} успешно изменена!");
         }
     }
 }

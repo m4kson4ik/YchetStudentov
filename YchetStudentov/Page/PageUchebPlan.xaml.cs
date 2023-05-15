@@ -16,6 +16,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using YchetStudentov.Class;
 using YchetStudentov.Form;
+using YchetStudentov.VM.ViewModelSyllabus;
 
 namespace YchetStudentov.Page
 {
@@ -27,23 +28,28 @@ namespace YchetStudentov.Page
         public PageUchebPlan()
         {
             InitializeComponent();
-            cmb_number_group.ItemsSource = DateBase.Context().GetInfoGroup();          
+            //cmb_number_group.ItemsSource = DateBase.Context().GetInfoGroup();
+            ((VMSyllabus)DataContext).ShowWindowCreateSyllabusEvent += ShowFormCreateSyllabus;
+            
         }
-        
+        private void ShowFormCreateSyllabus()
+        {
+            (new CreateCurriculum()).ShowDialog();
+        }
         public void Update()
         {
-            GridUchebPlan.ItemsSource = DateBase.Context().DataGridGetCurriculum(cmb_number_group.SelectedItem.ToString() ?? " ");
+         //   GridUchebPlan.ItemsSource = DateBase.Context().DataGridGetCurriculum(cmb_number_group.SelectedItem.ToString() ?? " ");
         }
         private void btnCreate_Click(object sender, RoutedEventArgs e)
         {
-            CreateCurriculum create = new CreateCurriculum();
-            create.ShowDialog();
-            Update();
+           // CreateCurriculum create = new CreateCurriculum();
+           // create.ShowDialog();
+           // Update();
         }
 
         private void cmb_number_group_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Update();
+           // Update();
         }
 
         private void Menu_pechat_Click(object sender, RoutedEventArgs e)
@@ -53,22 +59,22 @@ namespace YchetStudentov.Page
 
         private void Menu_Delete_Click(object sender, RoutedEventArgs e)
         {
-            DateBase.Context().DeleteCurriculum((UchebPlan)GridUchebPlan.SelectedItem);
-            MessageBox.Show("Предмет был успешно удален!");
-            Update();
+           // DateBase.Context().DeleteCurriculum((UchebPlan)GridUchebPlan.SelectedItem);
+           // MessageBox.Show("Предмет был успешно удален!");
+           // Update();
         }
 
         private void btExport_Click(object sender, RoutedEventArgs e)
         {
-            if (cmb_number_group.SelectedItem != null)
-            {
-                Files files = new Files();
-                files.ExportUchebPlan(cmb_number_group.SelectedItem.ToString() ?? " ");
-            }
-            else
-            {
-                MessageBox.Show("Необходимо выбрать группу!");
-            }
+           // if (cmb_number_group.SelectedItem != null)
+           // {
+           //     Files files = new Files();
+           //     //files.ExportUchebPlan(cmb_number_group.SelectedItem.ToString() ?? " ");
+           // }
+           // else
+           // {
+           //     MessageBox.Show("Необходимо выбрать группу!");
+           // }
         }
     }
 }

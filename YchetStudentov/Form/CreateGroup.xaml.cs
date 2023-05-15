@@ -25,12 +25,5 @@ namespace YchetStudentov.Form
             cmbNumberSpecialty.Items.Add("09.02.07");
             cmbKurator.IsReadOnly = false;
         }
-
-        private void btCreate_Click(object sender, RoutedEventArgs e)
-        {
-            DateBase.Context().CreateGroup(tbSpec.Text, tbNumberGroup.Text, cmbNumberSpecialty.SelectedItem.ToString() ?? " ");
-            MessageBox.Show($"Группа {tbNumberGroup.Text} была успешно создана!");
-            this.Close();
-        }
     }
 }

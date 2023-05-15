@@ -4,28 +4,30 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:YchetStudentov.Page"
-      xmlns:vm ="clr-namespace:YchetStudentov.VM"
+      xmlns:vm ="clr-namespace:YchetStudentov.VM.ViewModelDisciplins"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="PageDistceplini">
     <Page.DataContext>
         <vm:VMDisciplins/>
-    </Page.DataContext>
+    </Page.DataContext> 
+    
     <Grid Background="Gray" Margin="10,0,0,0">
-        <DataGrid x:Name="dtDisceplini" Height="430" Margin="112,12,15,0" VerticalAlignment="Top" d:ItemsSource="{Binding Distceplinis}" SelectedItem="{Binding SelectedDistcilins}" AutoGenerateColumns="False">
+        <DataGrid x:Name="dtDisceplini" Margin="99,12,15,8" ItemsSource="{Binding Path=Distceplinis, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedDistcilins, Mode=TwoWay}" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Название дисциплилы" Binding="{Binding NameDisciplini, Mode=OneWay}"/>
                 <DataGridTextColumn Header="Форма аттестации" Binding="{Binding FormaAttest, Mode=OneWay}"/>
-                <DataGridTextColumn Header="ФИО" Binding="{Binding Login, Mode=OneWay}"/>
+                <DataGridTextColumn Header="Фамилия" Binding="{Binding FamilyPrepod, Mode=OneWay}"/>
+                <DataGridTextColumn Header="Имя" Binding="{Binding NamePrepod, Mode=OneWay}"/>
             </DataGrid.Columns>
             <DataGrid.ContextMenu>
                 <ContextMenu>
-                    <MenuItem x:Name="Menu_Edit" Header="Изменить" Click="Menu_Edit_Click" />
-                    <MenuItem x:Name="Menu_Delete" Header="Удалить" Click="Menu_Delete_Click" />
+                    <MenuItem x:Name="Menu_Edit" Header="Изменить" Command="{Binding ShowWindowEditingCommand}" />
+                    <MenuItem x:Name="Menu_Delete" Header="Удалить" Command="{Binding DeletedDisceplinsCommand}" />
                 </ContextMenu>
             </DataGrid.ContextMenu>
         </DataGrid>
-        <Button x:Name="btCreate" Content="Создать" HorizontalAlignment="Left" Margin="28,14,0,0" VerticalAlignment="Top" Click="btCreate_Click" Cursor="Hand"/>
+        <Button x:Name="btCreate" Content="Создать" HorizontalAlignment="Left" Margin="10,14,0,0" VerticalAlignment="Top" Command="{Binding Path=ShowWindowCreateCommand}" Cursor="Hand"/>
 
     </Grid>
 </Page>

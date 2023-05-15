@@ -33,7 +33,7 @@ namespace YchetStudentov
             cmbYearPostup.Items.Add("2019");
             cmbBudget.Items.Add("Да");
             cmbBudget.Items.Add("Нет");
-            cmbNumberGroup.ItemsSource = DateBase.Context().GetInfoGroup();
+            //cmbNumberGroup.ItemsSource = DateBase.Context().GetInfoGroup();
         }
 
         public void GetGroup()

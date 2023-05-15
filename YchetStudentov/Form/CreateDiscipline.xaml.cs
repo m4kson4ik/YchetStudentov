@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using YchetStudentov.Class;
+using YchetStudentov.VM;
 
 namespace YchetStudentov.Form
 {
@@ -23,7 +24,6 @@ namespace YchetStudentov.Form
         public CreateDiscipline()
         {
             InitializeComponent();
-            cmbPrepodovatel.ItemsSource = DateBase.Context().FillingInTheTeachersTable();
             cmbFormaAttest.Items.Add("Экзамен");
             cmbFormaAttest.Items.Add("Зачет");
             cmbFormaAttest.Items.Add("Деффер.зачет");
@@ -34,9 +34,7 @@ namespace YchetStudentov.Form
 
         private void btCreate_Click(object sender, RoutedEventArgs e)
         {
-            DateBase.Context().CreateDiscipline(tbNameD.Text, cmbFormaAttest.SelectedItem.ToString() ?? "", (Prepodovateli)cmbPrepodovatel.SelectedItem);
             MessageBox.Show($"Дисциплина {tbNameD.Text} успешно создана!");
-            this.Close();
         }
     }
 }

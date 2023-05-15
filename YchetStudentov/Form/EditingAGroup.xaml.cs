@@ -24,24 +24,7 @@ namespace YchetStudentov.Form
         public EditingAGroup(Group group)
         {
             InitializeComponent();
-            this.group = group;
-            tbNumberGroup.Text = group.NumberGroup;
-            tbSpec.Text = group.NameSpec;
             cmbNumberSpecialty.Items.Add("09.02.07");
-            cmbNumberSpecialty.SelectedItem = group.NumberSpec;
-            cmbKurator.IsReadOnly = false;
-        }
-
-        private void btCreate_Click(object sender, RoutedEventArgs e)
-        {
-            if (DateBase.Context().EditingGroup(group,tbSpec.Text, tbNumberGroup.Text, cmbNumberSpecialty.SelectedItem.ToString() ?? " "))
-            {
-                MessageBox.Show($"Группа {tbNumberGroup.Text} была успешно изменена!");
-            }
-            else
-            {
-                MessageBox.Show("Error");
-            }
         }
     }
 }

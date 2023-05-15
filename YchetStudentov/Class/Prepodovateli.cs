@@ -30,8 +30,12 @@ namespace YchetStudentov.Class
             get { return _family; }
             set
             {
-                _family = value;
-                OnPropertyChanged("Family");
+                    _family = value;
+                if (string.IsNullOrEmpty(value))
+                {
+                    OnPropertyChanged("Family");
+                    throw new Exception("Поле фамилия не может быть пустым!");
+                }
             }
         }
         public string? Name
@@ -40,11 +44,11 @@ namespace YchetStudentov.Class
             set
             {
                 _name = value;
-                OnPropertyChanged("Name");
-                if (string.IsNullOrEmpty(value))
-                {
-                    throw new Exception("Поле name не может быть пустым!");
-                }
+               if (string.IsNullOrEmpty(value))
+               {
+                    OnPropertyChanged("Name");
+                   throw new Exception("Поле имя не может быть пустым!");
+               }
             }
         }
         public string? Otchestvo
@@ -53,7 +57,11 @@ namespace YchetStudentov.Class
             set
             {
                 _otchestvo = value;
-                OnPropertyChanged("Otchestvo");
+                if (string.IsNullOrEmpty(value))
+                {
+                    OnPropertyChanged("Otchestvo");
+                    throw new Exception("Поле отчество не может быть пустым!");
+                }
             }
         }
 
@@ -66,7 +74,7 @@ namespace YchetStudentov.Class
                 OnPropertyChanged("Login");
             }
         }
-        public string Password
+        public string? Password
         {
             get { return password; }
             set
@@ -77,15 +85,14 @@ namespace YchetStudentov.Class
             }
         }
 
-     //   public Prepodovateli(string name, string family, string otchestvo, int login, string password)
-     //   {
-     //       _name = name;
-     //       _family = family;
-     //       _otchestvo = otchestvo;
-     //       this.login = login;
-     //       this.password = password;
-     //   }
-
+        //   public Prepodovateli(string _name, string _family, string otchestvo, int login, string password)
+        //   {
+        //       _name = _name;
+        //       _family = _family;
+        //       _otchestvo = otchestvo;
+        //       this.login = login;
+        //       this.password = password;
+        //   }
         public event PropertyChangedEventHandler? PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string prop = "")
         {

@@ -4,14 +4,17 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:YchetStudentov.Form"
+        xmlns:vm="clr-namespace:YchetStudentov.VM.ViewModelSyllabus"
         mc:Ignorable="d"
         Title="CreateCurriculum" Height="265" Width="288">
+    <Window.DataContext>
+        <vm:VMCreateSyllabus/>
+    </Window.DataContext>
     <Grid>
-        <ComboBox x:Name="cmbNumberGroup" HorizontalAlignment="Left" Height="25" Margin="125,75,0,0" VerticalAlignment="Top" Width="120"/>
-        <ComboBox x:Name="cmb_Disceplini" HorizontalAlignment="Left" Margin="125,126,0,0" Width="120" DisplayMemberPath="nameDiscepliniandFIO" VerticalAlignment="Top"/>
-        <Button x:Name="btCreate" Content="Создать" HorizontalAlignment="Center" Height="31" Margin="0,185,0,0" VerticalAlignment="Top" Width="98" Cursor="Hand" Click="btCreate_Click"/>
+        <ComboBox x:Name="cmbNumberGroup" HorizontalAlignment="Left" Height="25" Margin="125,75,0,0" VerticalAlignment="Top" Width="120" ItemsSource="{Binding CollectionGroup}" DisplayMemberPath="NumberGroup" SelectedItem="{Binding SelectedGroup}"/>
+        <ComboBox x:Name="cmb_Disceplini" HorizontalAlignment="Left" Margin="125,126,0,0" Width="120" ItemsSource="{Binding CollectionDisceplini}" SelectedItem="{Binding SelectedDisciplini}" DisplayMemberPath="nameDiscepliniandFIO" VerticalAlignment="Top"/>
+        <Button x:Name="btCreate" Content="Создать" HorizontalAlignment="Center" Height="31" Margin="0,185,0,0" VerticalAlignment="Top" Width="98" Cursor="Hand" Command="{Binding CreateNewItemCommand}"/>
         <Label Content="Номер группы:" HorizontalAlignment="Left" Margin="29,76,0,0" VerticalAlignment="Top"/>
         <Label Content="Дисциплина:" HorizontalAlignment="Left" Height="28" Margin="33,123,0,0" VerticalAlignment="Top" Width="87"/>
-
     </Grid>
 </Window>

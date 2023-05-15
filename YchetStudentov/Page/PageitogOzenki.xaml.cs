@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using YchetStudentov.Class;
 using YchetStudentov.Form;
 
 namespace YchetStudentov.Page
@@ -26,7 +27,7 @@ namespace YchetStudentov.Page
         public PageitogOzenki()
         {
             InitializeComponent();
-            cmbGroup.ItemsSource = DateBase.Context().GetInfoGroup();
+            //cmbGroup.ItemsSource = DateBase.Context().GetInfoGroup();
             lbStudent.Visibility = Visibility.Hidden;
             lbFamilyandName.Visibility = Visibility.Hidden;
             cmbOzenka.Items.Add("5");
@@ -40,7 +41,7 @@ namespace YchetStudentov.Page
         private void cmbGroup_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             dtStudentsAndOzenki.SelectedItem = null;
-            cmbPredmet.ItemsSource = DateBase.Context().DataGridGetCurriculum(cmbGroup.SelectedItem.ToString() ?? "");
+            cmbPredmet.ItemsSource = DateBase.Context().DataGridGetCurriculum((Group)cmbGroup.SelectedItem);
         }
 
         private void dtStudentsAndOzenki_SelectionChanged(object sender, SelectionChangedEventArgs e)

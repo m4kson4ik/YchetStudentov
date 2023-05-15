@@ -35,17 +35,17 @@ namespace YchetStudentov
         public bool CreateTeacher(Class.Prepodovateli prepodovateli);
         public bool DeleteTeacher(Class.Prepodovateli prepodovateli);
         public bool EditTeacher(Class.Prepodovateli prepodovateli);
-        public List<Class.UchebPlan> DataGridGetCurriculum(string group);
-        public void CreateCurriculum(string number_group, Class.Distceplini distceplin);
+        public Class.UchebPlan[] DataGridGetCurriculum(Class.Group group);
+        public void CreateCurriculum(Class.Group group, Class.Distceplini distceplin);
         public void DeleteCurriculum(Class.UchebPlan uchebPlan);
         public Class.Distceplini[] GetDataGridDiscipline();
         public List<string> GetSelectedDiscipline(string group);
-        public void CreateDiscipline(string namePredmet, string formaAttest, Class.Prepodovateli prepodovatel);
+        public void CreateDiscipline(Class.Prepodovateli prepodovatel, Class.Distceplini distceplini);
         public void DeleteDiscipline(Class.Distceplini distceplini);
-        public void EditDiscipline(Class.Distceplini distceplini, string name, string attest, Class.Prepodovateli prepodovateli);
-        public List<string> GetInfoGroup();
-        public List<Class.Group> GetAllInfoGroup();
-        public void CreateGroup(string nameSpec, string numberGroup, string numberSpec);
+        public void EditDiscipline(Class.Distceplini distceplini);
+       // public List<string> GetInfoGroup();
+        public Class.Group[] GetAllInfoGroup();
+        public void CreateGroup(Class.Group group);
         public bool EditingGroup(Class.Group group, string nameSpec, string numberGroup, string numberSpec);
         public bool DeletedGroup(Class.Group group);
         public List<Class.Student.StudentsOzenki> GetOzenki(Class.Student? student, string selectedDisciplin);
@@ -54,6 +54,7 @@ namespace YchetStudentov
         public void CreatePoseshaemost(Class.Student student, Class.UchebPlan disciplins, string ozenka, DateTime? datazanyatie);
         public List<Class.FinalGrades> GetRatingAndSrPoseshaemost(Class.Student student);
         public void CreateARating(Class.Student student, int semestr, string grades, Class.UchebPlan distceplini);
+        public List<Class.Student.StudentsOzenki> GetRating(Class.Group group);
     }
 
     class DateBase:IDatabase
@@ -199,7 +200,7 @@ namespace YchetStudentov
         {
             using (var context = new YcotStudentContext())
             {
-                var items = context.Prepodovatelis.Select(s => new Class.Prepodovateli { Family = s.Family, Name = s.Name, Otchestvo = s.Otchestvo, Login = s.LoginPrepodovatela, Password = s.Password });
+                var items = context.Prepodovatelis.Select(s => new Class.Prepodovateli { Family = s.Family, Name = s.Name, Otchestvo = s.Otchestvo, Login = s.LoginPrepodovatela, Password = s.Password ?? " "});
                 return items.ToArray();
             }
         }
@@ -224,10 +225,13 @@ namespace YchetStudentov
    //   //    }
    //   //    return list;
    //   }///
-        public bool CreateTeacher(Class.Prepodovateli prepodovateli )
+        public bool CreateTeacher(Class.Prepodovateli prepodovateli)
         {
             try
             {
+                Random random = new Random();
+                prepodovateli.Login = random.Next(1, 10000);
+                prepodovateli.Password = random.Next(1, 10000).ToString();
                 using (var context = new YcotStudentContext())
                 {
                     var s = context.Prepodovatelis.Find(prepodovateli.Login);
@@ -308,21 +312,21 @@ namespace YchetStudentov
         }
 
         // Curriculum
-        public List<Class.UchebPlan> DataGridGetCurriculum(string group)
+        public Class.UchebPlan[] DataGridGetCurriculum(Class.Group group)
         {
             using (var context = new YcotStudentContext())
             {
                 var item = context.DataGridUchebs.FirstOrDefault();
-                var items = context.DataGridUchebs.Where(s => s.NumberGroup == group).Select(items => new Class.UchebPlan(Convert.ToInt32(items.NumberUchebplan), items.NumberGroup, items.NameDisceplini ?? " ", items.Family ?? " ", items.Name ?? " ", items.Otchestvo ?? " ", items.FormaAttest ?? " ", Convert.ToInt32(items.NumberDisceplinis)));
-                return items.ToList();
+                var items = context.DataGridUchebs.Where(s => s.NumberGroup == group.NumberGroup).Select(items => new Class.UchebPlan { NumberCurriculum = Convert.ToInt32(items.NumberUchebplan), NumberGroup = items.NumberGroup, NameDisceplini = items.NameDisceplini ?? " ", Family = items.Family ?? " ", Name = items.Name ?? " ", Otchesvo = items.Otchestvo ?? " ", FormaAttest = items.FormaAttest ?? " ", NumberDisceplini = Convert.ToInt32(items.NumberDisceplinis)});
+                return items.ToArray();
             }
         }
-        public void CreateCurriculum(string number_group, Class.Distceplini distceplin)
+        public void CreateCurriculum(Class.Group group, Class.Distceplini distceplin)
         {
             using var context = new YcotStudentContext();
             var newitem = new Models.UchebPlan()
             {
-                NumberGroup = number_group,
+                NumberGroup = group.NumberGroup,
                 NumberDisceplini = distceplin.NumberDisciplini,
             };
             context.UchebPlans.Add(newitem);
@@ -332,7 +336,7 @@ namespace YchetStudentov
         {
             using (var context = new YcotStudentContext())
             {
-                var item = context.UchebPlans.SingleOrDefault(s => s.NumberUchebPlan == uchebPlan.number_curriculum);
+                var item = context.UchebPlans.SingleOrDefault(s => s.NumberUchebPlan == uchebPlan.NumberCurriculum);
                 if (item != null)
                 {
                     context.UchebPlans.Remove(item);
@@ -346,19 +350,12 @@ namespace YchetStudentov
         // Discipline
         public Class.Distceplini[] GetDataGridDiscipline()
         {
-            try
-            {
                 using (var context = new YcotStudentContext())
                 {
                     var items = context.Distceplinis.ToList();
                     var item = items.Select(items => new Class.Distceplini { NumberDisciplini = items.NumberDisceplini, NameDisciplini = items.NameDisceplini ?? " ", FormaAttest = items.FormaAttest ?? " ", Login = Convert.ToInt32(items.LoginPrepodovatela) } );
                     return item.ToArray();
                 }
-            }
-            catch
-            {
-                return null;
-            }
         }
         public List<string> GetSelectedDiscipline(string group) /////
         {
@@ -377,14 +374,15 @@ namespace YchetStudentov
 
             }
         }
-        public void CreateDiscipline(string namePredmet, string formaAttest, Class.Prepodovateli prepodovatel)
+        public void CreateDiscipline(Class.Prepodovateli prepodovatel, Class.Distceplini distceplini)
         {
             using (var context = new YcotStudentContext())
             {
                 var newitem = new Models.Distceplini()
                 {
-                    NameDisceplini = namePredmet,
-                    FormaAttest = formaAttest,
+                   // NumberDisceplini = 0,
+                    NameDisceplini = distceplini.NameDisciplini,
+                    FormaAttest = distceplini.FormaAttest,
                     LoginPrepodovatela = prepodovatel.Login,
                 };
                 context.Distceplinis.Add(newitem);
@@ -408,47 +406,48 @@ namespace YchetStudentov
                 }
             }
         }
-        public void EditDiscipline(Class.Distceplini distceplini, string name, string attest, Class.Prepodovateli prepodovateli)
+        public void EditDiscipline(Class.Distceplini distceplini)
         {
             using (var context = new YcotStudentContext())
             {
                 var item = context.Distceplinis.SingleOrDefault(s => s.NumberDisceplini == distceplini.NumberDisciplini);
                 if (item != null)
                 {
-                    item.NameDisceplini = name;
-                    item.FormaAttest = attest;
-                    item.LoginPrepodovatela = prepodovateli.Login;
+                    item.NameDisceplini = distceplini.NameDisciplini;
+                    item.FormaAttest = distceplini.FormaAttest;
+                    item.LoginPrepodovatela = distceplini.Login;
                     context.SaveChanges();
                 }
             }
         }
 
         // Group
-        public List<string> GetInfoGroup()
+     //   public List<string> GetInfoGroup()
+     //   {
+     //       using (var context = new YcotStudentContext())
+     //       {
+     //           var groups = context.Groups.Select(p => p.NumberGroup);
+     //           return groups.ToList();
+     //       }       
+     //   }
+        public Class.Group[] GetAllInfoGroup()
         {
             using (var context = new YcotStudentContext())
             {
-                var groups = context.Groups.Select(p => p.NumberGroup);
-                return groups.ToList();
-            }       
-        }
-        public List<Class.Group> GetAllInfoGroup()
-        {
-            using (var context = new YcotStudentContext())
-            {
-                var item = context.Groups.Select(items => new Class.Group(items.NumberGroup, items.PolnNameSpec, items.NumberSpecialnosti ?? " "));
-                return item.ToList();
+                var item = context.Groups.Select(items => new Class.Group { NumberGroup = items.NumberGroup, NameSpec = items.PolnNameSpec, NumberSpec = items.NumberSpecialnosti });
+                return item.ToArray();
             }
         }
-        public void CreateGroup(string nameSpec, string numberGroup, string numberSpec)
+
+        public void CreateGroup(Class.Group group)
         {
             using (var context = new YcotStudentContext())
             {
                 var items = new Models.Group()
                 {
-                    PolnNameSpec = nameSpec,
-                    NumberGroup = numberGroup,
-                    NumberSpecialnosti = numberSpec,
+                    PolnNameSpec = group.NameSpec,
+                    NumberGroup = group.NumberGroup,
+                    NumberSpecialnosti = group.NumberSpec,
                 };
                 context.Groups.Add(items);
                 context.SaveChanges();
@@ -522,7 +521,7 @@ namespace YchetStudentov
             using (var context = new YcotStudentContext())
             {
                 var items = context.StudentOzenkis.Where(s => s.NumberZacKnig == student.NumberZachetki).Where(s => s.NameDisceplini == selectedDisciplin);
-                var ozenkis = items.Select(item => new Class.Student.StudentsOzenki(item.NameDisceplini ?? " ", item.Ocenka ?? " ", Convert.ToDateTime(item.DataZanyatie), item.Name ?? " ", item.Family ?? " ", Convert.ToInt32(item.NumberUspevaemosti)));
+                var ozenkis = items.Select(item => new Class.Student.StudentsOzenki(item.NumberZacKnig, item.NameDisceplini ?? " ", item.Ocenka ?? " ", Convert.ToDateTime(item.DataZanyatie), item.Name ?? " ", item.Family ?? " ", Convert.ToInt32(item.NumberUspevaemosti)));
                 return ozenkis.ToList();
             }
         }
@@ -560,7 +559,7 @@ namespace YchetStudentov
                 var item = new Models.Poseshaemost()
                 {
                     NumberZacKnig = student.NumberZachetki,
-                    NumberDistceplini = disciplins.number_curriculum,
+                    NumberDistceplini = disciplins.NumberCurriculum,
                     Ocenka = ozenka,
                     DataZanyatie = datazanyatie,
                 };
@@ -579,7 +578,7 @@ namespace YchetStudentov
                     semestr = semestr,
                     grades = grades,
                     date = DateTime.Now,
-                    NumberDisceplini = distceplini.numberDisceplini,
+                    NumberDisceplini = distceplini.NumberDisceplini,
                     NumberZacKnig = student.NumberZachetki,
                 };
                 context.FinalGrades.Add(item);
@@ -608,6 +607,16 @@ namespace YchetStudentov
             }
         }
 
+
+        public List<Class.Student.StudentsOzenki> GetRating(Class.Group group)
+        {
+            using (var context = new YcotStudentContext())
+            {
+                var items = context.StudentOzenkis.Where(s => s.NumberGroup == group.NumberGroup);
+                var i = items.Select(s=> new Class.Student.StudentsOzenki(s.NumberZacKnig, s.NameDisceplini, s.Ocenka, (DateTime)s.DataZanyatie, s.Name, s.Family, (int)s.NumberUspevaemosti));
+                return i.ToList();
+            }
+        }
         public List<Class.FinalGrades> GetAllRating()
         {
             using(var context = new YcotStudentContext())

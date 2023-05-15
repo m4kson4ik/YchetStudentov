@@ -14,6 +14,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using YchetStudentov.Class;
 using YchetStudentov.Form;
+using YchetStudentov.VM.ViewModelDisciplins;
+using YchetStudentov.VM.ViewModelTeachers;
 
 namespace YchetStudentov.Page
 {
@@ -22,6 +24,16 @@ namespace YchetStudentov.Page
         public PagePrepodovateli()
         {
             InitializeComponent();
+            ((VMTeachers)DataContext).ShowWindowEditingEvent += ShowFormEditingTeacher;
+            ((VMTeachers)DataContext).ShowWindowCreateTeacherEvent += ShowFormCreateTeacher;
+        }
+        private void ShowFormEditingTeacher(Prepodovateli prepodovateli)
+        {
+            (new EditTeacher(prepodovateli)).ShowDialog();
+        }
+        private void ShowFormCreateTeacher(Prepodovateli prepodovateli)
+        {
+            (new CreateTeacher()).ShowDialog();
         }
     }
 }

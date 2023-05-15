@@ -16,46 +16,11 @@ namespace YchetStudentov.Class
         private string? _formaAttest { get; set; }
 
         protected int _login;
-        private string? _namePrepod;
-    //    {
-    //     get
-    //     {
-    //         using (var context = new YcotStudentContext())
-    //         {
-    //             var item = context.Prepodovatelis.SingleOrDefault(s => s.LoginPrepodovatela == login);
-    //             if (item != null)
-    //             {
-    //                 return namePrepod = item.Name;
-    //             }
-    //         }
-    //         return null;
-    //     }
-    //     private set
-    //     {
-    //         
-    //     }
-    // }
-        private string? _familyPrepod;
-      //  {
-      //      get
-      //      {
-      //          using (var context = new YcotStudentContext())
-      //          {
-      //              var item = context.Prepodovatelis.SingleOrDefault(s => s.LoginPrepodovatela == login);
-      //              if (item != null)
-      //              {
-      //                 return familyPrepod = item.Family;
-      //              }
-      //          }
-      //          return null;
-      //          
-      //      }
-      //      private set
-      //      {
-      //    
-      //      }
-      //  }
-        private string? nameDiscepliniandFIO;
+        private string? _namePrepod { get; set; }
+        private string? _familyPrepod { get; set; }
+
+
+       
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -76,7 +41,7 @@ namespace YchetStudentov.Class
                 OnPropertyChange("Номер дисциплины");
             }
         }
-        public string NameDisciplini
+        public string? NameDisciplini
         {
             get => _nameDisceplini;
             set
@@ -86,7 +51,7 @@ namespace YchetStudentov.Class
             }
         }
 
-        public string FormaAttest
+        public string? FormaAttest
         {
             get { return _formaAttest; }
             set
@@ -105,12 +70,41 @@ namespace YchetStudentov.Class
             }
         }
 
+        public string? NamePrepod
+        {
+            get
+            {
+                using (var context = new YcotStudentContext())
+                {
+                    var item = context.Prepodovatelis.SingleOrDefault(s => s.LoginPrepodovatela == _login);
+                    return item?.Name ?? "";
+                }
+            }
+            set { _namePrepod = value; }
+        }
 
-        //   public Distceplini(int number_disceplini, string name_disceplini,string forma_attest, int login)
+        public string? FamilyPrepod
+        {
+            get
+            {
+                using (var context = new YcotStudentContext())
+                {
+                    var item = context.Prepodovatelis.SingleOrDefault(s => s.LoginPrepodovatela == _login);
+                    if (item != null)
+                    {
+                        return item.Family;
+                    }
+                }
+                return null;        
+            }
+            set { _familyPrepod = value; }
+        }
+        public string? nameDiscepliniandFIO { private get => $"{NameDisciplini} ({FamilyPrepod} {NamePrepod})"; set => nameDiscepliniandFIO = value; }
+        //   public Distceplini(int number_disceplini, string _nameDisceplini,string _formaAttest, int login)
         //   {
         //       this.number_disceplini = number_disceplini;
-        //       this.name_disceplini = name_disceplini;
-        //       this.forma_attest = forma_attest;
+        //       this._nameDisceplini = _nameDisceplini;
+        //       this._formaAttest = _formaAttest;
         //       this.login = login;
         //   }
     }

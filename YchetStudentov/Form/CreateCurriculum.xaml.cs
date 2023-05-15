@@ -23,14 +23,6 @@ namespace YchetStudentov.Form
         public CreateCurriculum()
         {
             InitializeComponent();
-            cmbNumberGroup.ItemsSource = DateBase.Context().GetInfoGroup();
-            cmb_Disceplini.ItemsSource = DateBase.Context().GetDataGridDiscipline();
-        }
-
-        private void btCreate_Click(object sender, RoutedEventArgs e)
-        {
-            DateBase.Context().CreateCurriculum(cmbNumberGroup.SelectedItem.ToString() ?? "", (Distceplini)cmb_Disceplini.SelectedItem);
-            MessageBox.Show($"Предмет {cmb_Disceplini.SelectedItem} добавлен для группы {cmbNumberGroup.SelectedItem}");
         }
     }
 }

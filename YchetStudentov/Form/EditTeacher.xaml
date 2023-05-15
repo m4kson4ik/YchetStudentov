@@ -6,9 +6,11 @@
         xmlns:local="clr-namespace:YchetStudentov.Form"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:class="clr-namespace:YchetStudentov.Class" x:Class="YchetStudentov.Form.EditTeacher"
         mc:Ignorable="d"
-    xmlns:vm="clr-namespace:YchetStudentov.VM"
+    xmlns:vm="clr-namespace:YchetStudentov.VM.ViewModelTeachers"
         Title="Редактирование преподователя" Height="244" Width="334" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
-
+    <Window.DataContext>
+        <vm:VMEditingTeacher/>
+    </Window.DataContext>
     <Window.Resources>
         <ControlTemplate x:Key="TextBoxErrorTemplate">
             <DockPanel LastChildFill="True">
@@ -16,7 +18,6 @@
         Foreground="Orange" 
         FontSize="12pt">!
                 </TextBlock>
-
                 <Border BorderBrush="Green" BorderThickness="1">
                     <AdornedElementPlaceholder />
                 </Border>
@@ -24,12 +25,12 @@
         </ControlTemplate>
     </Window.Resources>
     
-    <Grid KeyUp="Grid_KeyUp">
-        <TextBox x:Name="tbFamily" HorizontalAlignment="Left" Margin="149,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" > 
+    <Grid>
+        <TextBox x:Name="tbFamily" HorizontalAlignment="Left" Margin="149,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120">
             <TextBox.Text>
-                <Binding Path="Family" NotifyOnValidationError="True">
+                <Binding UpdateSourceTrigger="PropertyChanged" Path="SelectedTeacher.Family">
                     <Binding.ValidationRules>
-                        <ExceptionValidationRule />
+                        <ExceptionValidationRule/>
                     </Binding.ValidationRules>
                 </Binding>
             </TextBox.Text>
@@ -38,23 +39,24 @@
         <Label Content="Имя:" HorizontalAlignment="Left" Margin="100,70,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="tbName" HorizontalAlignment="Left" Margin="149,66,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120">
             <TextBox.Text>
-                <Binding Path="Name">
+                <Binding UpdateSourceTrigger="PropertyChanged" Path="SelectedTeacher.Name">
                     <Binding.ValidationRules>
-                        <ExceptionValidationRule />
+                        <ExceptionValidationRule/>
                     </Binding.ValidationRules>
                 </Binding>
             </TextBox.Text>
         </TextBox>
+
         <Label Content="Отчество:" HorizontalAlignment="Left" Margin="74,107,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="tbOtchestvo" HorizontalAlignment="Left" Margin="149,106,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120">
             <TextBox.Text>
-                <Binding Path="Otchestvo">
+                <Binding UpdateSourceTrigger="PropertyChanged" Path="SelectedTeacher.Otchestvo">
                     <Binding.ValidationRules>
-                        <ExceptionValidationRule />
+                        <ExceptionValidationRule/>
                     </Binding.ValidationRules>
                 </Binding>
             </TextBox.Text>
         </TextBox>
-        <Button x:Name="btEditTeacher" Background="#FF3AB78A" BorderBrush="#FF5DC08A" Content="Изменить" HorizontalAlignment="Center" Margin="0,167,0,0" VerticalAlignment="Top" Click="btEditTeacher_Click" Cursor="Hand"/>
+        <Button x:Name="btEditTeacher" Background="#FF3AB78A" BorderBrush="#FF5DC08A" Content="Изменить" HorizontalAlignment="Center" Margin="0,167,0,0" VerticalAlignment="Top" Command="{Binding SaveChanged}" Cursor="Hand"/>
     </Grid>
 </Window>

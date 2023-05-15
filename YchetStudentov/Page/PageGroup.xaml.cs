@@ -15,6 +15,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using YchetStudentov.Class;
 using YchetStudentov.Form;
+using YchetStudentov.VM.ViewModelDisciplins;
+using YchetStudentov.VM.ViewModelGroups;
 
 namespace YchetStudentov.Page
 {
@@ -26,41 +28,24 @@ namespace YchetStudentov.Page
         public PageGroup()
         {
             InitializeComponent();
-            Update();
-        }
-        public void Update()
-        {
-            cmbGroup.ItemsSource = DateBase.Context().GetInfoGroup();
-            dataGridGroup.ItemsSource = DateBase.Context().GetAllInfoGroup();
+            ((VMGroups)DataContext).ShowWindowCreateGroupEvent += MainWindow_ShowCreatingWindowEvent;
+            ((VMGroups)DataContext).ShowWindowEditingGroupEvent += MainWindow_ShowEditingWindowEvent;
         }
 
-        private void Menu_edit_Click(object sender, RoutedEventArgs e)
+        private void MainWindow_ShowCreatingWindowEvent(Group group)
         {
-            EditingAGroup editing = new EditingAGroup((Group)dataGridGroup.SelectedItem);
-            editing.Show();
+            (new CreateGroup()).ShowDialog();
         }
 
-        private void Menu_Delete_Click(object sender, RoutedEventArgs e)
+        private void MainWindow_ShowEditingWindowEvent(Group group)
         {
-            if (DateBase.Context().DeletedGroup((Group)dataGridGroup.SelectedItem))
-            {
-                Update();
-            }
-            else
-            {
-                MessageBox.Show("Произошла ошибка удаления группы!");
-            }
+            (new EditingAGroup(group)).ShowDialog();
         }
 
-        private void Menu_pechat_Click(object sender, RoutedEventArgs e)
+        private void Menu_Reporting_Click(object sender, RoutedEventArgs e)
         {
-
-        }
-
-        private void btCreate_Click(object sender, RoutedEventArgs e)
-        {
-            CreateGroup create = new CreateGroup();
-            create.Show();
+            GroupReporting groupReporting = new GroupReporting((Group)dataGridGroup.SelectedItem);
+            groupReporting.Show();
         }
     }
 }

@@ -36,7 +36,7 @@ namespace YchetStudentov
 
         private void UpdateCmb()
         {
-            CmbGroup.ItemsSource = DateBase.Context().GetInfoGroup();
+            //CmbGroup.ItemsSource = DateBase.Context().GetInfoGroup();
         }
         
         private void UpdateDataGrid()

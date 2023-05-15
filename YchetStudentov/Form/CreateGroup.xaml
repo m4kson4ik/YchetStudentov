@@ -4,14 +4,18 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:YchetStudentov.Form"
+        xmlns:vm="clr-namespace:YchetStudentov.VM.ViewModelGroups"
         mc:Ignorable="d"
         Title="Создание группы" Height="289" Width="346" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <Window.DataContext>
+        <vm:VMCreateGroup/>
+    </Window.DataContext>
     <Grid>
-        <TextBox x:Name="tbNumberGroup" HorizontalAlignment="Left" Margin="109,81,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="165"/>
-        <ComboBox x:Name="cmbNumberSpecialty" HorizontalAlignment="Left" Margin="154,124,0,0" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="tbNumberGroup" HorizontalAlignment="Left" Margin="109,81,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="165" Text="{Binding NewItemGroups.NumberGroup, UpdateSourceTrigger=PropertyChanged}"/>
+        <ComboBox x:Name="cmbNumberSpecialty" HorizontalAlignment="Left" Margin="154,124,0,0" VerticalAlignment="Top" Width="120" SelectedItem="{Binding NewItemGroups.NumberSpec, UpdateSourceTrigger=PropertyChanged}"/>
         <ComboBox x:Name="cmbKurator" HorizontalAlignment="Left" Margin="110,164,0,0" VerticalAlignment="Top" Width="164"/>
-        <Button x:Name="btCreate" Content="Создать" HorizontalAlignment="Center" Background="#FF3AB78A" BorderBrush="#FF5DC08A" Margin="0,214,0,0" VerticalAlignment="Top" Click="btCreate_Click" Cursor="Hand"/>
-        <TextBox x:Name="tbSpec" HorizontalAlignment="Left" Margin="109,33,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="165"/>
+        <Button x:Name="btCreate" Content="Создать" HorizontalAlignment="Center" Background="#FF3AB78A" BorderBrush="#FF5DC08A" Margin="0,214,0,0" VerticalAlignment="Top" Command="{Binding CreateGroupsCommand}" Cursor="Hand"/>
+        <TextBox x:Name="tbSpec" HorizontalAlignment="Left" Margin="109,33,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="165" Text="{Binding NewItemGroups.NameSpec, UpdateSourceTrigger=PropertyChanged}"/>
         <Label Content="Специальность:" HorizontalAlignment="Left" Margin="10,34,0,0" VerticalAlignment="Top"/>
         <Label Content="Группа:" HorizontalAlignment="Left" Margin="55,81,0,0" VerticalAlignment="Top"/>
         <Label Content="Номер специальности:" HorizontalAlignment="Left" Margin="10,125,0,0" VerticalAlignment="Top"/>

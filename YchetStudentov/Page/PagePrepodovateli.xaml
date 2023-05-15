@@ -6,13 +6,13 @@
       xmlns:local="clr-namespace:YchetStudentov.Page"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
       x:Class="YchetStudentov.Page.PagePrepodovateli"
-      xmlns:vm="clr-namespace:YchetStudentov.VM" 
+      xmlns:vm="clr-namespace:YchetStudentov.VM.ViewModelTeachers" 
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="PagePrepodovateli">
     
     <Page.DataContext>
-        <vm:VMPrepodovateli/>
+        <vm:VMTeachers/>
     </Page.DataContext>
 
     <Grid Background="#151e29">
