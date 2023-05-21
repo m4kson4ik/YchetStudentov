@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using YchetStudentov.Class;
 using YchetStudentov.VM;
+using YchetStudentov.VM.ViewModelDisciplins;
 
 namespace YchetStudentov.Form
 {
@@ -24,17 +25,11 @@ namespace YchetStudentov.Form
         public CreateDiscipline()
         {
             InitializeComponent();
-            cmbFormaAttest.Items.Add("Экзамен");
-            cmbFormaAttest.Items.Add("Зачет");
-            cmbFormaAttest.Items.Add("Деффер.зачет");
-            cmbFormaAttest.Items.Add("Курсовой проект");
-            cmbFormaAttest.Items.Add("Курсовая работа");
-            cmbFormaAttest.Items.Add("Контрольная работа");
+            ((VMCreateDisceplins)DataContext).ShowMessageEvent += MainWindow_ShowMessageEvent;
         }
-
-        private void btCreate_Click(object sender, RoutedEventArgs e)
+        private void MainWindow_ShowMessageEvent(string content)
         {
-            MessageBox.Show($"Дисциплина {tbNameD.Text} успешно создана!");
+            MessageBox.Show(content);
         }
     }
 }

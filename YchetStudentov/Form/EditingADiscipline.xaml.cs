@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using YchetStudentov.Class;
+using YchetStudentov.VM.ViewModelDisciplins;
 
 namespace YchetStudentov.Form
 {
@@ -20,18 +21,14 @@ namespace YchetStudentov.Form
     /// </summary>
     public partial class EditingADiscipline : Window
     {
-       //Distceplini Isdistceplini;
-        public EditingADiscipline(Distceplini selectedDisciplins)
+        public EditingADiscipline()
         {
             InitializeComponent();
-            //Isdistceplini = selectedDisciplins;
-            //DataContext = Isdistceplini;
-            cmbFormaAttest.Items.Add("Экзамен");
-            cmbFormaAttest.Items.Add("Зачет");
-            cmbFormaAttest.Items.Add("Деффер.зачет");
-            cmbFormaAttest.Items.Add("Курсовой проект");
-            cmbFormaAttest.Items.Add("Курсовая работа");
-            cmbFormaAttest.Items.Add("Контрольная работа");
+            ((VMEditDisceplins)DataContext).ShowMessageEvent += MainWindow_ShowMessageEvent;
+        }
+        private void MainWindow_ShowMessageEvent(string content)
+        {
+            MessageBox.Show(content);
         }
     }
 }

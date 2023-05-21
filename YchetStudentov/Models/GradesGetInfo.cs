@@ -17,5 +17,6 @@ namespace YchetStudentov.Models
         public int? number_zac_knig { get; set; }
         public int? number_grades { get; set; }
         public int? number_disceplini { get; set; }
+        public string? number_group { get; set; }
     }
 }

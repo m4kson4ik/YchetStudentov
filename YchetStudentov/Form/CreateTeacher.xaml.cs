@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using YchetStudentov.Class;
+using YchetStudentov.VM.ViewModelTeachers;
 
 namespace YchetStudentov.Form
 {
@@ -24,6 +25,11 @@ namespace YchetStudentov.Form
         public CreateTeacher()
         {
             InitializeComponent();
+            ((VMCreateTeacher)DataContext).ShowMessageEvent += MainWindow_ShowMessageEvent;
+        }
+        private void MainWindow_ShowMessageEvent(string content)
+        {
+            MessageBox.Show(content);
         }
     }
 }

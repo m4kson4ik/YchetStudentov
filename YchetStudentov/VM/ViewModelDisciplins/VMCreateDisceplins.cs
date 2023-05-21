@@ -19,10 +19,12 @@ namespace YchetStudentov.VM.ViewModelDisciplins
             Prepodovatelis = new ObservableCollection<Prepodovateli>(DateBase.Context().FillingInTheTeachersTable());
             CreateADisciplinsCommand = new LambdaCommand(CanCreateADisciplinsCommand, OnCreateADisciplinsCommand);
             Distceplini = new Distceplini();
+            CollectionFormaAttest = new ObservableCollection<string> { "Экзамен", "Зачет", "Деффер.зачет", "Курсовой проект", "Курсовая работа", "Контрольная работа" };
         }
 
         public Distceplini Distceplini { get; set; }
         public ObservableCollection<Prepodovateli> Prepodovatelis { get; private set; }
+        public ObservableCollection<string> CollectionFormaAttest { get; private set; }
 
         public event PropertyChangedEventHandler? PropertyChanged;
         public void OnPropertyChange(string names)
@@ -43,6 +45,9 @@ namespace YchetStudentov.VM.ViewModelDisciplins
                 OnPropertyChange("SelectedPrepod");
             }
         }
+        public delegate void ShowMessage(string message);
+
+        public event ShowMessage? ShowMessageEvent;
 
         public ICommand CreateADisciplinsCommand { get; }
         private bool OnCreateADisciplinsCommand(object p)
@@ -55,7 +60,11 @@ namespace YchetStudentov.VM.ViewModelDisciplins
         }
         private void CanCreateADisciplinsCommand(object p)
         {
-            DateBase.Context().CreateDiscipline(SelectedPrepodovatel, Distceplini);
+            if (SelectedPrepodovatel != null)
+            {
+                ShowMessageEvent?.Invoke($"Дисциплина {Distceplini.NameDisciplini} успешно создана!");
+                DateBase.Context().CreateDiscipline(SelectedPrepodovatel, Distceplini);      
+            }
         }
 
     }

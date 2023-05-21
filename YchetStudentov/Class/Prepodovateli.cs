@@ -31,11 +31,7 @@ namespace YchetStudentov.Class
             set
             {
                     _family = value;
-                if (string.IsNullOrEmpty(value))
-                {
                     OnPropertyChanged("Family");
-                    throw new Exception("Поле фамилия не может быть пустым!");
-                }
             }
         }
         public string? Name
@@ -44,11 +40,7 @@ namespace YchetStudentov.Class
             set
             {
                 _name = value;
-               if (string.IsNullOrEmpty(value))
-               {
-                    OnPropertyChanged("Name");
-                   throw new Exception("Поле имя не может быть пустым!");
-               }
+                OnPropertyChanged("Name");
             }
         }
         public string? Otchestvo
@@ -57,11 +49,7 @@ namespace YchetStudentov.Class
             set
             {
                 _otchestvo = value;
-                if (string.IsNullOrEmpty(value))
-                {
-                    OnPropertyChanged("Otchestvo");
-                    throw new Exception("Поле отчество не может быть пустым!");
-                }
+                OnPropertyChanged("Otchestvo");
             }
         }
 
@@ -85,14 +73,6 @@ namespace YchetStudentov.Class
             }
         }
 
-        //   public Prepodovateli(string _name, string _family, string otchestvo, int login, string password)
-        //   {
-        //       _name = _name;
-        //       _family = _family;
-        //       _otchestvo = otchestvo;
-        //       this.login = login;
-        //       this.password = password;
-        //   }
         public event PropertyChangedEventHandler? PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string prop = "")
         {

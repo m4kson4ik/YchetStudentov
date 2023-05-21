@@ -29,7 +29,7 @@ namespace YchetStudentov
         }
         private void bt_Go_Click(object sender, RoutedEventArgs e)
         {
-            tbCheck.Text = HashPassword.HashPassword.Hash().HashinPassword(tbPassword.Text);
+            //tbCheck.Text = HashPassword.HashPassword.Hash().HashinPassword(tbPassword.Text);
             if (DateBase.Context().CheckingCorrectPasswordAndLogin(tbLogin.Text, tbPassword.Text))
             {
                 PageGlavForm pageGlavForm = new PageGlavForm();

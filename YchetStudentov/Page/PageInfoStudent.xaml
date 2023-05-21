@@ -5,34 +5,37 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:YchetStudentov"
       xmlns:vm="clr-namespace:YchetStudentov.VM.ViewModelStudents"
-      mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
-      Title="PageInfoStudent">
+      mc:Ignorable="d"
+      Title="PageInfoStudent" Height="736" Width="1084">
     <Page.DataContext>
         <vm:VMStudents/>
     </Page.DataContext>
-    <Grid Background="#151e29">
-        <ComboBox x:Name="CmbGroup" ItemsSource="{Binding CollectionGroup}" SelectedItem="{Binding SelectedGroup}" DisplayMemberPath="NumberGroup" Background="Transparent" Margin="10,14,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="139" Height="28" Foreground="#FF0B0B0B" BorderBrush="#89FFFFFF" OpacityMask="{DynamicResource AttentionToActionBrush}"/>
-        <DataGrid x:Name="dataGridStudent" Margin="0,56,0,10" ItemsSource="{Binding CollectionStudent}" SelectedItem="{Binding SelectedStudent}" Background="{x:Null}" BorderBrush="{x:Null}" CanUserDeleteRows="False" CanUserAddRows="False" CanUserResizeRows="False" FontSize="16" HorizontalGridLinesBrush="{x:Null}" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False" IsSynchronizedWithCurrentItem="True" Focusable="False" GridLinesVisibility="None" EnableRowVirtualization="False" RowBackground="Transparent" AlternatingRowBackground="Transparent" Foreground="White" EnableColumnVirtualization="True" VerticalGridLinesBrush="#FFFCADAD" HeadersVisibility="None" HorizontalAlignment="Center" Width="1024" AutoGenerateColumns="False">
+    <Grid Background="#151e29" Margin="0,0,0,-4" Width="1084" Height="732.4">
+        <Button x:Name="btCreateStudent" Background="Transparent" Content="Добавить студента" HorizontalAlignment="Left" Margin="218,13,0,0" VerticalAlignment="Top" Height="28" Width="162" Command="{Binding CreateStudentCommand}" BorderBrush="White"/>
+        <Button x:Name="btImprot" Content="Экспорт всех студентов" Background="Transparent" HorizontalAlignment="Left" Margin="385,13,0,0" VerticalAlignment="Top" Command="{Binding ExportSelectedGroupStudentCommand}" Height="28" Width="188" BorderBrush="White" Cursor="Hand"/>
+        <ComboBox ItemsSource="{Binding CollectionGroup}" SelectedItem="{Binding SelectedGroup}" DisplayMemberPath="NumberGroup" HorizontalAlignment="Left" Margin="64,14,0,0" VerticalAlignment="Top" Width="139" Background="White" BorderBrush="#89000000" Foreground="Black" OpacityMask="#FFC04040" Height="28"/>
+        <Label Content="Группа:" HorizontalAlignment="Left" Margin="10,16,0,0" VerticalAlignment="Top" Background="{x:Null}" Foreground="#DDFFFFFF"/>
+        <DataGrid ItemsSource="{Binding CollectionStudent, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedStudent}" Margin="0,65,0,0" AutoGenerateColumns="False" Height="630" VerticalAlignment="Top" HorizontalAlignment="Center" Width="1064">
             <DataGrid.Columns>
+                <DataGridTextColumn Header="Номер зачетки" Binding="{Binding Path=NumberZachetki, Mode=OneWay}" Width="100" />
                 <DataGridTextColumn Header="Фамилия" Binding="{Binding Path=Family, Mode=OneWay}" Width="130" />
                 <DataGridTextColumn Header="Имя" Binding="{Binding Path=Name, Mode=OneWay}" Width="100" />
                 <DataGridTextColumn Header="Отчество" Binding="{Binding Path=Otchestvo, Mode=OneWay}" Width="130" />
+                <DataGridTextColumn Header="Дата рождения" Binding="{Binding Path=DataRoj, StringFormat=dd/MM/yyyy, Mode=OneWay}" Width="100" />
+                <DataGridTextColumn Header="Адрес" Binding="{Binding Path=Adress, Mode=OneWay}" Width="130" />
+                <DataGridTextColumn Header="Гражданство" Binding="{Binding Path=Gragdanstvo, Mode=OneWay}" Width="130" />
+                <DataGridTextColumn Header="Почта" Binding="{Binding Path=Email, Mode=OneWay}" Width="130" />
+                <DataGridTextColumn Header="Год поступ" Binding="{Binding Path=GodPostuplenie, Mode=OneWay}" Width="100" />
+                <DataGridTextColumn Header="Бюджет" Binding="{Binding Path=Budget, Mode=OneWay}" Width="100" />
             </DataGrid.Columns>
             <DataGrid.ContextMenu>
                 <ContextMenu>
                     <MenuItem x:Name="Menu_Ozenki" Header="Посещаемость" Command="{Binding PoseshaemostStudentCommand}"/>
-                    <MenuItem x:Name="Menu_Info" Header="Подробнее"/>
-                    <MenuItem x:Name="Menu_pechat" Header ="Печать" Command="{Binding PrintStudentCommand}"/>
+                    <MenuItem x:Name="Menu_Info" Header="Подробнее" Command="{Binding MessageInfoStudentCommand}"/>
                     <MenuItem x:Name="Menu_Create" Header="Изменить" Command="{Binding EditingStudentCommand}" />
                     <MenuItem x:Name="Menu_Delete" Header="Удалить" Command="{Binding DeletedStudentCommand}" />
                 </ContextMenu>
             </DataGrid.ContextMenu>
-            <DataGrid.ColumnHeaderStyle>
-                <Style/>
-            </DataGrid.ColumnHeaderStyle>
         </DataGrid>
-        <Button x:Name="btCreateStudent" Background="Transparent" Content="Добавить студента" HorizontalAlignment="Left" Margin="172,14,0,0" VerticalAlignment="Top" Height="28" Width="162" Command="{Binding CreateStudentCommand}" BorderBrush="White"/>
-        <Button x:Name="btImprot" Content="Экспорт всех студентов" Background="Transparent" HorizontalAlignment="Left" Margin="339,14,0,0" VerticalAlignment="Top" Click="btImprot_Click" Height="28" Width="188" BorderBrush="White" Cursor="Hand"/>
     </Grid>
 </Page>

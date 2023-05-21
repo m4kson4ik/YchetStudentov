@@ -20,10 +20,9 @@ namespace YchetStudentov.Form
     /// </summary>
     public partial class GroupReporting : Window
     {
-        private Group SelectedGroup;
-        public GroupReporting(Group group)
+        public GroupReporting()
         {
-         //  InitializeComponent();
+           InitializeComponent();
          //  SelectedGroup = group;
          //  AttendanceAccount();
          //  dtStudents.ItemsSource = DateBase.Context().GetInfoStudents(SelectedGroup.NumberGroup);

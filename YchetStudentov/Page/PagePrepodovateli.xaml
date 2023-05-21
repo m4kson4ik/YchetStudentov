@@ -10,7 +10,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="PagePrepodovateli">
-    
+
     <Page.DataContext>
         <vm:VMTeachers/>
     </Page.DataContext>
@@ -31,6 +31,7 @@
         </DataGrid>
         <TextBox x:Name="tbSearch" HorizontalAlignment="Left" Margin="66,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Foreground="Black" Background="White"/>
         <Label Content="Поиск:" HorizontalAlignment="Left" Margin="16,11,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF"/>
-        <Button x:Name="CreateTeacher" Content="Создать" HorizontalAlignment="Left" Height="25" Margin="191,10,0,0" VerticalAlignment="Top" Width="89" Command="{Binding NewItemTeachers}"/>
+        <Button x:Name="CreateTeacher" Content="Создание преподавателя" HorizontalAlignment="Left" Height="25" Margin="191,10,0,0" VerticalAlignment="Top" Width="203" Command="{Binding NewItemTeachers}"/>
+        <Button Content="Экспорт всех преподавателей" HorizontalAlignment="Left" Margin="400,11,0,0" VerticalAlignment="Top" Height="24" Width="234" Cursor="Hand" Command="{Binding ExportAllTeachers}"/>
     </Grid>
 </Page>

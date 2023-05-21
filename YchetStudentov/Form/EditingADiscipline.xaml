@@ -6,14 +6,17 @@
         xmlns:local="clr-namespace:YchetStudentov.Form"
         xmlns:vm="clr-namespace:YchetStudentov.VM.ViewModelDisciplins"
         mc:Ignorable="d"
-        Title="Редактирование дисциплины" Height="280" Width="286" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="Редактирование дисциплины" Height="284" Width="328" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Window.DataContext>
         <vm:VMEditDisceplins/>
     </Window.DataContext>
     <Grid>
-        <Button x:Name="btEditing" Content="Изменить" HorizontalAlignment="Center" Margin="0,212,0,0" VerticalAlignment="Top" Command="{Binding EditingDisceplinsCommand}" Background="#FF3AB78A" BorderBrush="#FF5DC08A"/>
-        <ComboBox x:Name="cmbFormaAttest" Width="198" Text="{Binding DisciplineInSelected.FormaAttest}" SelectedItem="{Binding DisciplineInSelected.FormaAttest}" />
-        <ComboBox x:Name="cmbNameDisciplini" HorizontalAlignment="Center" Margin="0,50,0,0" VerticalAlignment="Top" Width="198" ItemsSource="{Binding Distceplinis}" SelectedValue="{Binding DisciplineInSelected.NumberDisciplini,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="NumberDisciplini" DisplayMemberPath="NameDisciplini"/>
-        <ComboBox x:Name="cmbTeacher" HorizontalAlignment="Center" Width="198" ItemsSource="{Binding Prepodovatelis}" SelectedValue="{Binding DisciplineInSelected.Login, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Login" DisplayMemberPath="fio" Margin="0,164,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="btEditing" Content="Изменить" HorizontalAlignment="Center" Margin="0,215,0,0" VerticalAlignment="Top" Command="{Binding EditingDisceplinsCommand}" Background="#FF3AB78A" BorderBrush="#FF5DC08A"/>
+        <ComboBox x:Name="cmbFormaAttest" ItemsSource="{Binding CollectionFormaAttest}"  Text="{Binding DisciplineInSelected.FormaAttest}" SelectedItem="{Binding DisciplineInSelected.FormaAttest}" Margin="143,116,10,0" VerticalAlignment="Top" />
+        <ComboBox x:Name="cmbNameDisciplini" HorizontalAlignment="Left" Margin="148,58,0,0" VerticalAlignment="Top" Width="170" ItemsSource="{Binding Distceplinis}" SelectedValue="{Binding DisciplineInSelected.NumberDisciplini,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="NumberDisciplini" DisplayMemberPath="NameDisciplini"/>
+        <ComboBox x:Name="cmbTeacher" HorizontalAlignment="Left" Width="175" ItemsSource="{Binding Prepodovatelis}" SelectedValue="{Binding DisciplineInSelected.Login, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Login" DisplayMemberPath="fio" Margin="143,163,0,0" VerticalAlignment="Top"/>
+        <Label Content="Название дисциплины:" HorizontalAlignment="Left" Height="31" Margin="0,58,0,0" VerticalAlignment="Top" Width="143"/>
+        <Label Content="Форма аттестации:" HorizontalAlignment="Left" Margin="18,117,0,0" VerticalAlignment="Top"/>
+        <Label Content="Преподаватель:" HorizontalAlignment="Left" Margin="34,164,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Window>

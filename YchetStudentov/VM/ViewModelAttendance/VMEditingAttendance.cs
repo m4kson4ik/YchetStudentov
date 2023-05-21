@@ -12,6 +12,13 @@ namespace YchetStudentov.VM.ViewModelAttendance
     public class VMEditingAttendance : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
+        public void OnPropertyChange(string names)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(names));
+            }
+        }
         public VMEditingAttendance()
         {
             EditingAttendanceCommand = new LambdaCommand(CanEditingAttendanceCommand, OnEditingAttendanceCommand);

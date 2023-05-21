@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using YchetStudentov.Class;
 using YchetStudentov.Form;
 using YchetStudentov.VM.ViewModelDisciplins;
+using YchetStudentov.VM.ViewModelTeachers;
 
 namespace YchetStudentov.Page
 {
@@ -28,16 +29,20 @@ namespace YchetStudentov.Page
             InitializeComponent();
             ((VMDisciplins)DataContext).ShowWindowEvent += MainWindow_ShowWindowEvent;
             ((VMDisciplins)DataContext).ShowWindowEditingEvent += EditDisciplini_ShowWindowEvent;
+            ((VMDisciplins)DataContext).ShowMessageEvent += MainWindow_ShowMessageEvent;
         }
-
-        private void MainWindow_ShowWindowEvent(Distceplini selectedDisciplins)
+        private void MainWindow_ShowMessageEvent(string content)
+        {
+            MessageBox.Show(content);
+        }
+        private void MainWindow_ShowWindowEvent()
         {
             (new CreateDiscipline()).ShowDialog();
         }
 
-        private void EditDisciplini_ShowWindowEvent(Distceplini selectedDisciplins)
+        private void EditDisciplini_ShowWindowEvent()
         {
-            (new EditingADiscipline(selectedDisciplins)).ShowDialog();
+            (new EditingADiscipline()).ShowDialog();
         }
     }
 }

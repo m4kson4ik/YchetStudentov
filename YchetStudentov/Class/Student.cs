@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using YchetStudentov.Models;
 
 namespace YchetStudentov.Class
 {
@@ -28,7 +29,7 @@ namespace YchetStudentov.Class
         private int _yearPostuplenie;
 
         private string? _budget;
-        public string fio { private get => $"{Family} {Name} {Otchestvo}"; set => fio = value; }
+        public string fio { get => $"{Family} {Name} {Otchestvo}"; set => fio = value; }
 
         public int NumberZachetki
         {
@@ -88,7 +89,88 @@ namespace YchetStudentov.Class
             get { return _budget; }
             set { _budget = value; OnProperyChanged("Budget"); }
         }
-
+        public string ProposkiBolezn
+        { 
+            private get
+            {
+                var obj = DateBase.Context().GetRatingStudent(NumberZachetki);
+                double propuski = 0;
+                double propuskiBolezn = 0;
+                double zanyatie = 0;
+                foreach (var item in obj)
+                {
+                    zanyatie++;
+                    if (item.AttendanceStatus == "Н")
+                    {
+                        propuski++;
+                    }
+                    else if (item.AttendanceStatus == "Б")
+                    {
+                        propuskiBolezn++;
+                    }
+                }
+                return $"{((int)((propuskiBolezn / zanyatie) * 100))}%";
+            }
+            set
+            {
+                ProposkiBolezn = value;
+            }
+        }
+        public string Proposki
+        {
+            private get
+            {
+                var obj = DateBase.Context().GetRatingStudent(NumberZachetki);
+                double propuski = 0;
+                double propuskiBolezn = 0;
+                double zanyatie = 0;
+                foreach (var item in obj)
+                {
+                    zanyatie++;
+                    if (item.AttendanceStatus == "Н")
+                    {
+                        propuski++;
+                    }
+                    else if (item.AttendanceStatus == "Б")
+                    {
+                        propuskiBolezn++;
+                    }
+                }
+                return $"{((int)(((propuski + propuskiBolezn) / zanyatie) * 100))}%";
+            }
+            set
+            {
+                Proposki = value;
+            }
+        }
+        
+        public string Poseshaemost
+        {
+            private get
+            {
+                var obj = DateBase.Context().GetRatingStudent(NumberZachetki);
+                double propuski = 0;
+                double propuskiBolezn = 0;
+                double zanyatie = 0;
+                foreach (var item in obj)
+                {
+                    zanyatie++;
+                    if (item.AttendanceStatus == "Н")
+                    {
+                        propuski++;
+                    }
+                    else if (item.AttendanceStatus == "Б")
+                    {
+                        propuskiBolezn++;
+                    }
+                }
+                return $"{(100 - ((int)(((propuski + propuskiBolezn) / zanyatie) * 100)))}%";
+            }
+            set
+            {
+                Poseshaemost = value;
+            }
+        }
         public event PropertyChangedEventHandler? PropertyChanged;
         public void OnProperyChanged(string names)
         {

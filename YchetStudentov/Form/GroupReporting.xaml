@@ -4,25 +4,29 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:YchetStudentov.Form"
+        xmlns:vm="clr-namespace:YchetStudentov.VM.ViewModelReporting"
         mc:Ignorable="d"
-        Title="GroupReporting" Height="512" Width="973">
+        Title="GroupReporting" Height="512" Width="1038">
+    <Window.DataContext>
+        <vm:VMReporting/>
+    </Window.DataContext>
     <Grid>
-        <Label Content="Средняя посещаемость группы:" HorizontalAlignment="Left" Margin="766,83,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lbSrPosesGroup" Content="0" HorizontalAlignment="Left" Margin="949,83,0,0" VerticalAlignment="Top"/>
-        <Label Content="Пропущенные пары по болезни:" HorizontalAlignment="Left" Margin="760,13,0,0" VerticalAlignment="Top"/>
-        <Label Content="Пропущенные пары:" HorizontalAlignment="Left" Margin="826,54,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lbPropushenniePari" Content="0" HorizontalAlignment="Left" Margin="954,54,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lbPropushenniePariBolezn" Content="0" HorizontalAlignment="Left" Margin="956,13,0,0" VerticalAlignment="Top"/>
-        <DataGrid x:Name="dtStudents" HorizontalAlignment="Left" Height="414" Margin="10,0,0,0" VerticalAlignment="Center" Width="565" d:ItemsSource="{d:SampleData ItemCount=5}" AutoGenerateColumns="False" SelectionChanged="dtStudents_SelectionChanged">
+        <Label Content="{Binding poseshaemostGroup}" HorizontalAlignment="Left" Margin="770,41,0,0" VerticalAlignment="Top"/>
+        <Label Content="{Binding propuskipobolezniGroup}" HorizontalAlignment="Left" Margin="770,58,0,0" VerticalAlignment="Top"/>
+        <Label Content="{Binding propuskiGroup}" HorizontalAlignment="Left" Margin="770,85,0,0" VerticalAlignment="Top"/>
+        <DataGrid x:Name="dtStudents" HorizontalAlignment="Left" Height="476" Margin="10,0,0,0" VerticalAlignment="Center" Width="751" ItemsSource="{Binding CollectionStudent}" AutoGenerateColumns="False" SelectedItem="{Binding SelectedStudent}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Имя" Binding="{Binding Path=Name, Mode=OneWay}" Width="100" />
                 <DataGridTextColumn Header="Фамилия" Binding="{Binding Path=Family, Mode=OneWay}" Width="130" />
                 <DataGridTextColumn Header="Отчество" Binding="{Binding Path=Otchestvo, Mode=OneWay}" Width="130" />
-                <DataGridTextColumn Header="Ср.посещаемость" Binding="{Binding Path=Otchestvo, Mode=OneWay}" Width="130" />
+                <DataGridTextColumn Header="Пропуски по болезни" Binding="{Binding Path=ProposkiBolezn, Mode=OneWay}" Width="130" />
+                <DataGridTextColumn Header="Пропуски" Binding="{Binding Path=Proposki, Mode=OneWay}" Width="130" />
+                <DataGridTextColumn Header="Посещаемость" Binding="{Binding Path=Poseshaemost, Mode=OneWay}" Width="130" />
             </DataGrid.Columns>
         </DataGrid>
-        <Label x:Name="lbStudentPropuskiBolezn" Content="Label" HorizontalAlignment="Left" Margin="646,191,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lbStudentPropuski" Content="Label" HorizontalAlignment="Left" Margin="646,220,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lbStudentSrPoseshaemost" Content="Label" HorizontalAlignment="Left" Margin="646,249,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lbStudentPropuskiBolezn" Content="{Binding propuskipobolezniStudent, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" HorizontalAlignment="Left" Margin="646,191,0,0" VerticalAlignment="Top" Height="29" Width="182"/>
+        <Label x:Name="lbStudentPropuski" Content="{Binding propuskiStudent, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="646,220,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lbStudentSrPoseshaemost" Content="{Binding poseshaemostStudent, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="646,249,0,0" VerticalAlignment="Top"/>
+        <Button Content="Создать отчет по студентам" HorizontalAlignment="Left" Margin="770,226,0,0" VerticalAlignment="Top" Width="258" Background="#FF3AB78A" BorderBrush="{x:Null}" Height="31"/>
     </Grid>
 </Window>

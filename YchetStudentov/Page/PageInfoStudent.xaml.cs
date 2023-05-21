@@ -22,6 +22,7 @@ using YchetStudentov.Models;
 using YchetStudentov.Page;
 using YchetStudentov.VM.ViewModelDisciplins;
 using YchetStudentov.VM.ViewModelStudents;
+using YchetStudentov.VM.ViewModelTeachers;
 
 namespace YchetStudentov
 {
@@ -36,8 +37,19 @@ namespace YchetStudentov
             ((VMStudents)DataContext).ShowWindowCreateStudent += MainWindow_ShowWindowCreateStudent;
             ((VMStudents)DataContext).ShowWindowEditingStudent += MainWindow_ShowWindowEditingStudent;
             ((VMStudents)DataContext).ShowWindowAttendaceStudent += MainWindow_ShowWindowAttendaceStudent;
+            ((VMStudents)DataContext).ShowMessageDeletedEvent += MainWindow_ShowMessageDeletedEvent;
+            ((VMStudents)DataContext).ShowMessageInfoStudentEvent += MainWindow_ShowMessageInfoEvent;
+
+        }
+        private void MainWindow_ShowMessageDeletedEvent(string content)
+        {
+            MessageBox.Show(content);
         }
 
+        private void MainWindow_ShowMessageInfoEvent(string content)
+        {
+            MessageBox.Show(content);
+        }
         private void MainWindow_ShowWindowCreateStudent()
         {
             (new CreateStudent()).ShowDialog();

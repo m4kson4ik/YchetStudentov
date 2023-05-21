@@ -18,16 +18,18 @@ namespace YchetStudentov.VM.ViewModelTeachers
 {
     public class VMTeachers : INotifyPropertyChanged
     {
-        public delegate void ShowWindow(Prepodovateli prepodovateli = null);
+        public delegate void ShowWindow();
         public VMTeachers()
         {
             DeletedTeacherCommand = new LambdaCommand(OnDeletedTeacherCommand, CanDeletedTeacherCommand);
             NewItemTeachers = new LambdaCommand(OnNewItemTeachers, CanNewItemTeachers);
             EditingTeachersCommand = new LambdaCommand(OnEditingTeachersCommand, CanEditingTeachersCommand);
             ArrayPrepodovateli = new ObservableCollection<Prepodovateli>(DateBase.Context().FillingInTheTeachersTable());
+            ExportAllTeachers = new LambdaCommand(OnExportAllTeachers, CanExportAllTeachers);
         }
+        public delegate void ShowMessage(string message);
 
-        public ObservableCollection<Prepodovateli> ArrayPrepodovateli { get; private set; }
+        public ObservableCollection<Prepodovateli> ArrayPrepodovateli { get;}
 
         private static Prepodovateli? prepodovatelisSelectedItem;
         public static Prepodovateli? PrepodovatelisSelectedItem
@@ -57,11 +59,20 @@ namespace YchetStudentov.VM.ViewModelTeachers
         {
             ShowWindowCreateTeacherEvent?.Invoke();
         }
-    #endregion
+        #endregion
+        public ICommand ExportAllTeachers { get; }
+        private bool CanExportAllTeachers(object p) => true;
 
-    #region Меню
-    #region Кнопка Удаление Преподователя
-    public ICommand DeletedTeacherCommand { get; }
+        private void OnExportAllTeachers(object p)
+        {
+            Files.Context().ExportAllTeachers();
+        }
+        #region Меню
+        #region Кнопка Удаление Преподователя
+        public event ShowMessage? ShowMessageEvent;
+
+        public ICommand ShowMessageCommand { get; }
+        public ICommand DeletedTeacherCommand { get; }
 
         private bool CanDeletedTeacherCommand(object p)
         {
@@ -76,31 +87,24 @@ namespace YchetStudentov.VM.ViewModelTeachers
         }
 
         private void OnDeletedTeacherCommand(object p)
-        {
-            if (MessageBox.Show($"Вы уверены что хотите удалить преподователя {prepodovatelisSelectedItem?.fio}?", "Удаление преподователя",
-                    MessageBoxButton.YesNo,
-                    MessageBoxImage.Question) == MessageBoxResult.Yes)
-            {
+        {           
                 if (PrepodovatelisSelectedItem != null)
                 {
                     if (DateBase.Context().DeleteTeacher(PrepodovatelisSelectedItem))
                     {
+                        this.ShowMessageEvent?.Invoke($"Удаление преподавателя {PrepodovatelisSelectedItem.Name} {PrepodovatelisSelectedItem.Family} {PrepodovatelisSelectedItem.Otchestvo}");
                         ArrayPrepodovateli.Remove(PrepodovatelisSelectedItem);
-                        OnProperyChanged("OnDeletedTeacherCommand");
-                        MessageBox.Show("Преподователь был успешно удален!");
                     }
                     else
                     {
-                        MessageBox.Show("Произошла ошибка при удаление преподователя!");
+                        this.ShowMessageEvent?.Invoke($"Произошла ошибка при удалении преподавателя!");
                     }
                 }
-            }
         }
         #endregion
 
         #region Меню редактирования преподователя
         public ICommand EditingTeachersCommand { get; }
-        public event ShowWindow? ShowWindowEvent;
         public event ShowWindow? ShowWindowEditingEvent;
         private bool CanEditingTeachersCommand(object p)
         {
@@ -112,7 +116,7 @@ namespace YchetStudentov.VM.ViewModelTeachers
         }
         private void OnEditingTeachersCommand(object p)
         {
-            ShowWindowEditingEvent?.Invoke(PrepodovatelisSelectedItem);
+            ShowWindowEditingEvent?.Invoke();
         }
         #endregion
         #endregion

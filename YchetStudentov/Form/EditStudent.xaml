@@ -11,7 +11,7 @@
         <vm:VMEditingStudent/>
     </Window.DataContext>
     
-    <Grid Background="Gray" KeyUp="Grid_KeyUp">
+    <Grid Background="Gray">
         <Label x:Name="lb_Numberzachet" HorizontalAlignment="Left" Margin="187,10,0,0" VerticalAlignment="Top" Content="{Binding SelectedStudent.NumberZachetki}"/>
         <Label Content="Номер зачетной книжки:" HorizontalAlignment="Left" Height="26" Margin="37,10,0,0" VerticalAlignment="Top" Width="150"/>
         <Label Content="Имя:" HorizontalAlignment="Left" Height="26" Margin="143,72,0,0" VerticalAlignment="Top" Width="48"/>

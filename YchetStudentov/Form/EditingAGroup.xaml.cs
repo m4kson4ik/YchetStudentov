@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using YchetStudentov.Class;
+using YchetStudentov.VM.ViewModelGroups;
 
 namespace YchetStudentov.Form
 {
@@ -20,11 +21,15 @@ namespace YchetStudentov.Form
     /// </summary>
     public partial class EditingAGroup : Window
     {
-        Group group;
-        public EditingAGroup(Group group)
+        public EditingAGroup()
         {
             InitializeComponent();
             cmbNumberSpecialty.Items.Add("09.02.07");
+            ((VMEditingGroup)DataContext).ShowMessageEvent += MainWindow_ShowMessageEvent;
+        }
+        private void MainWindow_ShowMessageEvent(string content)
+        {
+            MessageBox.Show(content);
         }
     }
 }

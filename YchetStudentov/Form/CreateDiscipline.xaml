@@ -14,7 +14,7 @@
     <Grid>
         <ComboBox x:Name="cmbPrepodovatel" HorizontalAlignment="Left" Margin="198,144,0,0" VerticalAlignment="Top" Width="120" ItemsSource="{Binding Prepodovatelis}" SelectedItem="{Binding SelectedPrepodovatel, Mode=TwoWay}" DisplayMemberPath="fio"/>
         <Button x:Name="btCreate" Content="Создать" HorizontalAlignment="Left" Height="34" Margin="146,208,0,0" VerticalAlignment="Top" Width="92" Background="#FF5BBD4D" BorderBrush="{x:Null}" Command="{Binding CreateADisciplinsCommand}"/>
-        <ComboBox x:Name="cmbFormaAttest" Width="120" Text="{Binding Distceplini.FormaAttest, UpdateSourceTrigger=PropertyChanged}" Margin="198,92,57,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="cmbFormaAttess" Width="120" ItemsSource="{Binding CollectionFormaAttest}" Text="{Binding Distceplini.FormaAttest, UpdateSourceTrigger=PropertyChanged}" Margin="198,92,57,0" VerticalAlignment="Top"/>
         <TextBox x:Name="tbNameD" Width="120" Text="{Binding Distceplini.NameDisciplini, UpdateSourceTrigger=PropertyChanged}" Margin="198,42,57,0" Height="24" VerticalAlignment="Top" />
         <Label Content="Название дисциплины:" HorizontalAlignment="Left" Height="31" Margin="60,42,0,0" VerticalAlignment="Top" Width="143"/>
         <Label Content="Форма аттестации:" HorizontalAlignment="Left" Margin="82,93,0,0" VerticalAlignment="Top"/>

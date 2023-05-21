@@ -14,9 +14,15 @@ namespace YchetStudentov.VM.ViewModelGroups
 {
     public class VMGroups : INotifyPropertyChanged
     {
-        public delegate void ShowWindow(Group group);
+        public delegate void ShowWindow();
         public event PropertyChangedEventHandler? PropertyChanged;
-
+        public void OnPropertyChange(string names)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(names));
+            }
+        }
         public ObservableCollection<Group> ItemsGroup { get; private set; }
         private static Group? _selectedGroup { get; set; }
         public static Group? SelectedGroup
@@ -30,20 +36,25 @@ namespace YchetStudentov.VM.ViewModelGroups
             CreateGroupWindowCommand = new LambdaCommand(OnCreateGroupWindowCommand, CanCreateGroupWindowCommand);
             EditingGroupWindowCommand = new LambdaCommand(OnEditingGroupWindowCommand, CanEditingGroupWindowCommand);
             DeletedGroupCommand = new LambdaCommand(OnDeletedGroupCommand, CanDeletedGroupCommand);
+            ReportingGroupCommand = new LambdaCommand(OnReportingGroupCommand, CanReportingGroupCommand);
+            ExportGroupCommand = new LambdaCommand(OnExportAllGroupCommand, CanExportAllGroupCommand);
         }
 
         #region Кнопка открытие формы Создания Группы
-        public event ShowWindow ShowWindowCreateGroupEvent;
+        public event ShowWindow? ShowWindowCreateGroupEvent;
         public ICommand CreateGroupWindowCommand { get; set; }
         private bool CanCreateGroupWindowCommand(object? parametr) => true;
         private void OnCreateGroupWindowCommand(object? parametr)
         {
-            ShowWindowCreateGroupEvent?.Invoke(SelectedGroup);
+            if(SelectedGroup != null)
+            {
+                ShowWindowCreateGroupEvent?.Invoke();
+            }
         }
         #endregion
 
         #region Кнопка открытия формы Редактирование группы
-        public event ShowWindow ShowWindowEditingGroupEvent;
+        public event ShowWindow? ShowWindowEditingGroupEvent;
         public ICommand EditingGroupWindowCommand { get; set; }
         private bool CanEditingGroupWindowCommand(object? parametr)
         {
@@ -55,11 +66,16 @@ namespace YchetStudentov.VM.ViewModelGroups
         }
         private void OnEditingGroupWindowCommand(object? parametr)
         {
-            ShowWindowEditingGroupEvent?.Invoke(SelectedGroup);
+            if (SelectedGroup != null)
+            {
+                ShowWindowEditingGroupEvent?.Invoke();
+            }
         }
         #endregion
 
         #region Кнопка удаления группы
+        public delegate void ShowMessage(string message);
+        public event ShowMessage? ShowMessageDeletedEvent;
         public ICommand DeletedGroupCommand { get; set; }
         private bool CanDeletedGroupCommand(object? parametr)
         {
@@ -71,8 +87,38 @@ namespace YchetStudentov.VM.ViewModelGroups
         }
         private void OnDeletedGroupCommand(object? parametr)
         {
-            DateBase.Context().DeletedGroup(SelectedGroup);
+            if (SelectedGroup != null)
+            {
+                ShowMessageDeletedEvent?.Invoke($"Группа {SelectedGroup.NumberGroup} успешно удалена!");
+                DateBase.Context().DeletedGroup(SelectedGroup);
+            }
         }
+
         #endregion
+        public event ShowWindow? ShowWindowReportingGroupEvent;
+
+        public ICommand ReportingGroupCommand { get; set; }
+        private bool CanReportingGroupCommand(object? parametr)
+        {
+            if (SelectedGroup != null && SelectedGroup.KolvoStudent != 0)
+            {
+                return true;
+            }
+            return false;
+        }
+        private void OnReportingGroupCommand(object? parametr)
+        {
+            ShowWindowReportingGroupEvent?.Invoke();
+        }
+
+        public ICommand ExportGroupCommand { get; set; }
+        private bool CanExportAllGroupCommand(object? parametr)
+        {
+            return true;
+        }
+        private void OnExportAllGroupCommand(object? parametr)
+        {
+            Files.Context().ExportAllGroup();
+        }
     }
 }

@@ -17,6 +17,7 @@ using System.Windows.Shapes;
 using YchetStudentov.Class;
 using YchetStudentov.Form;
 using YchetStudentov.VM.ViewModelSyllabus;
+using YchetStudentov.VM.ViewModelTeachers;
 
 namespace YchetStudentov.Page
 {
@@ -28,53 +29,16 @@ namespace YchetStudentov.Page
         public PageUchebPlan()
         {
             InitializeComponent();
-            //cmb_number_group.ItemsSource = DateBase.Context().GetInfoGroup();
             ((VMSyllabus)DataContext).ShowWindowCreateSyllabusEvent += ShowFormCreateSyllabus;
-            
+            ((VMSyllabus)DataContext).ShowMessageEvent += MainWindow_ShowMessageEvent;
+        }
+        private void MainWindow_ShowMessageEvent(string content)
+        {
+            MessageBox.Show(content);
         }
         private void ShowFormCreateSyllabus()
         {
             (new CreateCurriculum()).ShowDialog();
-        }
-        public void Update()
-        {
-         //   GridUchebPlan.ItemsSource = DateBase.Context().DataGridGetCurriculum(cmb_number_group.SelectedItem.ToString() ?? " ");
-        }
-        private void btnCreate_Click(object sender, RoutedEventArgs e)
-        {
-           // CreateCurriculum create = new CreateCurriculum();
-           // create.ShowDialog();
-           // Update();
-        }
-
-        private void cmb_number_group_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-           // Update();
-        }
-
-        private void Menu_pechat_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Menu_Delete_Click(object sender, RoutedEventArgs e)
-        {
-           // DateBase.Context().DeleteCurriculum((UchebPlan)GridUchebPlan.SelectedItem);
-           // MessageBox.Show("Предмет был успешно удален!");
-           // Update();
-        }
-
-        private void btExport_Click(object sender, RoutedEventArgs e)
-        {
-           // if (cmb_number_group.SelectedItem != null)
-           // {
-           //     Files files = new Files();
-           //     //files.ExportUchebPlan(cmb_number_group.SelectedItem.ToString() ?? " ");
-           // }
-           // else
-           // {
-           //     MessageBox.Show("Необходимо выбрать группу!");
-           // }
         }
     }
 }

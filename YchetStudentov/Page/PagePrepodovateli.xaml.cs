@@ -26,12 +26,17 @@ namespace YchetStudentov.Page
             InitializeComponent();
             ((VMTeachers)DataContext).ShowWindowEditingEvent += ShowFormEditingTeacher;
             ((VMTeachers)DataContext).ShowWindowCreateTeacherEvent += ShowFormCreateTeacher;
+            ((VMTeachers)DataContext).ShowMessageEvent += MainWindow_ShowMessageEvent;
         }
-        private void ShowFormEditingTeacher(Prepodovateli prepodovateli)
+        private void MainWindow_ShowMessageEvent(string content)
         {
-            (new EditTeacher(prepodovateli)).ShowDialog();
+            MessageBox.Show(content);
         }
-        private void ShowFormCreateTeacher(Prepodovateli prepodovateli)
+        private void ShowFormEditingTeacher()
+        {
+            (new EditTeacher()).ShowDialog();
+        }
+        private void ShowFormCreateTeacher()
         {
             (new CreateTeacher()).ShowDialog();
         }

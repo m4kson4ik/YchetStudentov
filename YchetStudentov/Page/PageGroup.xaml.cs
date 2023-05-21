@@ -17,6 +17,7 @@ using YchetStudentov.Class;
 using YchetStudentov.Form;
 using YchetStudentov.VM.ViewModelDisciplins;
 using YchetStudentov.VM.ViewModelGroups;
+using YchetStudentov.VM.ViewModelStudents;
 
 namespace YchetStudentov.Page
 {
@@ -30,22 +31,25 @@ namespace YchetStudentov.Page
             InitializeComponent();
             ((VMGroups)DataContext).ShowWindowCreateGroupEvent += MainWindow_ShowCreatingWindowEvent;
             ((VMGroups)DataContext).ShowWindowEditingGroupEvent += MainWindow_ShowEditingWindowEvent;
+            ((VMGroups)DataContext).ShowWindowReportingGroupEvent += MainWindow_ShowReportingWindowEvent;
+            ((VMGroups)DataContext).ShowMessageDeletedEvent += MainWindow_ShowMessageEvent;
         }
-
-        private void MainWindow_ShowCreatingWindowEvent(Group group)
+        private void MainWindow_ShowMessageEvent(string content)
+        {
+            MessageBox.Show(content);
+        }
+        private void MainWindow_ShowCreatingWindowEvent()
         {
             (new CreateGroup()).ShowDialog();
         }
 
-        private void MainWindow_ShowEditingWindowEvent(Group group)
+        private void MainWindow_ShowEditingWindowEvent()
         {
-            (new EditingAGroup(group)).ShowDialog();
+            (new EditingAGroup()).ShowDialog();
         }
-
-        private void Menu_Reporting_Click(object sender, RoutedEventArgs e)
+        private void MainWindow_ShowReportingWindowEvent()
         {
-            GroupReporting groupReporting = new GroupReporting((Group)dataGridGroup.SelectedItem);
-            groupReporting.Show();
+            (new GroupReporting()).ShowDialog();
         }
     }
 }

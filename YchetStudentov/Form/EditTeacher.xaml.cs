@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using YchetStudentov.Class;
 using YchetStudentov.Page;
+using YchetStudentov.VM.ViewModelTeachers;
 
 namespace YchetStudentov.Form
 {
@@ -24,17 +25,14 @@ namespace YchetStudentov.Form
     /// 
     public partial class EditTeacher
     {
-        Prepodovateli Prepodovateli;
-        public EditTeacher(Prepodovateli Prepodovateli)
+        public EditTeacher()
         {
             InitializeComponent();
-            //this.Prepodovateli = Prepodovateli;
-            //this.DataContext = Prepodovateli;
+            ((VMEditingTeacher)DataContext).ShowMessageEvent += MainWindow_ShowMessageEvent;
         }
-
-        private void btEditTeacher_Click(object sender, RoutedEventArgs e)
+        private void MainWindow_ShowMessageEvent(string content)
         {
-            this.DialogResult = true;
+            MessageBox.Show(content);
         }
     }
 }

@@ -12,14 +12,14 @@
         <vm:VMAttendance/>
     </Page.DataContext>
     <Grid Background="#151e29">
-        <DatePicker x:Name="dpDataPari" HorizontalAlignment="Left" Margin="180,6,0,0" VerticalAlignment="Top" Foreground="White" BorderBrush="#89FFFFFF" Background="{x:Null}" Width="18" Height="22"/>
+        <DatePicker x:Name="dpDataPari" HorizontalAlignment="Left" Margin="180,6,0,0" VerticalAlignment="Top" SelectedDate="{Binding SelectedDateTime}" Foreground="Black" BorderBrush="#89FFFFFF" Background="{x:Null}" Width="18" Height="22"/>
         <Label Content="Дата занятия:" HorizontalAlignment="Left" Margin="95,9,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF"/>
         <Label x:Name="Lb" Content="Группа:" HorizontalAlignment="Left" Margin="129,41,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF"/>
-        <ComboBox x:Name="CmbGroup" HorizontalAlignment="Left" Margin="180,45,0,0" VerticalAlignment="Top" Width="100" ItemsSource="{Binding CollectionGroup}" DisplayMemberPath="NumberGroup" BorderBrush="#89FFFFFF" ScrollViewer.HorizontalScrollBarVisibility="Auto" Foreground="Black" SelectedItem="{Binding SelectedGroup}"/>
+        <ComboBox x:Name="CmbGroup" HorizontalAlignment="Left" Margin="180,45,0,0" VerticalAlignment="Top" Width="100" ItemsSource="{Binding CollectionGroup}" DisplayMemberPath="NumberGroup" BorderBrush="#89000000" ScrollViewer.HorizontalScrollBarVisibility="Auto" Foreground="Black" SelectedItem="{Binding SelectedGroup}" Background="White"/>
         <Label Content="Название предмета:" HorizontalAlignment="Left" Margin="59,81,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF"/>
-        <ComboBox x:Name="CmbNamePredmet" HorizontalAlignment="Left" Margin="180,85,0,0" VerticalAlignment="Top" Width="100" BorderBrush="#89FFFFFF" Foreground="Black" ItemsSource="{Binding CollectionDistceplini, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="NameDisceplini"/>
-        <Button x:Name="CreatePars" Content="Начать выставление посещаемости" HorizontalAlignment="Left" Margin="26,120,0,0" VerticalAlignment="Top" Click="CreatePars_Click" Background="#FF5BBD4D"/>
-        <DataGrid x:Name="gridStudent" Margin="296,11,10,10"  GridLinesVisibility="None" HeadersVisibility="Column" AutoGenerateColumns="False">
+        <ComboBox x:Name="CmbNamePredmet" HorizontalAlignment="Left" Margin="180,85,0,0" VerticalAlignment="Top" Width="100" BorderBrush="#89000000" Foreground="Black" ItemsSource="{Binding CollectionDistceplini, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedDisceplini}" DisplayMemberPath="NameDisceplini" Background="White"/>
+        <Button x:Name="CreatePars" Content="Начать выставление посещаемости" HorizontalAlignment="Left" Margin="26,120,0,0" VerticalAlignment="Top" Command="{Binding ShowStudent}" Background="#FF5BBD4D"/>
+        <DataGrid x:Name="gridStudent" Margin="296,11,10,10" ItemsSource="{Binding CollectionStudent}" SelectedItem="{Binding SelectedStudent}"  GridLinesVisibility="None" HeadersVisibility="Column" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Имя" Binding="{Binding Path=Name, Mode=OneWay}" Width="100" />
                 <DataGridTextColumn Header="Фамилия" Binding="{Binding Path=Family, Mode=OneWay}" Width="130" />
@@ -27,12 +27,11 @@
             </DataGrid.Columns>
             <DataGrid.ContextMenu>
                 <ContextMenu>
-                    <MenuItem x:Name="Menu_napare" Header="На паре" Click="Menu_napare_Click"/>
-                    <MenuItem x:Name="Menu_otsutstvuet" Header ="Нет на паре" Click="Menu_otsutstvuet_Click"/>
-                    <MenuItem x:Name="Menu_bolezn" Header="Пропуск по болезни" Click="Menu_bolezn_Click" />
+                    <MenuItem x:Name="Menu_napare" Header="На паре" Command="{Binding CreateAttendance}" CommandParameter="П"/>
+                    <MenuItem x:Name="Menu_otsutstvuet" Header ="Нет на паре" Command="{Binding CreateAttendance}" CommandParameter ="Н"/>
+                    <MenuItem x:Name="Menu_bolezn" Header="Пропуск по болезни" Command="{Binding CreateAttendance}" CommandParameter="Б"/>
                 </ContextMenu>
             </DataGrid.ContextMenu>
         </DataGrid>
-        <Button x:Name="btCancelPar" Content="Завершить выставление посещаемости" HorizontalAlignment="Left" Margin="49,157,0,0" VerticalAlignment="Top" Click="btCancelPar_Click" Width="222" Background="#FF5BBD4D" Cursor="Hand"/>
     </Grid>
 </Page>

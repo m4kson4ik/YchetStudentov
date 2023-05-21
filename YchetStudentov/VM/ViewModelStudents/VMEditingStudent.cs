@@ -13,6 +13,13 @@ namespace YchetStudentov.VM.ViewModelStudents
     public class VMEditingStudent : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
+        public void OnPropertyChange(string names)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(names));
+            }
+        }
         public Class.Student? SelectedStudent { get; set; }
         public ObservableCollection<Class.Group> CollectionGroup { get; set; }
         public VMEditingStudent()
@@ -28,6 +35,11 @@ namespace YchetStudentov.VM.ViewModelStudents
         public ObservableCollection<string> Budget { get; set; }
         public ObservableCollection<string> Gragdanstvo { get; set; }
         public ObservableCollection<string> YearPostup { get; set; }
+
+
+        public delegate void ShowMessage(string message);
+        public event ShowMessage? ShowMessageEvent;
+
         public ICommand EditingStudentCommand { get; set; }
         private bool CanEditingStudentCommand(object obj)
         {
@@ -35,7 +47,15 @@ namespace YchetStudentov.VM.ViewModelStudents
         }
         private void OnEditingStudentCommand(object obj)
         {
-
+            if (SelectedStudent != null)
+            {
+                ShowMessageEvent?.Invoke("Данные успешно изменены!");
+                DateBase.Context().EditingInfoStudent(SelectedStudent);
+            }
+            else
+            {
+                ShowMessageEvent?.Invoke("Произошла ошибка при редактирование преподавателя!");
+            }
         }
     }
 }

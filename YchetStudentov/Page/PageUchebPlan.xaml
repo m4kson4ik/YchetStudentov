@@ -28,9 +28,9 @@
                 </ContextMenu>
             </DataGrid.ContextMenu>
         </DataGrid>
-        <ComboBox x:Name="cmb_number_group" HorizontalAlignment="Left" Margin="10,200,0,0" VerticalAlignment="Top" Width="120" ItemsSource="{Binding CollectionGroupInComboBox}" DisplayMemberPath="NumberGroup" SelectedItem="{Binding SelectedGroup, UpdateSourceTrigger=PropertyChanged}" Foreground="Black" BorderBrush="#89FFFFFF"/>
-        <Button x:Name="btnCreate" Content="Создать" HorizontalAlignment="Left" Margin="10,253,0,0" VerticalAlignment="Top" Command="{Binding OpenWindowCreateSyllabusCommand}" Width="120" Background="#FF5BBD4D" BorderBrush="{x:Null}" Cursor="Hand"/>
-        <Button x:Name="btExport" Content="Экспорт" HorizontalAlignment="Left" Margin="10,290,0,0" VerticalAlignment="Top" Width="120" Click="btExport_Click" Cursor="Hand"/>
+        <ComboBox x:Name="cmb_number_group" HorizontalAlignment="Left" Margin="10,200,0,0" VerticalAlignment="Top" Width="120" ItemsSource="{Binding CollectionGroupInComboBox}" DisplayMemberPath="NumberGroup" SelectedItem="{Binding SelectedGroup, UpdateSourceTrigger=PropertyChanged}" BorderBrush="#89000000" Background="White" Foreground="Black"/>
+        <Button x:Name="btnCreate" Content="Создать" HorizontalAlignment="Left" Margin="10,230,0,0" VerticalAlignment="Top" Command="{Binding OpenWindowCreateSyllabusCommand}" Width="120" Background="#FF5BBD4D" BorderBrush="{x:Null}" Cursor="Hand"/>
+        <Button x:Name="btExport" Content="Экспорт" HorizontalAlignment="Left" Margin="10,267,0,0" VerticalAlignment="Top" Width="120" Command="{Binding PrintItemSyllabusCommand}" Cursor="Hand"/>
 
     </Grid>
 </Page>

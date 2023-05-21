@@ -14,6 +14,7 @@ namespace YchetStudentov.VM.ViewModelTeachers
     public class VMCreateTeacher : INotifyPropertyChanged
     {
         public Prepodovateli NewPrepodovatel { get; set; }
+        public delegate void ShowMessage(string message);
         private Prepodovateli _newPerpodovatel
         {
             get => _newPerpodovatel;
@@ -46,11 +47,19 @@ namespace YchetStudentov.VM.ViewModelTeachers
             }
             return false;
         }
-        
+        public event ShowMessage? ShowMessageEvent;
 
         public void OnCreateTeacherCommnad(object? parameter)
         {
-            DateBase.Context().CreateTeacher(NewPrepodovatel);
+
+            if (DateBase.Context().CreateTeacher(NewPrepodovatel))
+            {
+                this.ShowMessageEvent?.Invoke($"Преподаватель {NewPrepodovatel.fio} успешно создан!");
+            }
+            else
+            {
+                this.ShowMessageEvent?.Invoke($"Произошла ошибка при создании преподавателя!");
+            }
         }
     }
 }

@@ -30,53 +30,6 @@ namespace YchetStudentov.Page
         public PagePoseshaemost()
         {
             InitializeComponent();
-           // gridStudent.Visibility = Visibility.Hidden;
-           // CmbGroup.ItemsSource = DateBase.Context().GetAllInfoGroup().Select(s => s.NumberGroup);
-           // btCancelPar.Visibility = Visibility.Hidden;
-        }
-
-        private void CmbGroup_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-           // CmbNamePredmet.ItemsSource = DateBase.Context().DataGridGetCurriculum((Class.Group)CmbGroup.SelectedItem);
-        }
-
-        private void CreatePars_Click(object sender, RoutedEventArgs e)
-        {
-           //   gridStudent.Visibility = Visibility.Visible;
-           //   gridStudent.ItemsSource = DateBase.Context().GetInfoStudents(CmbGroup.SelectedItem.ToString() ?? " ");
-           //   CreatePars.Visibility = Visibility.Hidden;
-           //   CmbGroup.IsEnabled = false;
-           //   CmbNamePredmet.IsEnabled = false;
-           //   dpDataPari.IsEnabled = false;
-           //   btCancelPar.Visibility = Visibility;
-        }
-        
-
-        private void btCancelPar_Click(object sender, RoutedEventArgs e)
-        {
-            btCancelPar.Visibility = Visibility.Hidden;
-            CreatePars.Visibility = Visibility.Visible;
-            gridStudent.Visibility = Visibility.Hidden;
-            CmbGroup.IsEnabled = true;
-            CmbNamePredmet.IsEnabled = true;
-            dpDataPari.IsEnabled = true;
-        }
-        private void Menu_otsutstvuet_Click(object sender, RoutedEventArgs e)
-        {
-            DateBase.Context().CreatePoseshaemost((Class.Student)gridStudent.SelectedItem, (Class.UchebPlan)CmbNamePredmet.SelectedItem, "Н", dpDataPari.SelectedDate);
-            MessageBox.Show($"Студент отсутствует");
-        }
-
-        private void Menu_bolezn_Click(object sender, RoutedEventArgs e)
-        {
-            DateBase.Context().CreatePoseshaemost((Class.Student)gridStudent.SelectedItem, (Class.UchebPlan)CmbNamePredmet.SelectedItem, "Б", dpDataPari.SelectedDate);
-            MessageBox.Show($"Студент отсутствует по болезни");
-        }
-
-        private void Menu_napare_Click(object sender, RoutedEventArgs e)
-        {
-            DateBase.Context().CreatePoseshaemost((Class.Student)gridStudent.SelectedItem, (Class.UchebPlan)CmbNamePredmet.SelectedItem, "П", dpDataPari.SelectedDate);
-            MessageBox.Show($"Студент на паре");
         }
     }
 }

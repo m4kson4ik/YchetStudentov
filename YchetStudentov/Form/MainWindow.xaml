@@ -13,6 +13,5 @@
         <Button x:Name="bt_Go" Content="Войти" HorizontalAlignment="Center" Margin="0,238,0,0" VerticalAlignment="Top" Click="bt_Go_Click" BorderBrush="#FF2A0F5B" Background="#FF3AB785"/>
         <Label Content="Логин:" HorizontalAlignment="Left" Margin="107,86,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF" Height="23" FontFamily="Adobe Caslon Pro Bold" FontSize="16"/>
         <Label Content="Пароль:" HorizontalAlignment="Left" Margin="96,160,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF" Height="23" FontFamily="Adobe Caslon Pro Bold" FontSize="16"/>
-        <TextBox x:Name="tbCheck" HorizontalAlignment="Left" Height="32" Margin="50,238,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="61"/>
     </Grid>
 </Window>

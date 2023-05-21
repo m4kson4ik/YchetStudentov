@@ -18,7 +18,7 @@ namespace YchetStudentov.VM.ViewModelDisciplins
         public event PropertyChangedEventHandler? PropertyChanged;
 
         #region Открытие формы
-        public delegate void ShowWindow(Distceplini selectedDisciplins = null);
+        public delegate void ShowWindow();
         public event ShowWindow? ShowWindowEvent;
         public event ShowWindow? ShowWindowEditingEvent;
 
@@ -26,7 +26,7 @@ namespace YchetStudentov.VM.ViewModelDisciplins
         public bool CanShowWindowCommand(object? parameter) => true;
         public void OnShowWindowCommand(object? parameter)
         {
-            ShowWindowEditingEvent?.Invoke(SelectedDistcilins);
+            ShowWindowEditingEvent?.Invoke();
         }
 
         public ICommand ShowWindowCreateCommand { get; } // Команда открытия формы Создание Дисциплины
@@ -43,6 +43,7 @@ namespace YchetStudentov.VM.ViewModelDisciplins
             ShowWindowEditingCommand = new LambdaCommand(OnShowWindowCommand, CanShowWindowCommand);
             ShowWindowCreateCommand = new LambdaCommand(OnShowWindowCreateCommand, CanShowWindowCreateCommand);
             DeletedDisceplinsCommand = new LambdaCommand(OnDeletedDisceplinsCommand, CanDeletedDisceplinsCommand);
+            ExportAllDisciplins = new LambdaCommand(OnExportAllDisciplins, CanExportAllDisciplins);
         }
 
         public void OnPropertyChange(string names)
@@ -64,6 +65,9 @@ namespace YchetStudentov.VM.ViewModelDisciplins
                 _selectedDistcilins = value;
             }
         }
+        public delegate void ShowMessage(string message);
+
+        public event ShowMessage? ShowMessageEvent;
         public ICommand DeletedDisceplinsCommand { get; set; }
         public bool CanDeletedDisceplinsCommand(object? parameter)
         {
@@ -75,9 +79,21 @@ namespace YchetStudentov.VM.ViewModelDisciplins
         }
         public void OnDeletedDisceplinsCommand(object? parameter)
         {
-            DateBase.Context().DeleteDiscipline(SelectedDistcilins);
-            Distceplinis.Remove(SelectedDistcilins);
+            if (SelectedDistcilins != null && Distceplinis != null)
+            {
+                DateBase.Context().DeleteDiscipline(SelectedDistcilins);
+                ShowMessageEvent?.Invoke($"Дисциплина {SelectedDistcilins.NameDisciplini} успешно удалена!");
+                Distceplinis.Remove(SelectedDistcilins);
+            }
         }
-
+        public ICommand ExportAllDisciplins { get; set; }
+        public bool CanExportAllDisciplins(object? parameter)
+        {
+            return true;
+        }
+        public void OnExportAllDisciplins(object? parameter)
+        {
+            
+        }
     }
 }

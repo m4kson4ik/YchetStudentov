@@ -17,10 +17,10 @@
         <TextBox x:Name="tbFamily" Text="{Binding NewItemStudent.Family}" HorizontalAlignment="Left" Margin="164,107,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="122"/>
         <TextBox x:Name="tbOtchestvo" Text="{Binding NewItemStudent.Otchestvo}" HorizontalAlignment="Left" Margin="164,137,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="122" Height="23"/>
         <DatePicker x:Name="dtDataRog" Text="{Binding NewItemStudent.DataRoj}" SelectedDate="{Binding NewItemStudent.DataRoj}" HorizontalAlignment="Left" Margin="164,166,0,0" VerticalAlignment="Top" Height="21" Width="122"/>
-        <ComboBox x:Name="cmbGragdanstvo" HorizontalAlignment="Left" Text="{Binding NewItemStudent.Gragdanstvo}" SelectedItem="{Binding NewItemStudent.Gragdanstvo}" Margin="164,223,0,0" VerticalAlignment="Top" Width="122" Height="23"/>
+        <ComboBox x:Name="cmbGragdanstvo" HorizontalAlignment="Left" ItemsSource="{Binding Gragdanstvo}" Text="{Binding NewItemStudent.Gragdanstvo}" SelectedItem="{Binding NewItemStudent.Gragdanstvo}" Margin="164,223,0,0" VerticalAlignment="Top" Width="122" Height="23"/>
         <TextBox x:Name="tbEmail" HorizontalAlignment="Left" Text="{Binding NewItemStudent.Email}" Margin="164,260,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="122"/>
-        <ComboBox x:Name="cmbYearPostup" HorizontalAlignment="Left" Text="{Binding NewItemStudent.GodPostuplenie}" Margin="401,232,0,0" VerticalAlignment="Top" Width="83" Height="24"/>
-        <ComboBox x:Name="cmbBudget" HorizontalAlignment="Left" SelectedItem="{Binding NewItemStudent.Budget}" Margin="401,261,0,0" VerticalAlignment="Top" Width="83" Height="25"/>
+        <ComboBox x:Name="cmbYearPostup" HorizontalAlignment="Left" ItemsSource="{Binding YearPostup}" Text="{Binding NewItemStudent.GodPostuplenie}" Margin="401,232,0,0" VerticalAlignment="Top" Width="83" Height="24"/>
+        <ComboBox x:Name="cmbBudget" HorizontalAlignment="Left" ItemsSource="{Binding Budget}" SelectedItem="{Binding NewItemStudent.Budget}" Margin="401,261,0,0" VerticalAlignment="Top" Width="83" Height="25"/>
         <Label Content="Фамилия:" HorizontalAlignment="Left" Margin="90,108,0,0" VerticalAlignment="Top"/>
         <Label Content="Отчество:" HorizontalAlignment="Left" Margin="87,137,0,0" VerticalAlignment="Top"/>
         <Label Content="Дата рождения:" HorizontalAlignment="Left" Margin="54,163,0,0" VerticalAlignment="Top"/>
@@ -30,18 +30,8 @@
         <Label Content="Гражданство:" HorizontalAlignment="Left" Margin="68,223,0,0" VerticalAlignment="Top"/>
         <Label Content="Год поступления:" HorizontalAlignment="Left" Margin="296,232,0,0" VerticalAlignment="Top"/>
         <Label Content="Бюджет:" HorizontalAlignment="Left" Margin="339,266,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="tbNumberZach" HorizontalAlignment="Left" Margin="164,17,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="122" RenderTransformOrigin="0.5,0.5">
-            <TextBox.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform Angle="0"/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </TextBox.RenderTransform>
-        </TextBox>
+        <TextBox x:Name="tbNumberZach" Text="{Binding NewItemStudent.NumberZachetki}" HorizontalAlignment="Left" Margin="164,17,0,0" VerticalAlignment="Top" Width="122"/>
         <Label Content="Номер зачетки:" HorizontalAlignment="Left" Margin="56,18,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lbGenerate" Content="Сгенерировать" HorizontalAlignment="Left" Height="24" Margin="302,18,0,0" VerticalAlignment="Top" Width="97" Cursor="Hand" />
         <Label Content="Номер группы:" HorizontalAlignment="Left" Margin="59,48,0,0" VerticalAlignment="Top"/>
         <ComboBox x:Name="cmbNumberGroup" HorizontalAlignment="Left" ItemsSource="{Binding CollectionGroup}" DisplayMemberPath="NumberGroup" SelectedValue="{Binding NewItemStudent.NumberGroup}" SelectedValuePath="NumberGroup" Margin="164,47,0,0" VerticalAlignment="Top" Width="122"/>
 

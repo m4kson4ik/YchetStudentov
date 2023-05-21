@@ -24,23 +24,39 @@ namespace YchetStudentov.VM.ViewModelTeachers
 
         private bool CanSaveChanged(object p)
         {
-            if (SelectedTeacher.Family != "" && SelectedTeacher.Name != "" && SelectedTeacher.Otchestvo != "")
+            
+            if (SelectedTeacher != null && SelectedTeacher.Family != "" && SelectedTeacher.Name != "" && SelectedTeacher.Otchestvo != "")
             {
                 return true;
             }
             return false;
         }
+        public delegate void ShowMessage(string message);
+
+        public event ShowMessage? ShowMessageEvent;
 
         private void OnSaveChanged(object p)
         {
-            DateBase.Context().EditTeacher(SelectedTeacher);
-            OnPropertyChange("SaveChanged");
+            if (SelectedTeacher != null)
+            {
+                if(DateBase.Context().EditTeacher(SelectedTeacher))
+                {
+                    this.ShowMessageEvent?.Invoke("Изменения успешно внесены!");
+                }
+                else
+                {
+                    this.ShowMessageEvent?.Invoke("Произошла ошибка при изменение преподавателя!");
+                }
+            }
         }
         public event PropertyChangedEventHandler? PropertyChanged;
-
-        private void OnPropertyChange(string names)
+        public void OnPropertyChange(string names)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(names));
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(names));
+            }
         }
+
     }
 }

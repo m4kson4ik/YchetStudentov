@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using YchetStudentov.VM.ViewModelGroups;
+using YchetStudentov.VM.ViewModelStudents;
 
 namespace YchetStudentov.Form
 {
@@ -24,6 +26,11 @@ namespace YchetStudentov.Form
             InitializeComponent();
             cmbNumberSpecialty.Items.Add("09.02.07");
             cmbKurator.IsReadOnly = false;
+            ((VMCreateGroup)DataContext).ShowMessageEvent += MainWindow_ShowMessageEvent;
+        }
+        private void MainWindow_ShowMessageEvent(string content)
+        {
+            MessageBox.Show(content);
         }
     }
 }

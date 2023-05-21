@@ -23,13 +23,13 @@ namespace YchetStudentov.VM.ViewModelSyllabus
         }
         #endregion
         public delegate void ShowWindow();
-        public ObservableCollection<UchebPlan> CollectionSyllabus { get; set; }
+        public ObservableCollection<UchebPlan> CollectionSyllabus { get; } = new ObservableCollection<UchebPlan>();
         public ObservableCollection<Group> CollectionGroupInComboBox { get; set; }
 
         public VMSyllabus()
         {
             CollectionGroupInComboBox = new ObservableCollection<Group>(DateBase.Context().GetAllInfoGroup());
-            CollectionSyllabus = new ObservableCollection<UchebPlan>();
+            //CollectionSyllabus = new ObservableCollection<UchebPlan>();
             OpenWindowCreateSyllabusCommand = new LambdaCommand(OnOpenWindowCreateSyllabusCommand, CanOpenWindowCreateSyllabusCommand);
             PrintItemSyllabusCommand = new LambdaCommand(OnPrintItemSyllabusCommand, CanPrintItemSyllabusCommand);
             DeletedItemSyllabusCommand = new LambdaCommand(OnDeletedItemSyllabusCommandd, CanDeletedItemSyllabusCommand);
@@ -41,17 +41,20 @@ namespace YchetStudentov.VM.ViewModelSyllabus
             get { return _selectedGroup; }
                 set
                 {
-                _selectedGroup = value;
-                OnPropertyChanged("NumberGroup");
-                CollectionSyllabus.Clear();
-                var item = DateBase.Context().DataGridGetCurriculum(_selectedGroup);
-                foreach(var i in item)
+                if (value != null)
                 {
-                    CollectionSyllabus.Add(i);
+                    _selectedGroup = value;
+                    OnPropertyChanged("NumberGroup");
+                    CollectionSyllabus.Clear();
+                    var item = DateBase.Context().DataGridGetCurriculum(_selectedGroup);
+
+                    foreach(var i in item)
+                    {
+                        CollectionSyllabus.Add(i);
+                    }
                 }
                 }
         }
-
 
         private UchebPlan? _selectedSyllabus { get; set; }
         public UchebPlan? SelectedSyllabus
@@ -71,7 +74,9 @@ namespace YchetStudentov.VM.ViewModelSyllabus
         {
             ShowWindowCreateSyllabusEvent?.Invoke();
         }
+        public delegate void ShowMessage(string message);
 
+        public event ShowMessage? ShowMessageEvent;
         public ICommand DeletedItemSyllabusCommand { get; set; }
         private bool CanDeletedItemSyllabusCommand(object para)
         {
@@ -86,13 +91,18 @@ namespace YchetStudentov.VM.ViewModelSyllabus
         }
         private void OnDeletedItemSyllabusCommandd(object para)
         {
-
+            if (SelectedSyllabus != null)
+            {
+                ShowMessageEvent?.Invoke("Учебный план успешно удален!");
+                DateBase.Context().DeleteCurriculum(SelectedSyllabus);
+                CollectionSyllabus.Remove(SelectedSyllabus);
+            }
         }
 
         public ICommand PrintItemSyllabusCommand { get; set; }
         private bool CanPrintItemSyllabusCommand(object para)
         {
-            if (SelectedSyllabus != null)
+            if (SelectedGroup != null)
             {
                 return true;
             }
@@ -103,7 +113,7 @@ namespace YchetStudentov.VM.ViewModelSyllabus
         }
         private void OnPrintItemSyllabusCommand(object para)
         {
-
+            Files.Context().ExportUchebPlan(SelectedGroup);
         }
         #endregion
     }

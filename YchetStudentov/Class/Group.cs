@@ -38,5 +38,17 @@ namespace YchetStudentov.Class
             get { return _numberSpec; }
             set { _numberSpec = value; OnPropertyChange("NumberSpec"); }
         }
+
+        public int? KolvoStudent
+        {
+            get
+            {
+                return DateBase.Context().GetAllStudents().Where(s=>s.NumberGroup == NumberGroup).Count();
+            }
+            set
+            {
+                KolvoStudent = value;
+            }
+        }
     }
 }

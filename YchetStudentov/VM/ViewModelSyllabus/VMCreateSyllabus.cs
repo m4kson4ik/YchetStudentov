@@ -15,8 +15,15 @@ namespace YchetStudentov.VM.ViewModelSyllabus
     public class VMCreateSyllabus : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
+        public void OnPropertyChange(string names)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(names));
+            }
+        }
 
-        private UchebPlan NewItemSyllabus { get; }
+        //private UchebPlan NewItemSyllabus { get; }
         public ObservableCollection<Class.Group> CollectionGroup {get;set;}
         public ObservableCollection<Class.Distceplini> CollectionDisceplini {get;set;}
         public VMCreateSyllabus()
@@ -26,8 +33,8 @@ namespace YchetStudentov.VM.ViewModelSyllabus
             CreateNewItemCommand = new LambdaCommand(OnCreateNewItemCommand, CanCreateNewItemCommand);
         }
 
-        private Group _selectedGroup;
-        public Group SelectedGroup
+        private Group? _selectedGroup;
+        public Group? SelectedGroup
         {
             get { return _selectedGroup; }
             set
@@ -35,8 +42,8 @@ namespace YchetStudentov.VM.ViewModelSyllabus
                 _selectedGroup = value;
             }
         }
-        private Distceplini _selectedDisciplini;
-        public Distceplini SelectedDisciplini
+        private Distceplini? _selectedDisciplini;
+        public Distceplini? SelectedDisciplini
         {
             get { return _selectedDisciplini; }
             set
@@ -45,7 +52,9 @@ namespace YchetStudentov.VM.ViewModelSyllabus
                 //MessageBox.Show(_selectedDisciplini.NameDiscepliniAndFIO);
             }
         }
+        public delegate void ShowMessage(string message);
 
+        public event ShowMessage? ShowMessageEvent;
         public ICommand CreateNewItemCommand { get; set; }
         private bool CanCreateNewItemCommand(object p)
         {
@@ -60,7 +69,11 @@ namespace YchetStudentov.VM.ViewModelSyllabus
         }
         private void OnCreateNewItemCommand(object p)
         {
-            DateBase.Context().CreateCurriculum(SelectedGroup, SelectedDisciplini);
+            if (SelectedGroup != null && SelectedDisciplini != null)
+            {
+                ShowMessageEvent?.Invoke($"Новый учебный план для группы {SelectedGroup.NumberGroup} был успешно создан!");
+                DateBase.Context().CreateCurriculum(SelectedGroup, SelectedDisciplini);
+            }
         }
     }
 }

@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using YchetStudentov.Class;
+using YchetStudentov.VM.ViewModelGroups;
+using YchetStudentov.VM.ViewModelSyllabus;
 
 namespace YchetStudentov.Form
 {
@@ -23,6 +25,11 @@ namespace YchetStudentov.Form
         public CreateCurriculum()
         {
             InitializeComponent();
+            ((VMCreateSyllabus)DataContext).ShowMessageEvent += MainWindow_ShowMessageEvent;
+        }
+        private void MainWindow_ShowMessageEvent(string content)
+        {
+            MessageBox.Show(content);
         }
     }
 }

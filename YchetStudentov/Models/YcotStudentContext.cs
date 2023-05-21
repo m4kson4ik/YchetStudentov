@@ -143,7 +143,7 @@ public partial class YcotStudentContext : DbContext
             entity.Property(e => e.name_disceplini)
                 .HasMaxLength(50)
                 .IsUnicode(false)
-                .HasColumnName("_nameDisceplini");
+                .HasColumnName("name_disceplini");
             entity.Property(e => e.grades)
                 .HasMaxLength(5)
                 .IsUnicode(false)
@@ -168,6 +168,10 @@ public partial class YcotStudentContext : DbContext
                .HasMaxLength(100)
                .IsUnicode(false)
                .HasColumnName("number_disceplini");
+            entity.Property(e => e.number_group)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("number_group");
         });
 
         modelBuilder.Entity<DataGridUchebPlan>(entity =>
@@ -210,7 +214,7 @@ public partial class YcotStudentContext : DbContext
 
             entity.ToTable("FinalGrades");
 
-            entity.Property(e => e.NumberGrades) //////////////////////////////////////////////////////////////////
+            entity.Property(e => e.NumberGrades)
                 .HasColumnName("number_grades");
             entity.Property(e => e.semestr)
                 .HasMaxLength(100)
@@ -228,6 +232,7 @@ public partial class YcotStudentContext : DbContext
                 .HasMaxLength(100)
                 .IsUnicode(false)
                 .HasColumnName("number_zac_knig");
+            
         });
 
         modelBuilder.Entity<GetKolvoStudent>(entity =>

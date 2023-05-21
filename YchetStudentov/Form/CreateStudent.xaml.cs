@@ -13,6 +13,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using YchetStudentov.VM.ViewModelStudents;
+using YchetStudentov.VM.ViewModelTeachers;
 
 namespace YchetStudentov
 {
@@ -24,15 +26,11 @@ namespace YchetStudentov
         public CreateStudent()
         {
             InitializeComponent();
-            tbNumberZach.IsReadOnly = true;
-            cmbGragdanstvo.Items.Add("Российское");
-            cmbYearPostup.Items.Add("2023");
-            cmbYearPostup.Items.Add("2022");
-            cmbYearPostup.Items.Add("2021");
-            cmbYearPostup.Items.Add("2020");
-            cmbYearPostup.Items.Add("2019");
-            cmbBudget.Items.Add("Да");
-            cmbBudget.Items.Add("Нет");
+            ((VMCreateStudent)DataContext).ShowMessageEvent += MainWindow_ShowMessageEvent;
+        }
+        private void MainWindow_ShowMessageEvent(string content)
+        {
+            MessageBox.Show(content);
         }
     }
 }

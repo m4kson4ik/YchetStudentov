@@ -31,9 +31,9 @@ namespace YchetStudentov.VM.ViewModelStudents
             CreateStudentCommand = new LambdaCommand(OnCreateStudentCommand, CanCreateStudentCommand);
             EditingStudentCommand = new LambdaCommand(OnEditingStudentCommand, CanEditingStudentCommand);
             DeletedStudentCommand = new LambdaCommand(OnDeletedStudentCommand, CanDeletedStudentCommand);
-            PrintStudentCommand = new LambdaCommand(OnPrintStudentCommand, CanPrintStudentCommand);
             PoseshaemostStudentCommand = new LambdaCommand(OnPoseshaemostStudentCommand, CanPoseshaemostStudentCommand);
-            ExportAllStudentCommand = new LambdaCommand(OnExportAllStudentCommand, CanExportAllStudentCommand);
+            ExportSelectedGroupStudentCommand = new LambdaCommand(OnExportSelectedGroupStudentCommand, CanExportSelectedGroupStudentCommand);
+            MessageInfoStudentCommand = new LambdaCommand(OnMessageInfoStudentCommand, CanMessageInfoStudentCommand);
         }
 
         private static Student? _selectedStudent;
@@ -52,12 +52,15 @@ namespace YchetStudentov.VM.ViewModelStudents
             get { return _selectedGroup; }
             set
             {
-                _selectedGroup = value;
-                CollectionStudent.Clear();
-                var items = DateBase.Context().GetInfoStudents(_selectedGroup);
-                foreach(var item in items)
+                if (value != null)
                 {
-                    CollectionStudent.Add(item);
+                    _selectedGroup = value;
+                    CollectionStudent.Clear();
+                    var items = DateBase.Context().GetInfoStudents(_selectedGroup);
+                    foreach (var item in items)
+                    {
+                        CollectionStudent.Add(item);
+                    }
                 }
             }
         }
@@ -74,7 +77,19 @@ namespace YchetStudentov.VM.ViewModelStudents
         {
             ShowWindowCreateStudent?.Invoke();
         }
-
+        public ICommand ExportSelectedGroupStudentCommand { get; set; }
+        private bool CanExportSelectedGroupStudentCommand(object obj)
+        {
+            if (SelectedGroup != null)
+            {
+                return true;
+            }
+            return false;
+        }
+        private void OnExportSelectedGroupStudentCommand(object obj)
+        {
+            Files.Context().ExportStudentSelectedGroup(SelectedGroup);
+        }
         public ICommand EditingStudentCommand { get; set; }
         private bool CanEditingStudentCommand(object obj)
         {
@@ -88,6 +103,8 @@ namespace YchetStudentov.VM.ViewModelStudents
         {
             ShowWindowEditingStudent?.Invoke();
         }
+        public delegate void ShowMessage(string message);
+        public event ShowMessage? ShowMessageDeletedEvent;
 
         public ICommand DeletedStudentCommand { get; set; }
         private bool CanDeletedStudentCommand(object obj)
@@ -100,11 +117,16 @@ namespace YchetStudentov.VM.ViewModelStudents
         }
         private void OnDeletedStudentCommand(object obj)
         {
-
+            if (SelectedStudent != null)
+            {
+                ShowMessageDeletedEvent?.Invoke($"Студент {SelectedStudent.fio} успешно удален!");
+                DateBase.Context().DeletedItemStudent(SelectedStudent);
+            }
         }
+        public event ShowMessage? ShowMessageInfoStudentEvent;
 
-        public ICommand PrintStudentCommand { get; set; }
-        private bool CanPrintStudentCommand(object obj)
+        public ICommand MessageInfoStudentCommand { get; set; }
+        private bool CanMessageInfoStudentCommand(object obj)
         {
             if (SelectedStudent != null)
             {
@@ -112,9 +134,9 @@ namespace YchetStudentov.VM.ViewModelStudents
             }
             return false;
         }
-        private void OnPrintStudentCommand(object obj)
+        private void OnMessageInfoStudentCommand(object obj)
         {
-
+            ShowMessageInfoStudentEvent?.Invoke(DateBase.Context().GetAllInfoStudentInString(SelectedStudent));
         }
         public ICommand PoseshaemostStudentCommand { get; set; }
         private bool CanPoseshaemostStudentCommand(object obj)
@@ -128,20 +150,6 @@ namespace YchetStudentov.VM.ViewModelStudents
         private void OnPoseshaemostStudentCommand(object obj)
         {
             ShowWindowAttendaceStudent?.Invoke();
-        }
-
-        public ICommand ExportAllStudentCommand { get; set; }
-        private bool CanExportAllStudentCommand(object obj)
-        {
-            if (SelectedStudent != null)
-            {
-                return true;
-            }
-            return false;
-        }
-        private void OnExportAllStudentCommand(object obj)
-        {
-
         }
         #endregion
     }

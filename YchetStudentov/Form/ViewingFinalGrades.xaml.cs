@@ -22,19 +22,19 @@ namespace YchetStudentov.Form
         public ViewingFinalGrades()
         {
             InitializeComponent();
-            cmbGroup.ItemsSource = DateBase.Context().GetAllInfoGroup();
+          //  cmbGroup.ItemsSource = DateBase.Context().GetAllInfoGroup();
         }
 
         private void cmbStudent_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (cmbStudent.SelectedItem != null)
-            {
-                dtStudentandItogOzenki.ItemsSource = DateBase.Context().GetRatingAndSrPoseshaemost((Class.Student)cmbStudent.SelectedItem);
-            }
-            else
-            {
-                dtStudentandItogOzenki.ItemsSource = null;
-            }
+           // if (cmbStudent.SelectedItem != null)
+           // {
+             //   dtStudentandItogOzenki.ItemsSource = DateBase.Context().GetRatingAndSrPoseshaemost((Class.Student)cmbStudent.SelectedItem);
+           // }
+           // else
+           // {
+           //     dtStudentandItogOzenki.ItemsSource = null;
+           // }
         }
 
         private void cmbGroup_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -45,8 +45,8 @@ namespace YchetStudentov.Form
 
         private void btExport_Click(object sender, RoutedEventArgs e)
         {
-            Class.Files files = new Class.Files();
-            files.ExportAllOzenkiStudent(6);
+           // Class.Files files = new Class.Files();
+           // files.ExportAllOzenkiStudent(6);
         }
     }
 }

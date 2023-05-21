@@ -4,23 +4,28 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:YchetStudentov.Form"
+        xmlns:vm="clr-namespace:YchetStudentov.VM.ViewModelGrades"
         mc:Ignorable="d"
         Title="Просмотр итоговых оценок студентов" Height="450" Width="800" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <Window.DataContext>
+        <vm:VMViewGrades/>
+    </Window.DataContext>
     <Grid>
-        <ComboBox x:Name="cmbStudent" DisplayMemberPath="fio" HorizontalAlignment="Left" Margin="70,40,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="cmbStudent_SelectionChanged"/>
-        <DataGrid x:Name="dtStudentandItogOzenki" HorizontalAlignment="Center" Height="354" Margin="0,70,0,0" VerticalAlignment="Top" Width="780" d:ItemsSource="{d:SampleData ItemCount=5}" AutoGenerateColumns="False">
+        <ComboBox x:Name="cmbStudent" DisplayMemberPath="fio" HorizontalAlignment="Left" Margin="70,40,0,0" VerticalAlignment="Top" Width="120" ItemsSource="{Binding CollectionStudent}" SelectedItem="{Binding SelectedStudent}"/>
+        <DataGrid x:Name="dtStudentandItogOzenki" HorizontalAlignment="Center" Height="354" Margin="0,70,0,0" VerticalAlignment="Top" Width="780" ItemsSource="{Binding CollectionFinalGrades}" AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Семестр" Binding="{Binding Path=semestr, Mode=OneWay}" Width="70" />
-                <DataGridTextColumn Header="Название дисциплины" Binding="{Binding Path=nameDisceplini, Mode=OneWay}" Width="250" />
-                <DataGridTextColumn Header="Оценка" Binding="{Binding Path=grades, Mode=OneWay}" Width="70" />
-                <DataGridTextColumn Header="Имя студента" Binding="{Binding Path=namestudent, Mode=OneWay}" Width="130" />
-                <DataGridTextColumn Header="Фамилия студента" Binding="{Binding Path=familystudent, Mode=OneWay}" Width="130" />
+                <DataGridTextColumn Header="Семестр" Binding="{Binding Path=Semestr, Mode=OneWay}" Width="70" />
+                <DataGridTextColumn Header="Название дисциплины" Binding="{Binding Path=NameDisceplini, Mode=OneWay}" Width="250" />
+                <DataGridTextColumn Header="Оценка" Binding="{Binding Path=Grades, Mode=OneWay}" Width="70" />
+                <DataGridTextColumn Header="Имя студента" Binding="{Binding Path=Namestudent, Mode=OneWay}" Width="130" />
+                <DataGridTextColumn Header="Фамилия студента" Binding="{Binding Path=FamilyStudent, Mode=OneWay}" Width="130" />
             </DataGrid.Columns>
         </DataGrid>
-        <ComboBox x:Name="cmbGroup" HorizontalAlignment="Left" Margin="70,10,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="cmbGroup_SelectionChanged"/>
+        <ComboBox x:Name="cmbGroup" HorizontalAlignment="Left" Margin="70,10,0,0" VerticalAlignment="Top" Width="120" ItemsSource="{Binding CollectionGroup}" SelectedItem="{Binding SelectedGroup}" DisplayMemberPath="NumberGroup"/>
         <Label Content="Группа:" HorizontalAlignment="Left" Margin="16,11,0,0" VerticalAlignment="Top"/>
         <Label Content="Студент:" HorizontalAlignment="Left" Margin="12,41,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="btExport" Content="Button" HorizontalAlignment="Left" Height="41" Margin="253,12,0,0" VerticalAlignment="Top" Width="75" Click="btExport_Click"/>
+        <Button x:Name="btExport" Content="Экспорт оценок группы" HorizontalAlignment="Left" Height="29" Margin="253,4,0,0" VerticalAlignment="Top" Width="207" Command="{Binding ExportGradesGroup}"/>
+        <Button Content="Экспорт оценок студента" HorizontalAlignment="Left" Margin="253,38,0,0" VerticalAlignment="Top" Height="26" Width="207" Command="{Binding ExportGradesStudent}"/>
 
     </Grid>
 </Window>

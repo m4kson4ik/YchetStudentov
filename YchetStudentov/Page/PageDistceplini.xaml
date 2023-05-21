@@ -10,10 +10,10 @@
       Title="PageDistceplini">
     <Page.DataContext>
         <vm:VMDisciplins/>
-    </Page.DataContext> 
-    
-    <Grid Background="Gray" Margin="10,0,0,0">
-        <DataGrid x:Name="dtDisceplini" Margin="99,12,15,8" ItemsSource="{Binding Path=Distceplinis, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedDistcilins, Mode=TwoWay}" AutoGenerateColumns="False">
+    </Page.DataContext>
+
+    <Grid Background="#151e29">
+        <DataGrid x:Name="dtDisceplini" Margin="10,51,15,8" ItemsSource="{Binding Path=Distceplinis, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedDistcilins, Mode=TwoWay}" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Название дисциплилы" Binding="{Binding NameDisciplini, Mode=OneWay}"/>
                 <DataGridTextColumn Header="Форма аттестации" Binding="{Binding FormaAttest, Mode=OneWay}"/>
@@ -27,7 +27,8 @@
                 </ContextMenu>
             </DataGrid.ContextMenu>
         </DataGrid>
-        <Button x:Name="btCreate" Content="Создать" HorizontalAlignment="Left" Margin="10,14,0,0" VerticalAlignment="Top" Command="{Binding Path=ShowWindowCreateCommand}" Cursor="Hand"/>
+        <Button x:Name="btCreate" Content="Создание дисциплины" HorizontalAlignment="Left" Margin="10,14,0,0" VerticalAlignment="Top" Command="{Binding Path=ShowWindowCreateCommand}" Cursor="Hand"/>
+        <Button Content="Экспорт всех дисциплин" HorizontalAlignment="Left" Margin="200,14,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Page>

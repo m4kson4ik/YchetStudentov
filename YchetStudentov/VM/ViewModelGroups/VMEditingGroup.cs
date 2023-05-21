@@ -15,19 +15,35 @@ namespace YchetStudentov.VM.ViewModelGroups
     internal class VMEditingGroup : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
+        public void OnPropertyChange(string names)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(names));
+            }
+        }
         public VMEditingGroup()
         {
             SelectedItem = VMGroups.SelectedGroup;
             EditingAGroupCommand = new LambdaCommand(CanEditingAGroupCommand, OnEditingAGroupCommand);
         }
 
-        public Group SelectedItem { get; set; }
-
+        public Group? SelectedItem { get; set; }
+        public delegate void ShowMessage(string message);
+        public event ShowMessage? ShowMessageEvent;
         public ICommand EditingAGroupCommand { get; set; }
-        private bool OnEditingAGroupCommand(object? parametres) => true;
+        private bool OnEditingAGroupCommand(object? parametres)
+        {
+            if (SelectedItem.NumberGroup != null && SelectedItem.NumberSpec != null && SelectedItem.NameSpec != null)
+            {
+                return true;
+            }
+            return false;
+        }
         private void CanEditingAGroupCommand(object? parametres)
         {
-            MessageBox.Show(SelectedItem.NameSpec);
+            DateBase.Context().EditingGroup(SelectedItem);
+            ShowMessageEvent?.Invoke("Группа успешно отредактирована!");
         }
     }
 }
